@@ -4,6 +4,11 @@ This repo builds Roblox games from scratch with Rojo (files on disk are the sour
 synced into Studio). 72 skills are installed in `.claude/skills/` and 7 subagents in
 `.claude/agents/`; sources and licences are in `.claude/skills/THIRD_PARTY.md`.
 
+## Games
+
+- `games/TidebellBattlegrounds/`: original anime battlegrounds game (5 elemental champions, world
+  boss, procedural animation, asset-free VFX). Read its `README.md` and `DESIGN.md` first.
+
 ## Where things go
 
 - Each game lives in `games/<GameName>/` as its own Rojo project. When a skill script asks for

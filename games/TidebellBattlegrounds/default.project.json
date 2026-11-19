@@ -1,0 +1,97 @@
+{
+  "name": "TidebellBattlegrounds",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "Shared": { "$path": "src/shared" },
+      "Remotes": {
+        "$className": "Folder",
+        "Action": { "$className": "RemoteEvent" },
+        "SetBlock": { "$className": "RemoteEvent" },
+        "Dash": { "$className": "RemoteEvent" },
+        "SelectFighter": { "$className": "RemoteEvent" },
+        "MoveFx": { "$className": "RemoteEvent" },
+        "PhaseFx": { "$className": "RemoteEvent" },
+        "HitFx": { "$className": "RemoteEvent" },
+        "ProjectileFx": { "$className": "RemoteEvent" },
+        "BossFx": { "$className": "RemoteEvent" },
+        "Impulse": { "$className": "RemoteEvent" },
+        "Teleport": { "$className": "RemoteEvent" },
+        "Notify": { "$className": "RemoteEvent" }
+      }
+    },
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+      "Server": { "$path": "src/server" }
+    },
+    "StarterPlayer": {
+      "$className": "StarterPlayer",
+      "$properties": {
+        "CameraMaxZoomDistance": 45,
+        "EnableMouseLockOption": true,
+        "CharacterWalkSpeed": 16
+      },
+      "StarterPlayerScripts": {
+        "$className": "StarterPlayerScripts",
+        "Client": { "$path": "src/client" }
+      }
+    },
+    "Workspace": {
+      "$className": "Workspace",
+      "$properties": { "StreamingEnabled": false }
+    },
+    "Players": {
+      "$className": "Players",
+      "$properties": { "RespawnTime": 4 }
+    },
+    "Lighting": {
+      "$className": "Lighting",
+      "$properties": {
+        "Technology": "Future",
+        "ClockTime": 17.9,
+        "GeographicLatitude": 23,
+        "Brightness": 2.2,
+        "ExposureCompensation": 0.1,
+        "Ambient": [0.12, 0.1, 0.14],
+        "OutdoorAmbient": [0.42, 0.38, 0.46],
+        "ColorShift_Top": [0.98, 0.62, 0.42],
+        "ColorShift_Bottom": [0.2, 0.3, 0.45],
+        "EnvironmentDiffuseScale": 1,
+        "EnvironmentSpecularScale": 1,
+        "GlobalShadows": true,
+        "ShadowSoftness": 0.25
+      },
+      "Atmosphere": {
+        "$className": "Atmosphere",
+        "$properties": {
+          "Density": 0.36,
+          "Offset": 0.18,
+          "Color": [0.78, 0.68, 0.7],
+          "Decay": [0.36, 0.3, 0.4],
+          "Glare": 0.35,
+          "Haze": 1.6
+        }
+      },
+      "Bloom": {
+        "$className": "BloomEffect",
+        "$properties": { "Intensity": 0.7, "Size": 30, "Threshold": 1.1 }
+      },
+      "Grade": {
+        "$className": "ColorCorrectionEffect",
+        "$properties": {
+          "Brightness": 0.02,
+          "Contrast": 0.12,
+          "Saturation": 0.08,
+          "TintColor": [1, 0.97, 0.94]
+        }
+      },
+      "SunRays": {
+        "$className": "SunRaysEffect",
+        "$properties": { "Intensity": 0.07, "Spread": 0.6 }
+      }
+    },
+    "SoundService": { "$className": "SoundService" },
+    "StarterGui": { "$className": "StarterGui" }
+  }
+}
