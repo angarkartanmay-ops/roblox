@@ -1,0 +1,28 @@
+# Machine-specific settings written by the roblox-skills-setup skill (never share)
+.claude/skills/*/LOCAL.md
+.claude/settings.local.json
+
+# Rojo / build output
+*.rbxl
+*.rbxlx
+*.rbxm
+*.rbxmx
+!**/assets/**/*.rbxm
+!**/assets/**/*.rbxmx
+build/
+sourcemap.json
+
+# Wally / pesde packages
+Packages/
+ServerPackages/
+DevPackages/
+wally.lock.bak
+
+# Python / Node
+__pycache__/
+*.pyc
+node_modules/
+
+# Secrets
+.env
+*.env
