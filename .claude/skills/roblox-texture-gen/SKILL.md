@@ -1,6 +1,6 @@
 ---
 name: roblox-texture-gen
-description: Generate free AI textures/skins (camo, gold plated, carbon fiber, rust, etc.) for Roblox game assets like guns, weapons, tools, or any part/mesh, and apply them automatically inside Roblox Studio through the official Roblox Studio MCP — no manual clicking through Studio's Texture Generator plugin required. Use this whenever the user wants to texture, skin, retexture, or reskin a Roblox model/mesh/gun/weapon/part, asks for an AI-generated texture or decal for a Roblox object, or wants to automate the Studio texture workflow end-to-end. Also trigger if the user asks for "free" or "no-cost" image/texture generation in a Roblox context, even if they don't name a specific tool. Requires the Roblox Studio MCP connected with Studio open — if that's not available, say so clearly instead of guessing.
+description: "Generate free AI textures and skins (camo, gold, carbon fiber, rust) for Roblox parts, meshes, guns and tools, and apply them in Studio through the Roblox Studio MCP instead of the Texture Generator plugin. Use to texture, skin or reskin a Roblox model, or for free AI texture/decal generation in a Roblox context. Needs the Studio MCP connected with Studio open; if it is not, say so instead of guessing."
 ---
 
 # Roblox Texture Gen

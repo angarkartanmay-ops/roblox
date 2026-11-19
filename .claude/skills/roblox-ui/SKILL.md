@@ -1,6 +1,6 @@
 ---
 name: roblox-ui
-description: Build Roblox game UI headlessly - HUD overlays, shops, inventories, quest lists, settings - from a JSON spec, and generate the icon set that goes in it. Emits a PNG mockup, a Rojo .model.json and a Luau builder from ONE resolved tree, so the preview cannot drift from what ships. Use whenever the user wants a Roblox GUI, menu, shop UI, HUD, inventory screen or UI mockup made rather than clicked together in Studio, wants game icons generated, wants a UI built from a theme file, or asks why their UI looks flat, breaks on mobile, or renders differently in Studio than in the design.
+description: "Build Roblox game UI headlessly (HUDs, shops, inventories, quest lists, settings) from a JSON spec, plus its icon set: one resolved tree emits a PNG mockup, a Rojo .model.json and a Luau builder, so the preview cannot drift from what ships. Use to make a GUI, menu, shop, HUD or UI mockup instead of clicking it together in Studio, generate game icons, build UI from a theme, or fix UI that looks flat or breaks on mobile."
 ---
 
 # Roblox UI, headless

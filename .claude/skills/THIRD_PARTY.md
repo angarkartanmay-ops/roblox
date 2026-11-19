@@ -22,6 +22,11 @@ Local changes from upstream:
   with SyphoDev's `roblox-ui`; the five cross-references to it were updated.
 - `roblox-build-orchestrator`: the "copy agents to ~/.claude/agents" step was
   replaced by a note, since the agents ship in `.claude/agents/`.
+- The frontmatter descriptions of nine SyphoDev skills (`create-roblox-game`,
+  `roblox-3d-model`, `roblox-map`, `roblox-vfx`, `roblox-ui`, `roblox-sfx`,
+  `roblox-code`, `roblox-build-orchestrator`, `roblox-texture-gen`) were shortened
+  from 800-1,500 to under 500 characters, so all 72 skills fit Claude Code's
+  skill-listing budget. The skill bodies are unchanged.
 
 To update a skill, re-clone its repository and copy the folder over, then
 re-apply the changes above.

@@ -1,6 +1,6 @@
 ---
 name: roblox-build-orchestrator
-description: Runs a Roblox game build pipeline as a timed, logged run (market research, design, code, 3D/materials/UI/animation/VFX/SFX, assembly, playtest, publish), fans the asset block out to subagents while keeping every Studio write on one thread, enforces the write boundary, and keeps a timestamped ledger of stalls, fallbacks and interventions with a debts gate so a run cannot end with known defects. Use this whenever you are running or planning a full Roblox build, want the agent pipeline orchestrated, parallelised, or handed to a manager agent, mention an intervention counter, the 30-minute stall rule, or Tier 2 to Tier 1 fallbacks, or ask whether subagents would help a Roblox build. Also use it to rehearse the roster on a practice run before a build you care about, because an untested orchestration layer is a second variable.
+description: "Run a full Roblox build as a timed, logged pipeline (research, design, code, 3D/materials/UI/animation/VFX/SFX, assembly, playtest, publish), fanning asset work out to the roblox-asset-* subagents while keeping every Studio write on one thread, with a ledger of stalls, fallbacks and interventions and a debts gate. Use when running, planning or parallelising a full build, handing it to a manager agent, or rehearsing the roster on a practice run."
 ---
 
 # Roblox Build Orchestrator
