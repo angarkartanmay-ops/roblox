@@ -1,0 +1,753 @@
+{
+ "palette": {
+  "ink": "#1B1A1F",
+  "lacquer": "#0F0E12",
+  "crimson": "#C21F2E",
+  "crimson_deep": "#8E1622",
+  "bone": "#E8E1D2",
+  "stone_pale": "#C9C2B2",
+  "stone_grey": "#8C8A93",
+  "gold": "#C99A3B",
+  "mist": "#6E7F86",
+  "wood_weathered": "#6B6259",
+  "timber_dark": "#3B302A",
+  "straw": "#C8AE6E",
+  "bark": "#4A2622",
+  "jade": "#7FBF6A",
+  "stem_green": "#4F7A3A",
+  "phase_wood": "#4AA860",
+  "phase_fire": "#E44828",
+  "phase_earth": "#D6A840",
+  "phase_metal": "#E2E6EC",
+  "phase_water": "#283468",
+  "phase_water_light": "#5B6FD6",
+  "ki": "#E0303E",
+  "ghost_water": "#9EC3E6",
+  "sap_amber": "#E8A33A"
+ },
+ "language": "Crimson Ki motes are the universal hit language; phase colours appear only on fighter kits and phase effects. Every area effect draws its edge clearly, because the radius is the counterplay.",
+ "routes": "Planned route: harvest free Creator Store VFX packs you own into your roblox-vfx library, then search it with each effect's 'from' words and recolour to the palette. The library is empty today, so section 4 starts by harvesting a pack. Pre-authorised fallback: Tidebell's VfxController approach (Parts, Beams and ParticleEmitters with built-in textures, built in code).",
+ "effects": [
+  {
+   "name": "DriftingPetals",
+   "kind": "ambient",
+   "attach": "world volumes over the banks, the Lily Fields and the grove",
+   "colour": "crimson",
+   "seconds": "loop",
+   "look": "a few crimson petals drifting on the wind, slow and sparse; never more than 40 on screen",
+   "from": "library: falling leaves or petals ambient"
+  },
+  {
+   "name": "RiverMist",
+   "kind": "ambient",
+   "attach": "the riverbed floor and every cliff edge",
+   "colour": "mist",
+   "seconds": "loop",
+   "look": "low rolling mist hugging the bed, thick at the cliffs so the edge vanishes into it",
+   "from": "library: ground fog mist"
+  },
+  {
+   "name": "LanternGlow",
+   "kind": "ambient",
+   "attach": "every StoneLantern and the select lantern",
+   "colour": "gold",
+   "seconds": "loop",
+   "look": "a soft flickering warm light and a rare ember",
+   "from": "library: lantern flame flicker"
+  },
+  {
+   "name": "DummyHitFlash",
+   "kind": "burst",
+   "attach": "the dummy hit point",
+   "colour": "the dummy's phase colour",
+   "seconds": 0.25,
+   "look": "a quick white flash and a puff of straw bits",
+   "from": "library: hit flash small"
+  },
+  {
+   "name": "Hit_Overcome",
+   "kind": "burst",
+   "attach": "the target hit point",
+   "colour": "ki + the attacker's phase colour",
+   "seconds": 0.4,
+   "look": "a hard spark star in the attacker's phase colour and a spray of crimson Ki motes; the strongest hit read in the game",
+   "from": "library: anime hit impact star"
+  },
+  {
+   "name": "Hit_Feeding",
+   "kind": "burst",
+   "attach": "the target hit point",
+   "colour": "phase_wood green",
+   "seconds": 0.4,
+   "look": "green leaves swirling INTO the target: you are feeding them",
+   "from": "library: leaf swirl"
+  },
+  {
+   "name": "Hit_Drawing",
+   "kind": "burst+travel",
+   "attach": "from the target to the attacker",
+   "colour": "ki",
+   "seconds": 0.6,
+   "look": "crimson motes streaming out of the target and into the attacker",
+   "from": "library: energy absorb drain"
+  },
+  {
+   "name": "Hit_Neutral",
+   "kind": "burst",
+   "attach": "the target hit point",
+   "colour": "bone, grey-tinted on a Resisted hit",
+   "seconds": 0.3,
+   "look": "a small white impact spark and a few crimson motes",
+   "from": "library: hit spark small"
+  },
+  {
+   "name": "BlockSpark",
+   "kind": "burst",
+   "attach": "the defender's raised guard",
+   "colour": "gold",
+   "seconds": 0.25,
+   "look": "gold sparks off the guard",
+   "from": "library: block spark"
+  },
+  {
+   "name": "ParryFlash",
+   "kind": "burst",
+   "attach": "the defender",
+   "colour": "bone white",
+   "seconds": 0.35,
+   "look": "a bright white ring flash and one high spark",
+   "from": "library: parry flash ring"
+  },
+  {
+   "name": "GuardBreakShatter",
+   "kind": "burst",
+   "attach": "the defender",
+   "colour": "gold + bone",
+   "seconds": 0.6,
+   "look": "a gold ring around the defender shattering into shards",
+   "from": "library: shield break shatter"
+  },
+  {
+   "name": "DashGust",
+   "kind": "trail",
+   "attach": "the dasher, along the dash line",
+   "colour": "the fighter's phase colour",
+   "seconds": 0.3,
+   "look": "a short wind streak and a dust kick",
+   "from": "library: dash wind trail"
+  },
+  {
+   "name": "KiFullAura",
+   "kind": "aura",
+   "attach": "the fighter's feet and hands while Ki is 100",
+   "colour": "ki",
+   "seconds": "while full",
+   "look": "a faint crimson flame aura, visible to enemies too",
+   "from": "library: aura flame low"
+  },
+  {
+   "name": "MendAura",
+   "kind": "aura",
+   "attach": "the mending fighter",
+   "colour": "jade + gold",
+   "seconds": "while mending",
+   "look": "slow rising motes and a soft ring on the ground",
+   "from": "library: heal aura rising"
+  },
+  {
+   "name": "SoulWisp",
+   "kind": "travel",
+   "attach": "from the body toward the landing",
+   "colour": "pale ghost blue",
+   "seconds": 2.5,
+   "look": "a pale wisp rises from the body and drifts south toward the landing",
+   "from": "library: spirit wisp"
+  },
+  {
+   "name": "RespawnBloom",
+   "kind": "burst",
+   "attach": "the spawn point on the landing quay",
+   "colour": "crimson",
+   "seconds": 1.0,
+   "look": "spider lilies bloom in a ring around the feet and scatter as petals",
+   "from": "library: flower bloom burst"
+  },
+  {
+   "name": "Status_Stun",
+   "kind": "aura",
+   "attach": "above the head",
+   "colour": "bone + gold",
+   "seconds": "while stunned",
+   "look": "three small sparks circling the head",
+   "from": "library: stun stars circle"
+  },
+  {
+   "name": "Status_Rooted",
+   "kind": "aura",
+   "attach": "the feet",
+   "colour": "phase_wood + bark",
+   "seconds": "while rooted",
+   "look": "roots coiled around both feet",
+   "from": "library: roots bind"
+  },
+  {
+   "name": "Status_Bound",
+   "kind": "aura",
+   "attach": "the torso",
+   "colour": "iron grey",
+   "seconds": "while bound",
+   "look": "chain links wrapped around the body",
+   "from": "library: chains bind"
+  },
+  {
+   "name": "Status_Silence",
+   "kind": "aura",
+   "attach": "the forehead",
+   "colour": "bone paper, crimson stamp",
+   "seconds": "while silenced",
+   "look": "a paper seal stuck on the forehead",
+   "from": "library: seal talisman"
+  },
+  {
+   "name": "Status_Burn",
+   "kind": "aura",
+   "attach": "the body",
+   "colour": "phase_fire",
+   "seconds": "while burning",
+   "look": "small embers and licks of flame",
+   "from": "library: burning embers"
+  },
+  {
+   "name": "Status_Purified",
+   "kind": "aura",
+   "attach": "the body",
+   "colour": "white",
+   "seconds": "while purified",
+   "look": "white salt glitter falling off the body",
+   "from": "library: sparkle glitter falling"
+  },
+  {
+   "name": "Status_Slow",
+   "kind": "aura",
+   "attach": "the feet",
+   "colour": "grey-blue",
+   "seconds": "while slowed",
+   "look": "dragging smoke lines at the feet",
+   "from": "library: slow smoke feet"
+  },
+  {
+   "name": "Status_SuperArmor",
+   "kind": "aura",
+   "attach": "the body (Highlight)",
+   "colour": "gold",
+   "seconds": "while active",
+   "look": "a gold outline pulsing on the body",
+   "from": "library: outline glow pulse"
+  },
+  {
+   "name": "Tsuta_Trail",
+   "kind": "trail",
+   "attach": "the umbrella tip",
+   "colour": "phase_wood",
+   "seconds": 0.2,
+   "look": "a green swing arc with a few leaves",
+   "from": "library: slash trail"
+  },
+  {
+   "name": "Tsuta_CanopySnap",
+   "kind": "burst",
+   "attach": "in front of Tsuta",
+   "colour": "phase_wood",
+   "seconds": 0.35,
+   "look": "the canopy snapping open throws a ring of leaves and a gust",
+   "from": "library: leaf burst gust"
+  },
+  {
+   "name": "Tsuta_RootSnare",
+   "kind": "telegraph+burst",
+   "attach": "the aimed ground point",
+   "colour": "phase_wood + bark",
+   "seconds": "0.5 tell + 1.2",
+   "look": "a green rune circle for 0.5 s, then roots burst up and coil",
+   "from": "library: ground rune circle + roots burst"
+  },
+  {
+   "name": "Tsuta_SeedDarts",
+   "kind": "projectile",
+   "attach": "five darts in a fan",
+   "colour": "phase_wood",
+   "seconds": "flight",
+   "look": "five glowing seed darts with short green trails",
+   "from": "library: small projectile trail"
+  },
+  {
+   "name": "Tsuta_SproutBurst",
+   "kind": "burst",
+   "attach": "the target",
+   "colour": "phase_wood",
+   "seconds": 0.5,
+   "look": "a sprout bursting into a puff of leaves",
+   "from": "library: leaf pop burst"
+  },
+  {
+   "name": "Tsuta_CanopyReflect",
+   "kind": "burst",
+   "attach": "the open canopy",
+   "colour": "phase_wood + white",
+   "seconds": 0.3,
+   "look": "a ripple across the canopy as a projectile bounces back",
+   "from": "library: shield ripple"
+  },
+  {
+   "name": "Tsuta_GraftVine",
+   "kind": "beam",
+   "attach": "Tsuta to the target",
+   "colour": "phase_wood",
+   "seconds": 0.6,
+   "look": "a thorned vine beam",
+   "from": "library: vine beam"
+  },
+  {
+   "name": "Tsuta_GraftHeal",
+   "kind": "aura",
+   "attach": "around the umbrella",
+   "colour": "phase_wood + jade",
+   "seconds": "until 3 hits",
+   "look": "three small leaves orbit the umbrella; each healing hit pops one",
+   "from": "library: orbiting leaves"
+  },
+  {
+   "name": "Tsuta_ThousandRootBloom",
+   "kind": "ultimate area",
+   "attach": "a 22-stud circle around the planted umbrella",
+   "colour": "phase_wood + crimson",
+   "seconds": 3.0,
+   "look": "a ground rune ring, then a tree of roots erupts in the middle, roots spread and crimson lilies bloom across the circle",
+   "from": "library: big ground eruption tree"
+  },
+  {
+   "name": "Hibiki_Trail",
+   "kind": "trail",
+   "attach": "both stick tips",
+   "colour": "phase_fire",
+   "seconds": 0.2,
+   "look": "ember streaks off both sticks",
+   "from": "library: fire slash trail"
+  },
+  {
+   "name": "Hibiki_Beat",
+   "kind": "burst",
+   "attach": "the target",
+   "colour": "phase_fire",
+   "seconds": 0.3,
+   "look": "a small flame burst and a drum-ring ripple on every Beat",
+   "from": "library: fire hit small"
+  },
+  {
+   "name": "Hibiki_FinisherFlame",
+   "kind": "burst",
+   "attach": "the target",
+   "colour": "phase_fire",
+   "seconds": 0.5,
+   "look": "a flame explosion from the double overhead strike",
+   "from": "library: fire explosion small"
+  },
+  {
+   "name": "Hibiki_WarBeatRing",
+   "kind": "ring",
+   "attach": "a 12-stud ring around Hibiki",
+   "colour": "phase_fire",
+   "seconds": 0.6,
+   "look": "an expanding ring of fire with a clearly drawn edge",
+   "from": "library: fire shockwave ring"
+  },
+  {
+   "name": "Hibiki_FireRollGeysers",
+   "kind": "line",
+   "attach": "30 studs forward",
+   "colour": "phase_fire",
+   "seconds": 0.8,
+   "look": "a travelling line of flame geysers erupting in sequence",
+   "from": "library: fire pillar eruption"
+  },
+  {
+   "name": "Hibiki_KakegoeAura",
+   "kind": "aura",
+   "attach": "Hibiki",
+   "colour": "phase_fire + gold",
+   "seconds": 3.0,
+   "look": "a flaring orange aura with heat shimmer",
+   "from": "library: power up aura fire"
+  },
+  {
+   "name": "Hibiki_ThunderRollPulses",
+   "kind": "cone",
+   "attach": "a cone in front",
+   "colour": "phase_fire",
+   "seconds": 1.5,
+   "look": "five pulsing cones of fire, the last one bigger",
+   "from": "library: fire cone blast"
+  },
+  {
+   "name": "Hibiki_FestivalOfDrums",
+   "kind": "ultimate area",
+   "attach": "an 18-stud ring of phantom drums",
+   "colour": "phase_fire + gold",
+   "seconds": 2.5,
+   "look": "phantom red taiko appear in a ring and beat in turn with fire rings, then one huge fire burst",
+   "from": "library: big fire explosion"
+  },
+  {
+   "name": "Iwao_DustImpact",
+   "kind": "burst",
+   "attach": "the target",
+   "colour": "phase_earth dust",
+   "seconds": 0.3,
+   "look": "a dust puff on every heavy slap",
+   "from": "library: dust impact"
+  },
+  {
+   "name": "Iwao_ShoveWave",
+   "kind": "cone",
+   "attach": "in front of Iwao",
+   "colour": "phase_earth",
+   "seconds": 0.4,
+   "look": "a push wave of dust",
+   "from": "library: dust wave push"
+  },
+  {
+   "name": "Iwao_ShikoQuake",
+   "kind": "ring",
+   "attach": "a 12-stud ring around Iwao",
+   "colour": "phase_earth + stone",
+   "seconds": 0.8,
+   "look": "the ground cracks in a ring and stones hop up",
+   "from": "library: ground crack quake"
+  },
+  {
+   "name": "Iwao_ThrowLanding",
+   "kind": "burst",
+   "attach": "the landing point",
+   "colour": "phase_earth",
+   "seconds": 0.5,
+   "look": "a dust crater on landing",
+   "from": "library: ground slam dust"
+  },
+  {
+   "name": "Iwao_SaltCone",
+   "kind": "cone",
+   "attach": "in front of Iwao",
+   "colour": "white",
+   "seconds": 0.5,
+   "look": "a cone of white salt grains",
+   "from": "library: sand throw cone"
+  },
+  {
+   "name": "Iwao_ChargeShockwave",
+   "kind": "burst",
+   "attach": "the impact point",
+   "colour": "phase_earth + stone",
+   "seconds": 0.6,
+   "look": "a stone shockwave and debris on a wall slam",
+   "from": "library: rock debris impact"
+  },
+  {
+   "name": "Iwao_DohyoRise",
+   "kind": "ultimate area",
+   "attach": "a 16-stud ring around Iwao",
+   "colour": "phase_earth + stone",
+   "seconds": "0.6 rise + 6",
+   "look": "stone blocks rise out of the ground in a ring with dust; a faint glow along the straw rope on top",
+   "from": "library: rock wall rise"
+  },
+  {
+   "name": "Iwao_RingOut",
+   "kind": "burst",
+   "attach": "the thrown-out victim",
+   "colour": "gold",
+   "seconds": 0.8,
+   "look": "a gold burst and a white stamp ring",
+   "from": "library: big hit flash gold"
+  },
+  {
+   "name": "Kanemori_Trail",
+   "kind": "trail",
+   "attach": "the jitte",
+   "colour": "phase_metal",
+   "seconds": 0.2,
+   "look": "a silver glint trail",
+   "from": "library: metal slash trail"
+  },
+  {
+   "name": "Kanemori_ArrestSeal",
+   "kind": "burst",
+   "attach": "over the parried attacker",
+   "colour": "phase_metal + crimson",
+   "seconds": 0.6,
+   "look": "an iron seal stamp appears over the attacker",
+   "from": "library: seal stamp"
+  },
+  {
+   "name": "Kanemori_HookTwist",
+   "kind": "burst",
+   "attach": "the target",
+   "colour": "phase_metal",
+   "seconds": 0.3,
+   "look": "a twisting spark",
+   "from": "library: metal spark twist"
+  },
+  {
+   "name": "Kanemori_ChainLash",
+   "kind": "projectile+beam",
+   "attach": "Kanemori to the target",
+   "colour": "iron grey",
+   "seconds": "flight",
+   "look": "the chain flying out and wrapping the target",
+   "from": "library: chain projectile"
+  },
+  {
+   "name": "Kanemori_CatchFlash",
+   "kind": "burst",
+   "attach": "the jitte",
+   "colour": "white",
+   "seconds": 0.3,
+   "look": "a white flash where the jitte catches the hit",
+   "from": "library: parry flash"
+  },
+  {
+   "name": "Kanemori_IronSpikes",
+   "kind": "line",
+   "attach": "24 studs forward",
+   "colour": "phase_metal",
+   "seconds": 0.8,
+   "look": "a line of iron spikes bursting from the ground in sequence",
+   "from": "library: spike eruption line"
+  },
+  {
+   "name": "Kanemori_ChaseStreak",
+   "kind": "trail",
+   "attach": "Kanemori to the target",
+   "colour": "phase_metal",
+   "seconds": 0.3,
+   "look": "a silver streak",
+   "from": "library: dash streak"
+  },
+  {
+   "name": "Kanemori_EdictOfChains",
+   "kind": "ultimate area",
+   "attach": "a 20-stud circle around Kanemori",
+   "colour": "phase_metal + iron",
+   "seconds": 2.5,
+   "look": "chains burst from the ground and drag everyone in, then a silver shockwave",
+   "from": "library: chains eruption + shockwave"
+  },
+  {
+   "name": "Rokumon_Trail",
+   "kind": "trail",
+   "attach": "the oar blade",
+   "colour": "ghost_water",
+   "seconds": 0.25,
+   "look": "a ghost-water arc",
+   "from": "library: water slash trail"
+  },
+  {
+   "name": "Rokumon_Coin",
+   "kind": "burst",
+   "attach": "the coin string",
+   "colour": "gold",
+   "seconds": 0.3,
+   "look": "a coin glints when Fare pays out",
+   "from": "library: coin sparkle"
+  },
+  {
+   "name": "Rokumon_ScoopSplash",
+   "kind": "burst",
+   "attach": "the target",
+   "colour": "ghost_water",
+   "seconds": 0.4,
+   "look": "an upward splash of ghost water",
+   "from": "library: water splash"
+  },
+  {
+   "name": "Rokumon_Riverpull",
+   "kind": "cone",
+   "attach": "a 20-stud cone",
+   "colour": "ghost_water",
+   "seconds": 0.6,
+   "look": "ghost water sweeping inward toward Rokumon",
+   "from": "library: water wave pull"
+  },
+  {
+   "name": "Rokumon_PhantomFerry",
+   "kind": "travel",
+   "attach": "35 studs forward with the boat",
+   "colour": "ghost_water",
+   "seconds": 0.8,
+   "look": "the phantom boat glows with a wake and a lantern light",
+   "from": "library: ghost glow trail"
+  },
+  {
+   "name": "Rokumon_Mist",
+   "kind": "area",
+   "attach": "a 14-stud dome",
+   "colour": "phase_water_light + white",
+   "seconds": 4.0,
+   "look": "a dense pale mist with a clearly visible edge",
+   "from": "library: mist cloud area"
+  },
+  {
+   "name": "Rokumon_TollStrike",
+   "kind": "burst",
+   "attach": "the target",
+   "colour": "gold + ghost_water",
+   "seconds": 0.5,
+   "look": "the spent coins burst out in a gold ring with a splash",
+   "from": "library: coin burst"
+  },
+  {
+   "name": "Rokumon_RiverReturns",
+   "kind": "ultimate lane",
+   "attach": "a 50 x 14 stud lane",
+   "colour": "phase_water + ghost_water",
+   "seconds": 2.5,
+   "look": "a ghostly river floods the lane as a wave, carries enemies, then drains into mist",
+   "from": "library: big water wave"
+  },
+  {
+   "name": "Elder_HeartPhase",
+   "kind": "aura",
+   "attach": "the heart",
+   "colour": "the current phase colour",
+   "seconds": "loop",
+   "look": "the heart glows in its current phase colour",
+   "from": "library: core glow orb"
+  },
+  {
+   "name": "Elder_PhaseShiftWarning",
+   "kind": "flash",
+   "attach": "the heart",
+   "colour": "current + next phase colour",
+   "seconds": 3.0,
+   "look": "the heart flickers between the current and the next colour",
+   "from": "library: warning flicker"
+  },
+  {
+   "name": "Elder_Regen",
+   "kind": "aura",
+   "attach": "up the trunk",
+   "colour": "jade + gold",
+   "seconds": "while regenerating",
+   "look": "glowing sap rising up the bark",
+   "from": "library: heal rising"
+  },
+  {
+   "name": "Elder_Wound",
+   "kind": "burst+aura",
+   "attach": "the heart",
+   "colour": "white + crimson",
+   "seconds": 4.0,
+   "look": "a crack of white light over the heart; the sap stops rising",
+   "from": "library: crack flash"
+  },
+  {
+   "name": "Elder_FeedHeal",
+   "kind": "burst",
+   "attach": "the heart",
+   "colour": "the hit's phase colour",
+   "seconds": 0.6,
+   "look": "the hit's colour is sucked into the heart",
+   "from": "library: absorb energy"
+  },
+  {
+   "name": "Elder_DormantPulse",
+   "kind": "aura",
+   "attach": "the dormant heart",
+   "colour": "dim crimson",
+   "seconds": "loop",
+   "look": "a slow pulse that quickens as the Thirst fills",
+   "from": "library: heartbeat pulse glow"
+  },
+  {
+   "name": "Elder_RootTell",
+   "kind": "telegraph",
+   "attach": "the ground under 1-3 players",
+   "colour": "crimson",
+   "seconds": 1.2,
+   "look": "a red circle filling inward over 1.2 s",
+   "from": "library: telegraph circle"
+  },
+  {
+   "name": "Elder_RootEruption",
+   "kind": "burst",
+   "attach": "each marked circle",
+   "colour": "bark + crimson",
+   "seconds": 0.8,
+   "look": "roots burst up with earth and crimson motes",
+   "from": "library: ground eruption"
+  },
+  {
+   "name": "Elder_ReachTell",
+   "kind": "telegraph",
+   "attach": "a line on the ground to the target",
+   "colour": "crimson",
+   "seconds": 0.9,
+   "look": "a red line toward the nearest player",
+   "from": "library: telegraph line"
+  },
+  {
+   "name": "Elder_KiDrain",
+   "kind": "beam",
+   "attach": "the grabbed player to the branch",
+   "colour": "ki",
+   "seconds": 2.5,
+   "look": "crimson motes drawn out of the victim into the branch",
+   "from": "library: drain beam"
+  },
+  {
+   "name": "Elder_BranchBreak",
+   "kind": "burst",
+   "attach": "the grab branch",
+   "colour": "bark",
+   "seconds": 0.6,
+   "look": "the branch snaps in a burst of splinters",
+   "from": "library: wood splinter burst"
+  },
+  {
+   "name": "Elder_PetalStormRing",
+   "kind": "ring",
+   "attach": "expanding from the trunk",
+   "colour": "crimson petals",
+   "seconds": "2 windup + travel",
+   "look": "a knee-high ring of razor petals expanding outward; jump it",
+   "from": "library: expanding ring wave"
+  },
+  {
+   "name": "Elder_EnrageAura",
+   "kind": "aura",
+   "attach": "the whole tree",
+   "colour": "crimson",
+   "seconds": "loop",
+   "look": "a crimson haze with petals falling from the canopy",
+   "from": "library: rage aura big"
+  },
+  {
+   "name": "Elder_SproutHealBeam",
+   "kind": "beam",
+   "attach": "each Sap Sprout to the heart",
+   "colour": "sap_amber",
+   "seconds": 10.0,
+   "look": "an amber sap beam from each sprout to the heart",
+   "from": "library: heal beam"
+  },
+  {
+   "name": "ElderSapBuff",
+   "kind": "aura",
+   "attach": "the buffed player's hands",
+   "colour": "sap_amber",
+   "seconds": 120.0,
+   "look": "amber droplets drifting off the hands",
+   "from": "library: buff aura drip"
+  }
+ ],
+ "note": "roblox-vfx. Harvest effects, never generate them from scratch. Names here are the names the manifest must deliver."
+}

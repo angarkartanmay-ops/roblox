@@ -1,0 +1,591 @@
+{
+ "name": "HiganbanaBattlegrounds",
+ "roles": [
+  {
+   "name": "ambience_dusk",
+   "query": "night wind crickets ambience",
+   "kind": "SoundEffect",
+   "min_len": 10,
+   "max_len": 180,
+   "volume": 0.25,
+   "looped": true
+  },
+  {
+   "name": "ambience_riverbed",
+   "query": "wooden boat creaking ambience",
+   "kind": "SoundEffect",
+   "min_len": 4,
+   "max_len": 60,
+   "volume": 0.3,
+   "looped": true
+  },
+  {
+   "name": "music_landing",
+   "query": "calm japanese koto shakuhachi",
+   "kind": "Music",
+   "min_len": 40,
+   "max_len": 300,
+   "volume": 0.35,
+   "looped": true
+  },
+  {
+   "name": "music_riverbed",
+   "query": "taiko drum battle loop",
+   "kind": "Music",
+   "min_len": 30,
+   "max_len": 300,
+   "volume": 0.3,
+   "looped": true
+  },
+  {
+   "name": "dummy_hit",
+   "query": "straw hit thump",
+   "kind": "SoundEffect",
+   "min_len": 0.1,
+   "max_len": 1.0,
+   "volume": 0.5
+  },
+  {
+   "name": "hit_light",
+   "query": "punch hit light",
+   "kind": "SoundEffect",
+   "min_len": 0.05,
+   "max_len": 0.8,
+   "volume": 0.55
+  },
+  {
+   "name": "hit_heavy",
+   "query": "heavy punch impact",
+   "kind": "SoundEffect",
+   "min_len": 0.1,
+   "max_len": 1.5,
+   "volume": 0.65
+  },
+  {
+   "name": "hit_overcome_accent",
+   "query": "impact boom accent",
+   "kind": "SoundEffect",
+   "min_len": 0.1,
+   "max_len": 1.5,
+   "volume": 0.5
+  },
+  {
+   "name": "block_hit",
+   "query": "block shield hit thud",
+   "kind": "SoundEffect",
+   "min_len": 0.05,
+   "max_len": 1.0,
+   "volume": 0.5
+  },
+  {
+   "name": "parry_clang",
+   "query": "sword parry clang",
+   "kind": "SoundEffect",
+   "min_len": 0.1,
+   "max_len": 1.5,
+   "volume": 0.6
+  },
+  {
+   "name": "guard_break",
+   "query": "shield break shatter",
+   "kind": "SoundEffect",
+   "min_len": 0.2,
+   "max_len": 2.0,
+   "volume": 0.6
+  },
+  {
+   "name": "dash_whoosh",
+   "query": "fast whoosh dash",
+   "kind": "SoundEffect",
+   "min_len": 0.1,
+   "max_len": 1.0,
+   "volume": 0.45
+  },
+  {
+   "name": "ki_full",
+   "query": "magic chime power up",
+   "kind": "SoundEffect",
+   "min_len": 0.2,
+   "max_len": 2.5,
+   "volume": 0.45
+  },
+  {
+   "name": "mend_loop",
+   "query": "meditation hum",
+   "kind": "SoundEffect",
+   "min_len": 1,
+   "max_len": 10,
+   "volume": 0.35,
+   "looped": true
+  },
+  {
+   "name": "death_soul",
+   "query": "ghost whoosh",
+   "kind": "SoundEffect",
+   "min_len": 0.5,
+   "max_len": 3.5,
+   "volume": 0.55
+  },
+  {
+   "name": "respawn_bell",
+   "query": "temple bell",
+   "kind": "SoundEffect",
+   "min_len": 0.8,
+   "max_len": 8.0,
+   "volume": 0.4
+  },
+  {
+   "name": "tsuta_swing",
+   "query": "stick swing whoosh",
+   "kind": "SoundEffect",
+   "min_len": 0.1,
+   "max_len": 0.8,
+   "volume": 0.45
+  },
+  {
+   "name": "tsuta_canopy_open",
+   "query": "umbrella open",
+   "kind": "SoundEffect",
+   "min_len": 0.1,
+   "max_len": 1.5,
+   "volume": 0.55
+  },
+  {
+   "name": "tsuta_roots",
+   "query": "tree roots cracking ground",
+   "kind": "SoundEffect",
+   "min_len": 0.3,
+   "max_len": 3.0,
+   "volume": 0.6
+  },
+  {
+   "name": "tsuta_seed_darts",
+   "query": "darts throw whoosh",
+   "kind": "SoundEffect",
+   "min_len": 0.1,
+   "max_len": 1.5,
+   "volume": 0.5
+  },
+  {
+   "name": "tsuta_sprout_burst",
+   "query": "plant pop burst",
+   "kind": "SoundEffect",
+   "min_len": 0.1,
+   "max_len": 1.5,
+   "volume": 0.5
+  },
+  {
+   "name": "tsuta_reflect",
+   "query": "magic shield deflect",
+   "kind": "SoundEffect",
+   "min_len": 0.1,
+   "max_len": 1.5,
+   "volume": 0.55
+  },
+  {
+   "name": "tsuta_vine",
+   "query": "whip crack",
+   "kind": "SoundEffect",
+   "min_len": 0.1,
+   "max_len": 1.2,
+   "volume": 0.55
+  },
+  {
+   "name": "tsuta_ult",
+   "query": "earth rumble tree growing",
+   "kind": "SoundEffect",
+   "min_len": 1.0,
+   "max_len": 5.0,
+   "volume": 0.7
+  },
+  {
+   "name": "hibiki_swing",
+   "query": "drumstick whoosh",
+   "kind": "SoundEffect",
+   "min_len": 0.1,
+   "max_len": 0.8,
+   "volume": 0.45
+  },
+  {
+   "name": "hibiki_beat",
+   "query": "taiko drum hit",
+   "kind": "SoundEffect",
+   "min_len": 0.1,
+   "max_len": 2.0,
+   "volume": 0.6
+  },
+  {
+   "name": "hibiki_finisher",
+   "query": "fire burst whoosh",
+   "kind": "SoundEffect",
+   "min_len": 0.2,
+   "max_len": 2.0,
+   "volume": 0.6
+  },
+  {
+   "name": "hibiki_war_beat",
+   "query": "big taiko drum boom",
+   "kind": "SoundEffect",
+   "min_len": 0.3,
+   "max_len": 3.0,
+   "volume": 0.7
+  },
+  {
+   "name": "hibiki_fire_roll",
+   "query": "fire eruption roar",
+   "kind": "SoundEffect",
+   "min_len": 0.5,
+   "max_len": 3.0,
+   "volume": 0.65
+  },
+  {
+   "name": "hibiki_kakegoe",
+   "query": "taiko drum roll short",
+   "kind": "SoundEffect",
+   "min_len": 0.3,
+   "max_len": 2.5,
+   "volume": 0.6
+  },
+  {
+   "name": "hibiki_thunder_roll",
+   "query": "drum roll",
+   "kind": "SoundEffect",
+   "min_len": 1.0,
+   "max_len": 3.0,
+   "volume": 0.6
+  },
+  {
+   "name": "hibiki_ult",
+   "query": "taiko drum ensemble finale",
+   "kind": "SoundEffect",
+   "min_len": 1.5,
+   "max_len": 6.0,
+   "volume": 0.75
+  },
+  {
+   "name": "iwao_slap",
+   "query": "slap hit",
+   "kind": "SoundEffect",
+   "min_len": 0.05,
+   "max_len": 0.8,
+   "volume": 0.55
+  },
+  {
+   "name": "iwao_shove",
+   "query": "body slam thud",
+   "kind": "SoundEffect",
+   "min_len": 0.1,
+   "max_len": 1.5,
+   "volume": 0.6
+  },
+  {
+   "name": "iwao_stomp",
+   "query": "ground stomp impact",
+   "kind": "SoundEffect",
+   "min_len": 0.2,
+   "max_len": 2.5,
+   "volume": 0.7
+  },
+  {
+   "name": "iwao_throw",
+   "query": "body throw thud",
+   "kind": "SoundEffect",
+   "min_len": 0.2,
+   "max_len": 2.0,
+   "volume": 0.6
+  },
+  {
+   "name": "iwao_salt",
+   "query": "sand throw scatter",
+   "kind": "SoundEffect",
+   "min_len": 0.2,
+   "max_len": 2.0,
+   "volume": 0.5
+  },
+  {
+   "name": "iwao_charge",
+   "query": "rock crash impact",
+   "kind": "SoundEffect",
+   "min_len": 0.2,
+   "max_len": 2.5,
+   "volume": 0.65
+  },
+  {
+   "name": "iwao_ult",
+   "query": "stone wall rising rumble",
+   "kind": "SoundEffect",
+   "min_len": 1.0,
+   "max_len": 5.0,
+   "volume": 0.7
+  },
+  {
+   "name": "iwao_ring_out",
+   "query": "gong",
+   "kind": "SoundEffect",
+   "min_len": 0.5,
+   "max_len": 6.0,
+   "volume": 0.55
+  },
+  {
+   "name": "kanemori_swing",
+   "query": "metal baton swing whoosh",
+   "kind": "SoundEffect",
+   "min_len": 0.1,
+   "max_len": 0.8,
+   "volume": 0.45
+  },
+  {
+   "name": "kanemori_arrest",
+   "query": "metal clang lock",
+   "kind": "SoundEffect",
+   "min_len": 0.1,
+   "max_len": 1.5,
+   "volume": 0.55
+  },
+  {
+   "name": "kanemori_hook",
+   "query": "metal scrape",
+   "kind": "SoundEffect",
+   "min_len": 0.1,
+   "max_len": 1.5,
+   "volume": 0.5
+  },
+  {
+   "name": "kanemori_chain",
+   "query": "chain rattle throw",
+   "kind": "SoundEffect",
+   "min_len": 0.2,
+   "max_len": 2.0,
+   "volume": 0.55
+  },
+  {
+   "name": "kanemori_catch",
+   "query": "sword clash",
+   "kind": "SoundEffect",
+   "min_len": 0.1,
+   "max_len": 1.5,
+   "volume": 0.6
+  },
+  {
+   "name": "kanemori_spikes",
+   "query": "metal spikes burst",
+   "kind": "SoundEffect",
+   "min_len": 0.2,
+   "max_len": 2.5,
+   "volume": 0.65
+  },
+  {
+   "name": "kanemori_chase",
+   "query": "fast dash whoosh",
+   "kind": "SoundEffect",
+   "min_len": 0.1,
+   "max_len": 1.5,
+   "volume": 0.55
+  },
+  {
+   "name": "kanemori_ult",
+   "query": "heavy chains impact",
+   "kind": "SoundEffect",
+   "min_len": 1.0,
+   "max_len": 5.0,
+   "volume": 0.7
+  },
+  {
+   "name": "rokumon_swing",
+   "query": "oar swing whoosh",
+   "kind": "SoundEffect",
+   "min_len": 0.1,
+   "max_len": 1.0,
+   "volume": 0.45
+  },
+  {
+   "name": "rokumon_coin",
+   "query": "coin clink",
+   "kind": "SoundEffect",
+   "min_len": 0.05,
+   "max_len": 1.0,
+   "volume": 0.5
+  },
+  {
+   "name": "rokumon_scoop",
+   "query": "water splash",
+   "kind": "SoundEffect",
+   "min_len": 0.2,
+   "max_len": 2.0,
+   "volume": 0.55
+  },
+  {
+   "name": "rokumon_pull",
+   "query": "water rush",
+   "kind": "SoundEffect",
+   "min_len": 0.3,
+   "max_len": 3.0,
+   "volume": 0.55
+  },
+  {
+   "name": "rokumon_ferry",
+   "query": "wooden boat creak water",
+   "kind": "SoundEffect",
+   "min_len": 0.5,
+   "max_len": 4.0,
+   "volume": 0.55
+  },
+  {
+   "name": "rokumon_mist",
+   "query": "cold wind hiss",
+   "kind": "SoundEffect",
+   "min_len": 0.5,
+   "max_len": 4.0,
+   "volume": 0.45
+  },
+  {
+   "name": "rokumon_toll",
+   "query": "bell toll",
+   "kind": "SoundEffect",
+   "min_len": 0.3,
+   "max_len": 4.0,
+   "volume": 0.6
+  },
+  {
+   "name": "rokumon_ult",
+   "query": "flood wave roar",
+   "kind": "SoundEffect",
+   "min_len": 1.5,
+   "max_len": 6.0,
+   "volume": 0.75
+  },
+  {
+   "name": "elder_wake",
+   "query": "monster groan deep",
+   "kind": "SoundEffect",
+   "min_len": 1.0,
+   "max_len": 6.0,
+   "volume": 0.8
+  },
+  {
+   "name": "elder_phase_shift",
+   "query": "mystic chime",
+   "kind": "SoundEffect",
+   "min_len": 0.3,
+   "max_len": 3.0,
+   "volume": 0.55
+  },
+  {
+   "name": "elder_fall",
+   "query": "tree falling crash",
+   "kind": "SoundEffect",
+   "min_len": 1.0,
+   "max_len": 6.0,
+   "volume": 0.8
+  },
+  {
+   "name": "music_elder",
+   "query": "intense taiko shamisen battle",
+   "kind": "Music",
+   "min_len": 30,
+   "max_len": 300,
+   "volume": 0.4,
+   "looped": true
+  },
+  {
+   "name": "music_elder_enraged",
+   "query": "fast intense taiko drums",
+   "kind": "Music",
+   "min_len": 20,
+   "max_len": 300,
+   "volume": 0.45,
+   "looped": true
+  },
+  {
+   "name": "elder_roots",
+   "query": "ground crack burst",
+   "kind": "SoundEffect",
+   "min_len": 0.3,
+   "max_len": 3.0,
+   "volume": 0.65
+  },
+  {
+   "name": "elder_lash",
+   "query": "heavy whip whoosh",
+   "kind": "SoundEffect",
+   "min_len": 0.2,
+   "max_len": 2.0,
+   "volume": 0.6
+  },
+  {
+   "name": "elder_drain",
+   "query": "life drain magic",
+   "kind": "SoundEffect",
+   "min_len": 1.0,
+   "max_len": 6.0,
+   "volume": 0.5,
+   "looped": true
+  },
+  {
+   "name": "elder_branch_break",
+   "query": "wood snap break",
+   "kind": "SoundEffect",
+   "min_len": 0.2,
+   "max_len": 2.0,
+   "volume": 0.65
+  },
+  {
+   "name": "elder_petal_storm",
+   "query": "wind gust rising",
+   "kind": "SoundEffect",
+   "min_len": 1.0,
+   "max_len": 4.0,
+   "volume": 0.65
+  },
+  {
+   "name": "elder_enrage",
+   "query": "monster roar",
+   "kind": "SoundEffect",
+   "min_len": 1.0,
+   "max_len": 5.0,
+   "volume": 0.8
+  },
+  {
+   "name": "sprout_spawn",
+   "query": "plant sprout pop",
+   "kind": "SoundEffect",
+   "min_len": 0.1,
+   "max_len": 2.0,
+   "volume": 0.55
+  },
+  {
+   "name": "reward_fanfare",
+   "query": "victory fanfare short",
+   "kind": "SoundEffect",
+   "min_len": 1.0,
+   "max_len": 6.0,
+   "volume": 0.6
+  },
+  {
+   "name": "ui_select",
+   "query": "ui click soft",
+   "kind": "SoundEffect",
+   "min_len": 0.03,
+   "max_len": 0.6,
+   "volume": 0.4
+  },
+  {
+   "name": "ui_killfeed",
+   "query": "ui tick notification",
+   "kind": "SoundEffect",
+   "min_len": 0.03,
+   "max_len": 0.8,
+   "volume": 0.35
+  },
+  {
+   "name": "streak_announce",
+   "query": "conch shell horn",
+   "kind": "SoundEffect",
+   "min_len": 0.8,
+   "max_len": 5.0,
+   "volume": 0.55
+  }
+ ],
+ "rules": "No voice lines (out of scope). Music ducks under combat. Gameplay code plays roles by name through Sfx.play; no asset id appears outside the bank.",
+ "note": "roblox-sfx. One role per thing the game needs a sound FOR. An unfilled role is a failure."
+}

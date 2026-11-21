@@ -1,0 +1,844 @@
+{
+ "rig": "R15",
+ "rigs": {
+  "R15": "the player's own avatar; clips bind by part name, so they play on any R15 body",
+  "ElderRig": {
+   "kind": "rigid Motor6D rig of MeshParts driven by an AnimationController; no skinning needed",
+   "root": "ElderTrunk",
+   "joints": {
+    "Crown": "ElderTrunk -> ElderCrown",
+    "BranchL": "ElderTrunk -> ElderBranchTube",
+    "BranchR": "ElderTrunk -> ElderBranchTube",
+    "Heart": "ElderTrunk -> ElderHeart"
+   }
+  }
+ },
+ "priorities": "Idles pose arms, torso and head only (body: upper) at Idle priority, looped: the weapon carry survives walking and the default Animate walk drives the legs. Moves are Action, hit reactions Action2, grabs Action3. Check per fighter in a playtest: stand, walk, run, jump, land, and watch the legs.",
+ "weapons": {
+  "Wagasa": "Closed umbrella held by the handle at the side, ferrule DOWN near the ground like a walking cane at rest; in a strike the tip leads a thrust or the shaft swings like a short staff; never held by the canopy.",
+  "WagasaOpen": "Open canopy faces the threat, shaft pointing at the attacker and held two-handed at chest height so the canopy covers head and torso.",
+  "TaikoBachi": "One stick per hand, gripped near the butt end; ready stance has both sticks raised in front of and above the head, elbows high; strikes come straight down from overhead with the whole arm and a wrist snap, tips leading.",
+  "Bare hands (Iwao)": "No weapon: a low wide stance, knees bent, hips low, open palms forward at chest height; the hips drive every thrust; shiko raises one straight leg high to the side, then stamps.",
+  "Jitte": "Gripped by the handle with the hook toward the thumb and up; at rest hook-up at the waist; strikes are short baton blows with the tip leading; the catch traps a hit between shaft and hook with the shaft angled up across the body.",
+  "WeightedChain": "Coiled in the off hand at the hip; thrown sidearm from the left hand, weight leading.",
+  "FerryOar": "A long oar used two-handed like a staff, hands shoulder-width apart, blade end higher and forward; at rest carried over the shoulder with the blade UP and behind; the blade leads every sweep and the shaft crosses in front of the body, never hanging at the feet."
+ },
+ "markers": "Marker times are the contact frames. The server's move timing in the Fighters data uses the same numbers, so a hit lands when the clip connects.",
+ "routes": "Planned route: roblox-animation (author FK spec -> Blender render and contact sheet -> to_roblox.py -> KeyframeSequences). Blocked today: Blender is not installed. Pre-authorised fallback: author the poses as CFrame keys in a Poses module (as Tidebell does) and build the KeyframeSequences in Studio with execute_luau; still judged against each _intent sentence.",
+ "clips": [
+  {
+   "name": "Block_Hold",
+   "rig": "R15",
+   "seconds": 0.8,
+   "loop": true,
+   "priority": "Action",
+   "body": "upper",
+   "pose": "both forearms raised in front of the face, elbows in, whatever is in hand angled up across the body",
+   "reference": "martial-arts high guard photographs"
+  },
+  {
+   "name": "Parry",
+   "rig": "R15",
+   "seconds": 0.3,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "a sharp outward deflection of the lead forearm, torso turning with it",
+   "reference": "kendo and jitte deflection stills",
+   "markers": {
+    "Parry": 0.05
+   }
+  },
+  {
+   "name": "Dash",
+   "rig": "R15",
+   "seconds": 0.35,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "a low forward lunge, lead knee bent, trailing arm back",
+   "reference": "sprint-start and lunge photographs"
+  },
+  {
+   "name": "Mend_Channel",
+   "rig": "R15",
+   "seconds": 1.2,
+   "loop": true,
+   "priority": "Action",
+   "body": "full",
+   "pose": "kneeling on one knee, palms pressed together at the chest, slow breathing in the shoulders",
+   "reference": "seated meditation and kneeling-prayer photographs"
+  },
+  {
+   "name": "HitStun",
+   "rig": "R15",
+   "seconds": 0.4,
+   "loop": false,
+   "priority": "Action2",
+   "body": "full",
+   "pose": "a flinch back from the chest, head turned away, arms loose",
+   "reference": "boxing flinch reference"
+  },
+  {
+   "name": "GuardBreak",
+   "rig": "R15",
+   "seconds": 0.8,
+   "loop": false,
+   "priority": "Action2",
+   "body": "full",
+   "pose": "staggering back two steps with both arms flung wide",
+   "reference": "boxing stagger reference"
+  },
+  {
+   "name": "Grabbed_Thrown",
+   "rig": "R15",
+   "seconds": 0.9,
+   "loop": false,
+   "priority": "Action3",
+   "body": "full",
+   "pose": "lifted by the waist, legs kicking, then flung tumbling",
+   "reference": "sumo throw (nage) photographs, the thrown side",
+   "markers": {
+    "Release": 0.6
+   }
+  },
+  {
+   "name": "Grabbed_Drained",
+   "rig": "R15",
+   "seconds": 1.0,
+   "loop": true,
+   "priority": "Action3",
+   "body": "full",
+   "pose": "held aloft by the waist, limbs hanging, a slow weak struggle",
+   "reference": "a person lifted off the ground, limp"
+  },
+  {
+   "name": "Tsuta_Idle",
+   "rig": "R15",
+   "seconds": 2.0,
+   "loop": true,
+   "priority": "Idle",
+   "body": "upper",
+   "pose": "umbrella closed, point-down at her right side like a cane, left hand relaxed, a slight sway",
+   "reference": "wagasa (oil-paper umbrella) carry and staff/cane work",
+   "_intent": "Closed umbrella held by the handle at the side, ferrule DOWN near the ground like a walking cane at rest; in a strike the tip leads a thrust or the shaft swings like a short staff; never held by the canopy."
+  },
+  {
+   "name": "Tsuta_M1_A",
+   "rig": "R15",
+   "seconds": 0.32,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "a forward thrust with the umbrella tip",
+   "reference": "wagasa (oil-paper umbrella) carry and staff/cane work",
+   "markers": {
+    "Hit": 0.12
+   },
+   "_intent": "Closed umbrella held by the handle at the side, ferrule DOWN near the ground like a walking cane at rest; in a strike the tip leads a thrust or the shaft swings like a short staff; never held by the canopy."
+  },
+  {
+   "name": "Tsuta_M1_B",
+   "rig": "R15",
+   "seconds": 0.32,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "a backhand horizontal swing of the shaft",
+   "reference": "wagasa (oil-paper umbrella) carry and staff/cane work",
+   "markers": {
+    "Hit": 0.12
+   },
+   "_intent": "Closed umbrella held by the handle at the side, ferrule DOWN near the ground like a walking cane at rest; in a strike the tip leads a thrust or the shaft swings like a short staff; never held by the canopy."
+  },
+  {
+   "name": "Tsuta_M1_Finisher",
+   "rig": "R15",
+   "seconds": 0.55,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "a thrust that snaps the canopy open at full extension",
+   "reference": "wagasa (oil-paper umbrella) carry and staff/cane work",
+   "markers": {
+    "Hit": 0.24
+   },
+   "_intent": "Closed umbrella held by the handle at the side, ferrule DOWN near the ground like a walking cane at rest; in a strike the tip leads a thrust or the shaft swings like a short staff; never held by the canopy."
+  },
+  {
+   "name": "Tsuta_RootSnare",
+   "rig": "R15",
+   "seconds": 0.6,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "jabs the umbrella tip into the ground toward the aim point",
+   "reference": "wagasa (oil-paper umbrella) carry and staff/cane work",
+   "markers": {
+    "Cast": 0.3
+   },
+   "_intent": "Closed umbrella held by the handle at the side, ferrule DOWN near the ground like a walking cane at rest; in a strike the tip leads a thrust or the shaft swings like a short staff; never held by the canopy."
+  },
+  {
+   "name": "Tsuta_SeedVolley",
+   "rig": "R15",
+   "seconds": 0.5,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "half-opens the canopy and flicks it forward, spraying seeds",
+   "reference": "wagasa (oil-paper umbrella) carry and staff/cane work",
+   "markers": {
+    "Release": 0.2
+   },
+   "_intent": "Closed umbrella held by the handle at the side, ferrule DOWN near the ground like a walking cane at rest; in a strike the tip leads a thrust or the shaft swings like a short staff; never held by the canopy."
+  },
+  {
+   "name": "Tsuta_CanopyGuard",
+   "rig": "R15",
+   "seconds": 1.5,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "opens the umbrella and braces it two-handed in front of her",
+   "reference": "wagasa (oil-paper umbrella) carry and staff/cane work",
+   "markers": {
+    "Open": 0.1
+   },
+   "_intent": "Closed umbrella held by the handle at the side, ferrule DOWN near the ground like a walking cane at rest; in a strike the tip leads a thrust or the shaft swings like a short staff; never held by the canopy."
+  },
+  {
+   "name": "Tsuta_Graft",
+   "rig": "R15",
+   "seconds": 0.7,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "whips her free hand forward as a vine lash, then leans into the pull",
+   "reference": "wagasa (oil-paper umbrella) carry and staff/cane work",
+   "markers": {
+    "Lash": 0.2,
+    "Pull": 0.35
+   },
+   "_intent": "Closed umbrella held by the handle at the side, ferrule DOWN near the ground like a walking cane at rest; in a strike the tip leads a thrust or the shaft swings like a short staff; never held by the canopy."
+  },
+  {
+   "name": "Tsuta_ThousandRootBloom",
+   "rig": "R15",
+   "seconds": 2.0,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "spins the umbrella, plants it point-down with both hands and kneels as roots erupt",
+   "reference": "wagasa (oil-paper umbrella) carry and staff/cane work",
+   "markers": {
+    "Plant": 0.5,
+    "Erupt": 0.8
+   },
+   "_intent": "Closed umbrella held by the handle at the side, ferrule DOWN near the ground like a walking cane at rest; in a strike the tip leads a thrust or the shaft swings like a short staff; never held by the canopy."
+  },
+  {
+   "name": "Hibiki_Idle",
+   "rig": "R15",
+   "seconds": 1.6,
+   "loop": true,
+   "priority": "Idle",
+   "body": "upper",
+   "pose": "sticks raised in front at forehead height, elbows high, a small rhythmic bounce in the shoulders",
+   "reference": "kumi-daiko drummers' ready stance and overhead strikes",
+   "_intent": "One stick per hand, gripped near the butt end; ready stance has both sticks raised in front of and above the head, elbows high; strikes come straight down from overhead with the whole arm and a wrist snap, tips leading."
+  },
+  {
+   "name": "Hibiki_M1_A",
+   "rig": "R15",
+   "seconds": 0.3,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "the right stick strikes down",
+   "reference": "kumi-daiko drummers' ready stance and overhead strikes",
+   "markers": {
+    "Hit": 0.11
+   },
+   "_intent": "One stick per hand, gripped near the butt end; ready stance has both sticks raised in front of and above the head, elbows high; strikes come straight down from overhead with the whole arm and a wrist snap, tips leading."
+  },
+  {
+   "name": "Hibiki_M1_B",
+   "rig": "R15",
+   "seconds": 0.3,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "the left stick strikes down",
+   "reference": "kumi-daiko drummers' ready stance and overhead strikes",
+   "markers": {
+    "Hit": 0.11
+   },
+   "_intent": "One stick per hand, gripped near the butt end; ready stance has both sticks raised in front of and above the head, elbows high; strikes come straight down from overhead with the whole arm and a wrist snap, tips leading."
+  },
+  {
+   "name": "Hibiki_M1_Finisher",
+   "rig": "R15",
+   "seconds": 0.55,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "both sticks raised high and brought down together",
+   "reference": "kumi-daiko drummers' ready stance and overhead strikes",
+   "markers": {
+    "Hit": 0.26
+   },
+   "_intent": "One stick per hand, gripped near the butt end; ready stance has both sticks raised in front of and above the head, elbows high; strikes come straight down from overhead with the whole arm and a wrist snap, tips leading."
+  },
+  {
+   "name": "Hibiki_WarBeat",
+   "rig": "R15",
+   "seconds": 0.6,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "turns and strikes the drum on his back over his shoulder with both sticks",
+   "reference": "kumi-daiko drummers' ready stance and overhead strikes",
+   "markers": {
+    "Hit": 0.3
+   },
+   "_intent": "One stick per hand, gripped near the butt end; ready stance has both sticks raised in front of and above the head, elbows high; strikes come straight down from overhead with the whole arm and a wrist snap, tips leading."
+  },
+  {
+   "name": "Hibiki_FireRoll",
+   "rig": "R15",
+   "seconds": 0.8,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "drops to one knee and drums the ground in a fast roll",
+   "reference": "kumi-daiko drummers' ready stance and overhead strikes",
+   "markers": {
+    "Start": 0.2
+   },
+   "_intent": "One stick per hand, gripped near the butt end; ready stance has both sticks raised in front of and above the head, elbows high; strikes come straight down from overhead with the whole arm and a wrist snap, tips leading."
+  },
+  {
+   "name": "Hibiki_Kakegoe",
+   "rig": "R15",
+   "seconds": 0.6,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "a wide stance, chest out, sticks thrown wide in a battle shout",
+   "reference": "kumi-daiko drummers' ready stance and overhead strikes",
+   "markers": {
+    "Shout": 0.25
+   },
+   "_intent": "One stick per hand, gripped near the butt end; ready stance has both sticks raised in front of and above the head, elbows high; strikes come straight down from overhead with the whole arm and a wrist snap, tips leading."
+  },
+  {
+   "name": "Hibiki_ThunderRoll",
+   "rig": "R15",
+   "seconds": 1.5,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "a fast alternating roll in the air in front, leaning in",
+   "reference": "kumi-daiko drummers' ready stance and overhead strikes",
+   "markers": {
+    "P1": 0.3,
+    "P2": 0.55,
+    "P3": 0.8,
+    "P4": 1.05,
+    "P5": 1.3
+   },
+   "_intent": "One stick per hand, gripped near the butt end; ready stance has both sticks raised in front of and above the head, elbows high; strikes come straight down from overhead with the whole arm and a wrist snap, tips leading."
+  },
+  {
+   "name": "Hibiki_FestivalOfDrums",
+   "rig": "R15",
+   "seconds": 2.4,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "conducts the ring of phantom drums while turning, then a two-handed final strike",
+   "reference": "kumi-daiko drummers' ready stance and overhead strikes",
+   "markers": {
+    "Beats": 0.6,
+    "Final": 2.1
+   },
+   "_intent": "One stick per hand, gripped near the butt end; ready stance has both sticks raised in front of and above the head, elbows high; strikes come straight down from overhead with the whole arm and a wrist snap, tips leading."
+  },
+  {
+   "name": "Iwao_Idle",
+   "rig": "R15",
+   "seconds": 2.0,
+   "loop": true,
+   "priority": "Idle",
+   "body": "upper",
+   "pose": "arms in a wrestler's ready shape: open hands forward at waist height, shoulders rounded, slow breathing",
+   "reference": "sumo shiko, tsuppari and tachiai",
+   "_intent": "No weapon: a low wide stance, knees bent, hips low, open palms forward at chest height; the hips drive every thrust; shiko raises one straight leg high to the side, then stamps."
+  },
+  {
+   "name": "Iwao_M1_A",
+   "rig": "R15",
+   "seconds": 0.34,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "a right open-palm thrust from the hips",
+   "reference": "sumo shiko, tsuppari and tachiai",
+   "markers": {
+    "Hit": 0.13
+   },
+   "_intent": "No weapon: a low wide stance, knees bent, hips low, open palms forward at chest height; the hips drive every thrust; shiko raises one straight leg high to the side, then stamps."
+  },
+  {
+   "name": "Iwao_M1_B",
+   "rig": "R15",
+   "seconds": 0.34,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "a left open-palm thrust from the hips",
+   "reference": "sumo shiko, tsuppari and tachiai",
+   "markers": {
+    "Hit": 0.13
+   },
+   "_intent": "No weapon: a low wide stance, knees bent, hips low, open palms forward at chest height; the hips drive every thrust; shiko raises one straight leg high to the side, then stamps."
+  },
+  {
+   "name": "Iwao_M1_Finisher",
+   "rig": "R15",
+   "seconds": 0.6,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "a two-handed shove driven from a deep stance",
+   "reference": "sumo shiko, tsuppari and tachiai",
+   "markers": {
+    "Hit": 0.28
+   },
+   "_intent": "No weapon: a low wide stance, knees bent, hips low, open palms forward at chest height; the hips drive every thrust; shiko raises one straight leg high to the side, then stamps."
+  },
+  {
+   "name": "Iwao_ShikoStomp",
+   "rig": "R15",
+   "seconds": 0.9,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "raises the right leg high to the side, then stamps down into a deep squat",
+   "reference": "sumo shiko, tsuppari and tachiai",
+   "markers": {
+    "Stomp": 0.6
+   },
+   "_intent": "No weapon: a low wide stance, knees bent, hips low, open palms forward at chest height; the hips drive every thrust; shiko raises one straight leg high to the side, then stamps."
+  },
+  {
+   "name": "Iwao_BoulderGrip",
+   "rig": "R15",
+   "seconds": 1.0,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "grabs at the waist, lifts overhead, throws in the aimed direction",
+   "reference": "sumo shiko, tsuppari and tachiai",
+   "markers": {
+    "Grab": 0.2,
+    "Throw": 0.7
+   },
+   "_intent": "No weapon: a low wide stance, knees bent, hips low, open palms forward at chest height; the hips drive every thrust; shiko raises one straight leg high to the side, then stamps."
+  },
+  {
+   "name": "Iwao_PurifyingSalt",
+   "rig": "R15",
+   "seconds": 0.6,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "scoops and flings salt from the right hand in a wide arc",
+   "reference": "sumo shiko, tsuppari and tachiai",
+   "markers": {
+    "Throw": 0.3
+   },
+   "_intent": "No weapon: a low wide stance, knees bent, hips low, open palms forward at chest height; the hips drive every thrust; shiko raises one straight leg high to the side, then stamps."
+  },
+  {
+   "name": "Iwao_TachiaiCharge",
+   "rig": "R15",
+   "seconds": 0.8,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "an explosive low charge from a crouch, head and shoulders forward, hands low",
+   "reference": "sumo shiko, tsuppari and tachiai",
+   "markers": {
+    "Go": 0.15
+   },
+   "_intent": "No weapon: a low wide stance, knees bent, hips low, open palms forward at chest height; the hips drive every thrust; shiko raises one straight leg high to the side, then stamps."
+  },
+  {
+   "name": "Iwao_Dohyo",
+   "rig": "R15",
+   "seconds": 1.5,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "a deep shiko stomp with both arms spread wide, then one clap",
+   "reference": "sumo shiko, tsuppari and tachiai",
+   "markers": {
+    "Stomp": 0.8,
+    "Clap": 1.2
+   },
+   "_intent": "No weapon: a low wide stance, knees bent, hips low, open palms forward at chest height; the hips drive every thrust; shiko raises one straight leg high to the side, then stamps."
+  },
+  {
+   "name": "Kanemori_Idle",
+   "rig": "R15",
+   "seconds": 2.0,
+   "loop": true,
+   "priority": "Idle",
+   "body": "upper",
+   "pose": "jitte held hook-up at the right hip, left hand resting on the coiled chain",
+   "reference": "jitte-jutsu kata and Edo constable illustrations",
+   "_intent": "Gripped by the handle with the hook toward the thumb and up; at rest hook-up at the waist; strikes are short baton blows with the tip leading; the catch traps a hit between shaft and hook with the shaft angled up across the body."
+  },
+  {
+   "name": "Kanemori_M1_A",
+   "rig": "R15",
+   "seconds": 0.3,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "a short jitte jab",
+   "reference": "jitte-jutsu kata and Edo constable illustrations",
+   "markers": {
+    "Hit": 0.11
+   },
+   "_intent": "Gripped by the handle with the hook toward the thumb and up; at rest hook-up at the waist; strikes are short baton blows with the tip leading; the catch traps a hit between shaft and hook with the shaft angled up across the body."
+  },
+  {
+   "name": "Kanemori_M1_B",
+   "rig": "R15",
+   "seconds": 0.3,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "a short backhand jitte strike",
+   "reference": "jitte-jutsu kata and Edo constable illustrations",
+   "markers": {
+    "Hit": 0.11
+   },
+   "_intent": "Gripped by the handle with the hook toward the thumb and up; at rest hook-up at the waist; strikes are short baton blows with the tip leading; the catch traps a hit between shaft and hook with the shaft angled up across the body."
+  },
+  {
+   "name": "Kanemori_M1_Finisher",
+   "rig": "R15",
+   "seconds": 0.55,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "hooks the target's arm with the jitte and twists",
+   "reference": "jitte-jutsu kata and Edo constable illustrations",
+   "markers": {
+    "Hit": 0.25
+   },
+   "_intent": "Gripped by the handle with the hook toward the thumb and up; at rest hook-up at the waist; strikes are short baton blows with the tip leading; the catch traps a hit between shaft and hook with the shaft angled up across the body."
+  },
+  {
+   "name": "Kanemori_ChainLash",
+   "rig": "R15",
+   "seconds": 0.6,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "a sidearm chain throw from the left hand, then a yank back",
+   "reference": "jitte-jutsu kata and Edo constable illustrations",
+   "markers": {
+    "Throw": 0.2,
+    "Yank": 0.45
+   },
+   "_intent": "Gripped by the handle with the hook toward the thumb and up; at rest hook-up at the waist; strikes are short baton blows with the tip leading; the catch traps a hit between shaft and hook with the shaft angled up across the body."
+  },
+  {
+   "name": "Kanemori_JitteCatch",
+   "rig": "R15",
+   "seconds": 1.0,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "jitte raised across the body hook-up, weight back; on a catch, twist and counter-strike",
+   "reference": "jitte-jutsu kata and Edo constable illustrations",
+   "markers": {
+    "Window": 0.0,
+    "Counter": 0.7
+   },
+   "_intent": "Gripped by the handle with the hook toward the thumb and up; at rest hook-up at the waist; strikes are short baton blows with the tip leading; the catch traps a hit between shaft and hook with the shaft angled up across the body."
+  },
+  {
+   "name": "Kanemori_IronEdict",
+   "rig": "R15",
+   "seconds": 0.7,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "drives the jitte down into the ground with both hands",
+   "reference": "jitte-jutsu kata and Edo constable illustrations",
+   "markers": {
+    "Drive": 0.35
+   },
+   "_intent": "Gripped by the handle with the hook toward the thumb and up; at rest hook-up at the waist; strikes are short baton blows with the tip leading; the catch traps a hit between shaft and hook with the shaft angled up across the body."
+  },
+  {
+   "name": "Kanemori_HuntersChase",
+   "rig": "R15",
+   "seconds": 0.5,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "a running lunge into a downward strike",
+   "reference": "jitte-jutsu kata and Edo constable illustrations",
+   "markers": {
+    "Hit": 0.4
+   },
+   "_intent": "Gripped by the handle with the hook toward the thumb and up; at rest hook-up at the waist; strikes are short baton blows with the tip leading; the catch traps a hit between shaft and hook with the shaft angled up across the body."
+  },
+  {
+   "name": "Kanemori_EdictOfChains",
+   "rig": "R15",
+   "seconds": 2.2,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "raises the jitte overhead, pulls both fists back to drag the chains, then slams the jitte down",
+   "reference": "jitte-jutsu kata and Edo constable illustrations",
+   "markers": {
+    "Chains": 0.5,
+    "Pull": 1.0,
+    "Shock": 1.8
+   },
+   "_intent": "Gripped by the handle with the hook toward the thumb and up; at rest hook-up at the waist; strikes are short baton blows with the tip leading; the catch traps a hit between shaft and hook with the shaft angled up across the body."
+  },
+  {
+   "name": "Rokumon_Idle",
+   "rig": "R15",
+   "seconds": 2.2,
+   "loop": true,
+   "priority": "Idle",
+   "body": "upper",
+   "pose": "oar over the right shoulder, blade up and behind, left hand at the coins",
+   "reference": "sculling-oar ferrymen and staff (jo/bo) sweeps",
+   "_intent": "A long oar used two-handed like a staff, hands shoulder-width apart, blade end higher and forward; at rest carried over the shoulder with the blade UP and behind; the blade leads every sweep and the shaft crosses in front of the body, never hanging at the feet."
+  },
+  {
+   "name": "Rokumon_M1_A",
+   "rig": "R15",
+   "seconds": 0.36,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "a wide horizontal oar sweep right to left",
+   "reference": "sculling-oar ferrymen and staff (jo/bo) sweeps",
+   "markers": {
+    "Hit": 0.14
+   },
+   "_intent": "A long oar used two-handed like a staff, hands shoulder-width apart, blade end higher and forward; at rest carried over the shoulder with the blade UP and behind; the blade leads every sweep and the shaft crosses in front of the body, never hanging at the feet."
+  },
+  {
+   "name": "Rokumon_M1_B",
+   "rig": "R15",
+   "seconds": 0.36,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "the return sweep left to right",
+   "reference": "sculling-oar ferrymen and staff (jo/bo) sweeps",
+   "markers": {
+    "Hit": 0.14
+   },
+   "_intent": "A long oar used two-handed like a staff, hands shoulder-width apart, blade end higher and forward; at rest carried over the shoulder with the blade UP and behind; the blade leads every sweep and the shaft crosses in front of the body, never hanging at the feet."
+  },
+  {
+   "name": "Rokumon_M1_Finisher",
+   "rig": "R15",
+   "seconds": 0.6,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "a low-to-high scoop with the blade",
+   "reference": "sculling-oar ferrymen and staff (jo/bo) sweeps",
+   "markers": {
+    "Hit": 0.28
+   },
+   "_intent": "A long oar used two-handed like a staff, hands shoulder-width apart, blade end higher and forward; at rest carried over the shoulder with the blade UP and behind; the blade leads every sweep and the shaft crosses in front of the body, never hanging at the feet."
+  },
+  {
+   "name": "Rokumon_Riverpull",
+   "rig": "R15",
+   "seconds": 0.7,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "a long dragging sweep toward himself, like sculling",
+   "reference": "sculling-oar ferrymen and staff (jo/bo) sweeps",
+   "markers": {
+    "Pull": 0.35
+   },
+   "_intent": "A long oar used two-handed like a staff, hands shoulder-width apart, blade end higher and forward; at rest carried over the shoulder with the blade UP and behind; the blade leads every sweep and the shaft crosses in front of the body, never hanging at the feet."
+  },
+  {
+   "name": "Rokumon_PhantomFerry",
+   "rig": "R15",
+   "seconds": 0.8,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "stands at the stern of the phantom boat, sculling with the oar",
+   "reference": "sculling-oar ferrymen and staff (jo/bo) sweeps",
+   "markers": {
+    "Go": 0.1
+   },
+   "_intent": "A long oar used two-handed like a staff, hands shoulder-width apart, blade end higher and forward; at rest carried over the shoulder with the blade UP and behind; the blade leads every sweep and the shaft crosses in front of the body, never hanging at the feet."
+  },
+  {
+   "name": "Rokumon_Mist",
+   "rig": "R15",
+   "seconds": 0.6,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "spins the oar overhead",
+   "reference": "sculling-oar ferrymen and staff (jo/bo) sweeps",
+   "markers": {
+    "Cast": 0.3
+   },
+   "_intent": "A long oar used two-handed like a staff, hands shoulder-width apart, blade end higher and forward; at rest carried over the shoulder with the blade UP and behind; the blade leads every sweep and the shaft crosses in front of the body, never hanging at the feet."
+  },
+  {
+   "name": "Rokumon_TollStrike",
+   "rig": "R15",
+   "seconds": 0.6,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "a two-handed overhead oar chop",
+   "reference": "sculling-oar ferrymen and staff (jo/bo) sweeps",
+   "markers": {
+    "Hit": 0.32
+   },
+   "_intent": "A long oar used two-handed like a staff, hands shoulder-width apart, blade end higher and forward; at rest carried over the shoulder with the blade UP and behind; the blade leads every sweep and the shaft crosses in front of the body, never hanging at the feet."
+  },
+  {
+   "name": "Rokumon_RiverReturns",
+   "rig": "R15",
+   "seconds": 2.2,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "plants the oar blade down, then sweeps it forward along the lane",
+   "reference": "sculling-oar ferrymen and staff (jo/bo) sweeps",
+   "markers": {
+    "Call": 0.6,
+    "Wave": 1.0
+   },
+   "_intent": "A long oar used two-handed like a staff, hands shoulder-width apart, blade end higher and forward; at rest carried over the shoulder with the blade UP and behind; the blade leads every sweep and the shaft crosses in front of the body, never hanging at the feet."
+  },
+  {
+   "name": "Elder_Idle",
+   "rig": "ElderRig",
+   "seconds": 4.0,
+   "loop": true,
+   "priority": "Idle",
+   "body": "full",
+   "pose": "a slow sway of the crown and branches; the heart rises and falls",
+   "reference": "time-lapse of trees in a storm; slow, heavy, rooted"
+  },
+  {
+   "name": "Elder_Wake",
+   "rig": "ElderRig",
+   "seconds": 4.0,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "the crown lifts, branches unfold outward, the trunk straightens with a shudder",
+   "reference": "time-lapse of trees in a storm; slow, heavy, rooted",
+   "markers": {
+    "Roar": 2.8
+   }
+  },
+  {
+   "name": "Elder_RootSlam",
+   "rig": "ElderRig",
+   "seconds": 1.6,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "the trunk leans and the branches drive down as roots erupt under marked players",
+   "reference": "time-lapse of trees in a storm; slow, heavy, rooted",
+   "markers": {
+    "Erupt": 1.2
+   }
+  },
+  {
+   "name": "Elder_BranchLash",
+   "rig": "ElderRig",
+   "seconds": 1.2,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "one branch draws back, then lashes out along the red line and closes",
+   "reference": "time-lapse of trees in a storm; slow, heavy, rooted",
+   "markers": {
+    "Grab": 0.9
+   }
+  },
+  {
+   "name": "Elder_PetalStorm",
+   "rig": "ElderRig",
+   "seconds": 2.6,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "both branches rise high and shake for 2 s, then sweep down as the ring leaves the trunk",
+   "reference": "time-lapse of trees in a storm; slow, heavy, rooted",
+   "markers": {
+    "Release": 2.0
+   }
+  },
+  {
+   "name": "Elder_Enrage",
+   "rig": "ElderRig",
+   "seconds": 2.0,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "a violent shudder of the whole tree, crown thrown back",
+   "reference": "time-lapse of trees in a storm; slow, heavy, rooted",
+   "markers": {
+    "Sprouts": 1.4
+   }
+  },
+  {
+   "name": "Elder_Fall",
+   "rig": "ElderRig",
+   "seconds": 3.5,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "the trunk cracks and leans, the crown droops and the tree settles still",
+   "reference": "time-lapse of trees in a storm; slow, heavy, rooted",
+   "markers": {
+    "Crash": 2.6
+   }
+  },
+  {
+   "name": "Elder_Withdraw",
+   "rig": "ElderRig",
+   "seconds": 3.0,
+   "loop": false,
+   "priority": "Action",
+   "body": "full",
+   "pose": "branches fold in and the tree sinks back, sated",
+   "reference": "time-lapse of trees in a storm; slow, heavy, rooted"
+  }
+ ],
+ "note": "roblox-animation. Match a reference by ANGLE and fraction-of-reach, not distance. Research the real carry before authoring any weapon clip."
+}

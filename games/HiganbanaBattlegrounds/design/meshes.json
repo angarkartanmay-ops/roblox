@@ -1,0 +1,338 @@
+{
+ "preset": "prop",
+ "style": "stylised hand-painted game asset, chunky readable shapes, matte, ukiyo-e woodblock colours, single object centred on a plain light grey background, no text",
+ "scale": "studs = intended longest axis, sized against a ~5.5-stud R15 avatar",
+ "palette": {
+  "ink": "#1B1A1F",
+  "lacquer": "#0F0E12",
+  "crimson": "#C21F2E",
+  "crimson_deep": "#8E1622",
+  "bone": "#E8E1D2",
+  "stone_pale": "#C9C2B2",
+  "stone_grey": "#8C8A93",
+  "gold": "#C99A3B",
+  "mist": "#6E7F86",
+  "wood_weathered": "#6B6259",
+  "timber_dark": "#3B302A",
+  "straw": "#C8AE6E",
+  "bark": "#4A2622",
+  "jade": "#7FBF6A",
+  "stem_green": "#4F7A3A",
+  "phase_wood": "#4AA860",
+  "phase_fire": "#E44828",
+  "phase_earth": "#D6A840",
+  "phase_metal": "#E2E6EC",
+  "phase_water": "#283468",
+  "phase_water_light": "#5B6FD6",
+  "ki": "#E0303E",
+  "ghost_water": "#9EC3E6",
+  "sap_amber": "#E8A33A"
+ },
+ "colour": "PAINT every mesh with paint_texture.py from this palette (the 'paint' line per asset); never concept projection. Kit meshes keep the phase accent on the most visible surface.",
+ "budgets": "kit meshes are worn by up to 12 players, so they stay light; SpiderLilyCluster is instanced in the thousands, so it is the cheapest of all",
+ "routes": "Planned route: roblox-3d-model (concept image -> image-to-3D -> Blender decimate and paint -> upload as Model). Blocked today: Blender is not installed and HF_TOKEN is unset. Pre-authorised fallback if still blocked in section 3: Studio's built-in generate_mesh / generate_procedural_model tools via the roblox-studio MCP, painted to this palette; primitive stand-ins are never shipped.",
+ "assets": [
+  {
+   "name": "SpiderLilyCluster",
+   "studs": 2.2,
+   "tris": 300,
+   "use": "prop",
+   "paint": "crimson blooms, stem_green stems, no leaves",
+   "prompt": "a shaded 3D toy render of one small cluster of five red spider lily flowers, each a tall bare green stem topped by a round crimson bloom of thin curled petals with long upcurving stamens, no leaves"
+  },
+  {
+   "name": "FerryBoat",
+   "studs": 22,
+   "tris": 2500,
+   "use": "prop",
+   "paint": "wood_weathered hull, timber_dark ribs",
+   "prompt": "a shaded 3D toy render of one old wooden Japanese river ferry boat, a long narrow flat-bottomed hull with a raised pointed bow, weathered grey planks, a short mast stub, no sail"
+  },
+  {
+   "name": "StoneCairn",
+   "studs": 4.5,
+   "tris": 500,
+   "use": "prop",
+   "paint": "stone_pale with stone_grey shading",
+   "prompt": "a shaded 3D toy render of one small cairn of five smooth flat river stones stacked in shrinking sizes, pale grey"
+  },
+  {
+   "name": "JizoStatue",
+   "studs": 4,
+   "tris": 1200,
+   "use": "prop",
+   "paint": "stone_grey body, crimson bib and cap",
+   "prompt": "a shaded 3D toy render of one small stone Jizo statue, a round-headed monk figure with closed eyes and hands pressed together, a red cloth bib and a red knitted cap, on a square stone base"
+  },
+  {
+   "name": "StoneLantern",
+   "studs": 7,
+   "tris": 900,
+   "use": "prop",
+   "paint": "stone_grey, warm gold window glow",
+   "prompt": "a shaded 3D toy render of one Japanese stone garden lantern, square base, tall column, a firebox with open windows, a wide curved roof cap and a round finial, mossy grey granite"
+  },
+  {
+   "name": "ToriiGate",
+   "studs": 26,
+   "tris": 1200,
+   "use": "prop",
+   "paint": "vermilion pillars, ink lintel and bases",
+   "prompt": "a shaded 3D toy render of one vermilion Japanese torii gate, two thick round pillars, a black top lintel curving up at both ends, a straight lower crossbeam, black pillar bases"
+  },
+  {
+   "name": "FerryPier",
+   "studs": 48,
+   "tris": 1500,
+   "use": "prop",
+   "paint": "wood_weathered planks, timber_dark posts",
+   "prompt": "a shaded 3D toy render of one long narrow wooden pier on thick round stilts, weathered grey planks, a mooring post with a coiled rope at the far end"
+  },
+  {
+   "name": "FerrymanHut",
+   "studs": 20,
+   "tris": 2500,
+   "use": "prop",
+   "paint": "timber_dark walls, straw thatch, gold lantern",
+   "prompt": "a shaded 3D toy render of one small Japanese ferryman's hut, dark timber walls, a steep thatched roof, a paper lantern hanging by an open sliding door, on a low stone base"
+  },
+  {
+   "name": "BridgeParapet",
+   "studs": 16,
+   "tris": 400,
+   "use": "prop",
+   "paint": "stone_pale",
+   "prompt": "a shaded 3D toy render of one straight stone bridge railing section, a low pale granite balustrade with square posts at both ends and a flat top rail"
+  },
+  {
+   "name": "NoboriBanner",
+   "studs": 12,
+   "tris": 400,
+   "use": "prop",
+   "paint": "faded crimson_deep cloth, bone circle, straw pole",
+   "prompt": "a shaded 3D toy render of one tall tattered war banner, a long vertical cloth on a bamboo pole with a crossbar at the top, faded crimson cloth with a plain white circle, frayed edges"
+  },
+  {
+   "name": "ArmorPile",
+   "studs": 6,
+   "tris": 2000,
+   "use": "prop",
+   "paint": "rusted iron, lacquer plates, bark soil",
+   "prompt": "a shaded 3D toy render of one heap of abandoned old Japanese armour, a dented iron helmet, scattered lacquered plates and a broken spear shaft, half sunk in dark soil, dull and rusted"
+  },
+  {
+   "name": "BambooCluster",
+   "studs": 18,
+   "tris": 1200,
+   "use": "prop",
+   "paint": "green stalks with darker joints",
+   "prompt": "a shaded 3D toy render of one clump of seven tall jointed green bamboo stalks of different heights, sparse leaves at the tops"
+  },
+  {
+   "name": "DeadPine",
+   "studs": 24,
+   "tris": 1500,
+   "use": "prop",
+   "paint": "ink-dark bark",
+   "prompt": "a shaded 3D toy render of one gnarled dead pine tree, a twisted dark trunk with a few bare crooked branches spreading flat, no needles, silhouette like an ink painting"
+  },
+  {
+   "name": "TrainingDummy",
+   "studs": 6,
+   "tris": 900,
+   "use": "prop",
+   "paint": "straw body, bone sash recoloured per phase at runtime",
+   "prompt": "a shaded 3D toy render of one straw training dummy on a wooden post, a tied bundle of straw for a body, a crossbar for arms, a white cloth sash, on a round wooden base"
+  },
+  {
+   "name": "Wagasa",
+   "studs": 4.6,
+   "tris": 700,
+   "use": "kit",
+   "attach": "RightHand grip at the handle; closed, ferrule down at rest",
+   "paint": "phase_wood paper, straw shaft, steel tip",
+   "prompt": "a shaded 3D toy render of one closed Japanese oil-paper umbrella, a long straight bamboo shaft with a handle, the folded canopy wrapped tight, a steel tip, deep green paper"
+  },
+  {
+   "name": "WagasaOpen",
+   "studs": 5,
+   "tris": 1100,
+   "use": "kit",
+   "attach": "RightHand grip at the handle; swapped in for Canopy Guard and the M1 finisher",
+   "paint": "phase_wood paper over straw ribs",
+   "prompt": "a shaded 3D toy render of one open Japanese oil-paper umbrella seen from the side, a wide shallow dome of deep green paper over many thin bamboo ribs, a long straight shaft"
+  },
+  {
+   "name": "TaikoBachi",
+   "studs": 1.6,
+   "tris": 150,
+   "use": "kit",
+   "attach": "one per hand, gripped near the butt end",
+   "paint": "pale wood, crimson grip cord",
+   "prompt": "a shaded 3D toy render of ONE single thick wooden drumstick alone, a straight round stick of pale wood slightly thicker at the striking end, a red cord wrapped at the grip"
+  },
+  {
+   "name": "BackTaiko",
+   "studs": 2.6,
+   "tris": 800,
+   "use": "kit",
+   "attach": "UpperTorso back, drum face pointing up-right over the shoulder",
+   "paint": "timber_dark body, bone hide, iron studs",
+   "prompt": "a shaded 3D toy render of one small barrel-shaped Japanese taiko drum, a short fat wooden body with iron rings and rows of studs, white hide on both ends, a rope harness"
+  },
+  {
+   "name": "StoneBracer",
+   "studs": 1.4,
+   "tris": 400,
+   "use": "kit",
+   "attach": "one on each forearm (LeftLowerArm, RightLowerArm)",
+   "paint": "stone_grey, straw rope",
+   "prompt": "a shaded 3D toy render of ONE single stone bracer alone, a thick ring of rough grey stone bound with straw rope, shaped to wrap a forearm"
+  },
+  {
+   "name": "RopeBelt",
+   "studs": 3.2,
+   "tris": 900,
+   "use": "kit",
+   "attach": "LowerTorso, knot at the back",
+   "paint": "bone rope, white paper streamers",
+   "prompt": "a shaded 3D toy render of one thick braided white rope belt tied in a big knot, with five zigzag white paper streamers hanging at the front"
+  },
+  {
+   "name": "DohyoRing",
+   "studs": 34,
+   "tris": 1500,
+   "use": "kit",
+   "attach": "spawned around Iwao for the 6 s ultimate, 16-stud inner radius",
+   "paint": "stone_grey blocks, straw rope, earth floor",
+   "prompt": "a shaded 3D toy render of one wide circular ring of rough grey stone blocks rising from the ground, a low stone wall in a circle around a flat earthen floor, straw rope along the top"
+  },
+  {
+   "name": "Jitte",
+   "studs": 1.8,
+   "tris": 300,
+   "use": "kit",
+   "attach": "RightHand, hook toward the thumb and up",
+   "paint": "phase_metal steel, phase_water_light grip cord, crimson tassel",
+   "prompt": "a shaded 3D toy render of ONE single Japanese jitte alone, a short round steel truncheon with one side hook near the handle, a grip wrapped in dark blue cord, a red tassel at the pommel"
+  },
+  {
+   "name": "WeightedChain",
+   "studs": 3,
+   "tris": 600,
+   "use": "kit",
+   "attach": "coiled at the left hip (LowerTorso); thrown by Chain Lash",
+   "paint": "dark iron",
+   "prompt": "a shaded 3D toy render of one coiled iron chain with a heavy iron weight at each end, dark metal links"
+  },
+  {
+   "name": "Jingasa",
+   "studs": 2.4,
+   "tris": 400,
+   "use": "kit",
+   "attach": "Head, worn flat",
+   "paint": "lacquer black, gold crown circle",
+   "prompt": "a shaded 3D toy render of one flat conical Japanese jingasa hat, a wide shallow cone of black lacquered iron with a gold circle on top, a cord tie underneath"
+  },
+  {
+   "name": "FerryOar",
+   "studs": 8,
+   "tris": 500,
+   "use": "kit",
+   "attach": "RightHand two-handed grip; carried over the shoulder, blade up and behind",
+   "paint": "timber_dark, rope wrap",
+   "prompt": "a shaded 3D toy render of one long wooden boat oar, a straight round shaft with a T-shaped grip at one end and a long flat blade at the other, weathered dark wood with a rope wrap"
+  },
+  {
+   "name": "Sugegasa",
+   "studs": 2.8,
+   "tris": 400,
+   "use": "kit",
+   "attach": "Head",
+   "paint": "straw",
+   "prompt": "a shaded 3D toy render of one wide conical Japanese straw hat, a shallow cone of woven pale sedge with a chin cord"
+  },
+  {
+   "name": "CoinString",
+   "studs": 1.6,
+   "tris": 500,
+   "use": "kit",
+   "attach": "LowerTorso front; coins hidden one by one as Fare is spent",
+   "paint": "aged bronze-gold coins, crimson cord",
+   "prompt": "a shaded 3D toy render of six round old bronze coins with square holes threaded on a red cord, hanging in a short row"
+  },
+  {
+   "name": "PhantomBoat",
+   "studs": 16,
+   "tris": 1200,
+   "use": "kit",
+   "attach": "spawned under Rokumon for Phantom Ferry; rendered translucent with a Highlight",
+   "paint": "ghost_water tint over pale wood",
+   "prompt": "a shaded 3D toy render of one small ghostly wooden ferry boat, a slim flat hull with an upturned pointed bow and a paper lantern on a pole at the stern"
+  },
+  {
+   "name": "ElderTrunk",
+   "studs": 70,
+   "tris": 6000,
+   "use": "boss",
+   "attach": "rig root (Motor6D rig, see animations.json ElderRig)",
+   "paint": "bark, crimson_deep scars, a hollow for the heart",
+   "prompt": "a shaded 3D toy render of one colossal ancient tree trunk, dark red-brown scarred bark, thick buttress roots spreading at the base, a hollow cavity in the middle, old rusted spears stuck in the bark, no leaves"
+  },
+  {
+   "name": "ElderCrown",
+   "studs": 60,
+   "tris": 5000,
+   "use": "boss",
+   "attach": "Motor6D Crown on top of the trunk",
+   "paint": "bark, crimson lily clusters",
+   "prompt": "a shaded 3D toy render of one huge tree canopy made of hollow reed-like branches, many tube branches spreading up and out with open ends, dark wood, a few clusters of red spider lilies"
+  },
+  {
+   "name": "ElderHeart",
+   "studs": 8,
+   "tris": 600,
+   "use": "boss",
+   "attach": "Motor6D Heart in the trunk hollow; Neon, recoloured to the current phase",
+   "paint": "bone base, recoloured at runtime",
+   "prompt": "a shaded 3D toy render of one glowing heart-shaped knot of twisted roots, a smooth round bulb wrapped in thin root tendrils"
+  },
+  {
+   "name": "ElderRoot",
+   "studs": 24,
+   "tris": 1200,
+   "use": "boss",
+   "attach": "spawned by Root Eruption under a marked player",
+   "paint": "bark, broken earth",
+   "prompt": "a shaded 3D toy render of one thick gnarled tree root bursting upward from the ground and curving like a claw, dark red-brown bark, broken earth at the base"
+  },
+  {
+   "name": "ElderBranchTube",
+   "studs": 30,
+   "tris": 1200,
+   "use": "boss",
+   "attach": "Motor6D BranchL and BranchR (two copies); the grab branch has 120 health",
+   "paint": "bark",
+   "prompt": "a shaded 3D toy render of one long hollow tree branch like a giant reed, a jointed tube of dark bark tapering to an open mouth, small side twigs"
+  },
+  {
+   "name": "SapSprout",
+   "studs": 5,
+   "tris": 700,
+   "use": "boss",
+   "attach": "spawned at enrage, three around the trunk",
+   "paint": "bark stems, sap_amber bulb",
+   "prompt": "a shaded 3D toy render of one young sapling with a glowing amber sap bulb at its base, three thin twisting branches and a few red buds"
+  },
+  {
+   "name": "LilyCrown",
+   "studs": 1.6,
+   "tris": 600,
+   "use": "reward",
+   "attach": "Head, worn by the Elder's top damage dealer",
+   "paint": "crimson blooms, gold band",
+   "prompt": "a shaded 3D toy render of one small crown woven from red spider lily flowers, a ring of curled crimson blooms with long stamens on a thin gold band"
+  }
+ ],
+ "note": "roblox-3d-model. Upload as Model never Mesh, textures as Image never Decal. Names here are the names the manifest must deliver."
+}

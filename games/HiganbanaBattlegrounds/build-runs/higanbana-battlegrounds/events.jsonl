@@ -1,0 +1,7 @@
+{"kind": "run-start", "mode": "solo", "ts": "2026-11-20T08:49:33+05:30"}
+{"kind": "start", "stage": "market-research", "ts": "2026-11-20T08:49:33+05:30"}
+{"kind": "note", "stage": "market-research", "note": "Brief asks for a Hell's Paradise mimic. Genre fixed (battlegrounds); no names, characters, art or plot from the anime - original world from public-domain sources (Wuxing, higanbana, Sai no Kawara). Dropped 'jubokko' (possible Mizuki invention). Findings: design/research.md", "ts": "2026-11-20T09:07:10+05:30"}
+{"kind": "end", "stage": "market-research", "status": "ok", "ts": "2026-11-20T09:07:10+05:30"}
+{"kind": "start", "stage": "design-spec", "ts": "2026-11-20T09:07:10+05:30"}
+{"kind": "end", "stage": "design-spec", "status": "ok", "ts": "2026-11-20T11:09:35+05:30"}
+{"kind": "start", "stage": "code", "ts": "2026-11-20T21:49:38+05:30"}

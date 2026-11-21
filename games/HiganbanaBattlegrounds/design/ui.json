@@ -1,0 +1,642 @@
+{
+ "resolution": [
+  1280,
+  720
+ ],
+ "theme": {
+  "font": "BuilderSans",
+  "fontStyle": "Bold",
+  "stroke": 3,
+  "textStroke": 2,
+  "corner": 0.12,
+  "shadowOffset": 4,
+  "outline": "#0F0E12",
+  "backdrop": [
+   "#3A3F52",
+   "#7A3A3A"
+  ],
+  "highlight": false,
+  "flat": false,
+  "palette": {
+   "panel": "#1B1A1F",
+   "panelAlt": "#26232B",
+   "slot": "#2F2B33",
+   "gold": "#C99A3B",
+   "red": "#C21F2E",
+   "green": "#4AA860",
+   "blue": "#5B6FD6",
+   "grey": "#8C8A93",
+   "dark": "#0F0E12",
+   "cream": "#E8E1D2",
+   "ink": "#E8E1D2",
+   "inkSoft": "#B9B1A2",
+   "onDark": "#FFFFFF",
+   "health": "#7FBF6A",
+   "ki": "#E0303E",
+   "guard": "#C99A3B",
+   "wood": "#4AA860",
+   "fire": "#E44828",
+   "earth": "#D6A840",
+   "metal": "#E2E6EC",
+   "water": "#5B6FD6",
+   "overcome": "#E0303E",
+   "resisted": "#8C8A93",
+   "feeding": "#4AA860",
+   "drawing": "#C21F2E"
+  },
+  "why": "Lacquer-black translucent panels with bone-white text and gold trim follow the ukiyo-e art direction; ink is light because the panels are dark. Water's UI colour is lightened from the 3D indigo so it reads on black."
+ },
+ "phase_glyphs": {
+  "Wood": "木",
+  "Fire": "火",
+  "Earth": "土",
+  "Metal": "金",
+  "Water": "水",
+  "how": "drawn as text (the Five Phases' own characters) inside a brush circle in the phase colour; no image needed"
+ },
+ "icons": {
+  "style": "flat ukiyo-e woodblock game icon, bold black outline, simple shape",
+  "assets": [
+   {
+    "name": "rel_resisted",
+    "group": "relation",
+    "prompt": "a grey round shield"
+   },
+   {
+    "name": "rel_feeding",
+    "group": "relation",
+    "prompt": "a green leaf"
+   },
+   {
+    "name": "rel_drawing",
+    "group": "relation",
+    "prompt": "three glowing crimson orbs"
+   },
+   {
+    "name": "st_stun",
+    "group": "status",
+    "prompt": "a dizzy yellow spiral"
+   },
+   {
+    "name": "st_slow",
+    "group": "status",
+    "prompt": "a heavy iron ball and chain"
+   },
+   {
+    "name": "st_root",
+    "group": "status",
+    "prompt": "twisted green roots"
+   },
+   {
+    "name": "st_bound",
+    "group": "status",
+    "prompt": "a coiled iron chain"
+   },
+   {
+    "name": "st_silence",
+    "group": "status",
+    "prompt": "a paper talisman with a red stamp"
+   },
+   {
+    "name": "st_burn",
+    "group": "status",
+    "prompt": "a small orange flame"
+   },
+   {
+    "name": "st_purified",
+    "group": "status",
+    "prompt": "a pile of white salt"
+   },
+   {
+    "name": "st_superarmor",
+    "group": "status",
+    "prompt": "a gold stone shield"
+   },
+   {
+    "name": "st_sprout",
+    "group": "status",
+    "prompt": "a green seedling"
+   },
+   {
+    "name": "st_coin",
+    "group": "status",
+    "prompt": "a bronze coin with a square hole"
+   },
+   {
+    "name": "st_sap",
+    "group": "status",
+    "prompt": "a drop of amber sap"
+   },
+   {
+    "name": "tsuta_m1",
+    "group": "Tsuta",
+    "prompt": "a closed green paper umbrella"
+   },
+   {
+    "name": "tsuta_root_snare",
+    "group": "Tsuta",
+    "prompt": "green roots bursting from the ground"
+   },
+   {
+    "name": "tsuta_seed_volley",
+    "group": "Tsuta",
+    "prompt": "five green seeds flying in a fan"
+   },
+   {
+    "name": "tsuta_canopy_guard",
+    "group": "Tsuta",
+    "prompt": "an open green umbrella like a shield"
+   },
+   {
+    "name": "tsuta_graft",
+    "group": "Tsuta",
+    "prompt": "a green vine lashing forward"
+   },
+   {
+    "name": "tsuta_ult",
+    "group": "Tsuta",
+    "prompt": "a giant tree of roots with red flowers"
+   },
+   {
+    "name": "hibiki_m1",
+    "group": "Hibiki",
+    "prompt": "two crossed wooden drumsticks"
+   },
+   {
+    "name": "hibiki_war_beat",
+    "group": "Hibiki",
+    "prompt": "a taiko drum with a fire ring"
+   },
+   {
+    "name": "hibiki_fire_roll",
+    "group": "Hibiki",
+    "prompt": "a line of flame geysers"
+   },
+   {
+    "name": "hibiki_kakegoe",
+    "group": "Hibiki",
+    "prompt": "an orange shout burst"
+   },
+   {
+    "name": "hibiki_thunder_roll",
+    "group": "Hibiki",
+    "prompt": "a drum blasting a cone of fire"
+   },
+   {
+    "name": "hibiki_ult",
+    "group": "Hibiki",
+    "prompt": "a ring of red taiko drums"
+   },
+   {
+    "name": "iwao_m1",
+    "group": "Iwao",
+    "prompt": "an open palm strike"
+   },
+   {
+    "name": "iwao_shiko",
+    "group": "Iwao",
+    "prompt": "a bare foot stomping cracked ground"
+   },
+   {
+    "name": "iwao_boulder_grip",
+    "group": "Iwao",
+    "prompt": "two hands lifting a boulder"
+   },
+   {
+    "name": "iwao_salt",
+    "group": "Iwao",
+    "prompt": "a handful of white salt thrown"
+   },
+   {
+    "name": "iwao_tachiai",
+    "group": "Iwao",
+    "prompt": "a charging shoulder with dust"
+   },
+   {
+    "name": "iwao_ult",
+    "group": "Iwao",
+    "prompt": "a ring of grey stones"
+   },
+   {
+    "name": "kanemori_m1",
+    "group": "Kanemori",
+    "prompt": "a steel jitte truncheon"
+   },
+   {
+    "name": "kanemori_chain_lash",
+    "group": "Kanemori",
+    "prompt": "a flying iron chain with a weight"
+   },
+   {
+    "name": "kanemori_jitte_catch",
+    "group": "Kanemori",
+    "prompt": "a jitte catching a blade"
+   },
+   {
+    "name": "kanemori_iron_edict",
+    "group": "Kanemori",
+    "prompt": "iron spikes bursting from the ground"
+   },
+   {
+    "name": "kanemori_chase",
+    "group": "Kanemori",
+    "prompt": "a silver streak and a jitte"
+   },
+   {
+    "name": "kanemori_ult",
+    "group": "Kanemori",
+    "prompt": "chains bursting from the ground"
+   },
+   {
+    "name": "rokumon_m1",
+    "group": "Rokumon",
+    "prompt": "a wooden boat oar"
+   },
+   {
+    "name": "rokumon_riverpull",
+    "group": "Rokumon",
+    "prompt": "a ghostly blue wave curling inward"
+   },
+   {
+    "name": "rokumon_ferry",
+    "group": "Rokumon",
+    "prompt": "a glowing ghost boat"
+   },
+   {
+    "name": "rokumon_mist",
+    "group": "Rokumon",
+    "prompt": "swirling pale mist"
+   },
+   {
+    "name": "rokumon_toll",
+    "group": "Rokumon",
+    "prompt": "six bronze coins and a bell"
+   },
+   {
+    "name": "rokumon_ult",
+    "group": "Rokumon",
+    "prompt": "a huge blue flood wave"
+   },
+   {
+    "name": "elder_heart",
+    "group": "elder",
+    "prompt": "a glowing heart of twisted roots"
+   },
+   {
+    "name": "thirst_bud",
+    "group": "elder",
+    "prompt": "a closed red spider lily bud"
+   },
+   {
+    "name": "thirst_bloom",
+    "group": "elder",
+    "prompt": "an open red spider lily"
+   },
+   {
+    "name": "petal",
+    "group": "score",
+    "prompt": "one red spider lily petal"
+   },
+   {
+    "name": "lily_crown",
+    "group": "score",
+    "prompt": "a crown of red spider lilies"
+   }
+  ],
+  "glyphs": [
+   "close",
+   "tick",
+   "arrow (rel_overcome, drawn red)",
+   "star (difficulty)",
+   "lock"
+  ],
+  "route": "Planned: gen_icons_cf.py on Cloudflare Workers AI (CF_ACCOUNT_ID and CF_API_TOKEN, unset today), then icon_cutout.py and glyphs.py. Upload as Image, never Decal."
+ },
+ "rules": [
+  "Mobile first: every interactive control at least 88 px tall at the 1280x720 reference (44 pt on a phone).",
+  "Keep the thumbstick zone (bottom left), the jump zone (bottom right) and the 36 px top bar clear; the ability bar is bottom-centre.",
+  "The common action is one key or one tap; picking a fighter is two clicks (card, then Cross).",
+  "Never hardcode a text colour: ink, inkSoft, onDark from the theme.",
+  "Placeholders are strings the live code can never produce; samples are the longest strings it will write."
+ ],
+ "screens": [
+  {
+   "name": "HUD",
+   "kind": "hud",
+   "purpose": "everything a fighter reads mid-fight",
+   "elements": [
+    {
+     "name": "Vitals",
+     "where": "bottom-centre, above the AbilityBar",
+     "shows": "HealthBar, KiBar (glows and reads 'G READY' at 100), GuardBar; MendBar appears while mending",
+     "samples": [
+      "120 / 120",
+      "G READY"
+     ]
+    },
+    {
+     "name": "AbilityBar",
+     "where": "bottom-centre",
+     "shows": "Slot_M1 (four combo pips), Slot_1 to Slot_4, Slot_G; each with its key hint, icon, cooldown sweep and seconds left",
+     "samples": [
+      "12.5"
+     ]
+    },
+    {
+     "name": "PhaseBadge",
+     "where": "left of Vitals",
+     "shows": "your phase character in its colour, the phase name and your fighter",
+     "samples": [
+      "METAL",
+      "Kanemori"
+     ]
+    },
+    {
+     "name": "StatusRow",
+     "where": "above Vitals",
+     "shows": "up to six status icons with seconds left",
+     "samples": [
+      "2.5"
+     ]
+    },
+    {
+     "name": "PetalsPanel",
+     "where": "top-left below the top bar",
+     "shows": "Petals and the current streak",
+     "samples": [
+      "9,999",
+      "x10"
+     ]
+    },
+    {
+     "name": "ThirstMeter",
+     "where": "top-right below the top bar",
+     "shows": "the server's spilled Ki as a lily bud filling to bloom, with a percentage",
+     "samples": [
+      "100%"
+     ]
+    },
+    {
+     "name": "ElderBar",
+     "where": "top-centre, only while the Elder is awake",
+     "shows": "health, heart phase (character and colour), what overcomes it, next-phase timer, regen or wounded state, time left",
+     "samples": [
+      "Heart: FIRE  |  Wound it with WATER",
+      "3:59"
+     ]
+    },
+    {
+     "name": "KillFeed",
+     "where": "right edge, below the ThirstMeter",
+     "shows": "five lines: killer, victim, relation; ring-outs marked",
+     "samples": [
+      "AVeryLongDisplayName20 > AnotherLongName20 (OVERCOME)"
+     ]
+    },
+    {
+     "name": "ComboCounter",
+     "where": "right of centre",
+     "shows": "hits in the current combo",
+     "samples": [
+      "12 HITS"
+     ]
+    },
+    {
+     "name": "Announcement",
+     "where": "top-centre banner",
+     "shows": "Elder wakes, streaks, Lily Crown",
+     "samples": [
+      "THE THIRSTING ELDER WAKES - ITS HEART IS FIRE"
+     ]
+    },
+    {
+     "name": "RewardPopup",
+     "where": "centre, after the Elder falls",
+     "shows": "+Petals, Elder's Sap for 120 s, and the Lily Crown for the top contributor",
+     "samples": [
+      "+30 PETALS",
+      "ELDER'S SAP 120s",
+      "YOU WEAR THE LILY CROWN"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "PhaseSelect",
+   "kind": "page",
+   "purpose": "pick a fighter; the screen teaches the Five Phases",
+   "elements": [
+    {
+     "name": "PhaseWheel",
+     "where": "centre-left",
+     "shows": "the five phases on a circle: generating arrows around the rim, the overcoming star inside"
+    },
+    {
+     "name": "FighterCard_Tsuta",
+     "where": "a point of the wheel",
+     "shows": "phase character, name, role and difficulty stars"
+    },
+    {
+     "name": "FighterCard_Hibiki",
+     "where": "a point of the wheel",
+     "shows": "phase character, name, role and difficulty stars"
+    },
+    {
+     "name": "FighterCard_Iwao",
+     "where": "a point of the wheel",
+     "shows": "phase character, name, role and difficulty stars"
+    },
+    {
+     "name": "FighterCard_Kanemori",
+     "where": "a point of the wheel",
+     "shows": "phase character, name, role and difficulty stars"
+    },
+    {
+     "name": "FighterCard_Rokumon",
+     "where": "a point of the wheel",
+     "shows": "phase character, name, role and difficulty stars"
+    },
+    {
+     "name": "FighterDetail_Tsuta",
+     "where": "right panel, one visible at a time",
+     "shows": "name and title, role, difficulty, passive, and six move rows (icon, key, name, one line)",
+     "samples": [
+      "Festival of a Thousand Drums"
+     ]
+    },
+    {
+     "name": "FighterDetail_Hibiki",
+     "where": "right panel, one visible at a time",
+     "shows": "name and title, role, difficulty, passive, and six move rows (icon, key, name, one line)",
+     "samples": [
+      "Festival of a Thousand Drums"
+     ]
+    },
+    {
+     "name": "FighterDetail_Iwao",
+     "where": "right panel, one visible at a time",
+     "shows": "name and title, role, difficulty, passive, and six move rows (icon, key, name, one line)",
+     "samples": [
+      "Festival of a Thousand Drums"
+     ]
+    },
+    {
+     "name": "FighterDetail_Kanemori",
+     "where": "right panel, one visible at a time",
+     "shows": "name and title, role, difficulty, passive, and six move rows (icon, key, name, one line)",
+     "samples": [
+      "Festival of a Thousand Drums"
+     ]
+    },
+    {
+     "name": "FighterDetail_Rokumon",
+     "where": "right panel, one visible at a time",
+     "shows": "name and title, role, difficulty, passive, and six move rows (icon, key, name, one line)",
+     "samples": [
+      "Festival of a Thousand Drums"
+     ]
+    },
+    {
+     "name": "CounterHint",
+     "where": "under the detail panel",
+     "shows": "what this fighter overcomes and what overcomes it",
+     "samples": [
+      "Overcomes EARTH  |  Overcome by METAL"
+     ]
+    },
+    {
+     "name": "CrossButton",
+     "where": "bottom-right of the detail panel",
+     "shows": "confirm the pick",
+     "samples": [
+      "CROSS"
+     ]
+    },
+    {
+     "name": "CloseButton",
+     "where": "top-right",
+     "shows": "close without changing"
+    }
+   ]
+  },
+  {
+   "name": "DeathRecap",
+   "kind": "page",
+   "purpose": "turn a loss into a lesson and a counter-pick",
+   "elements": [
+    {
+     "name": "KillerCard",
+     "where": "centre",
+     "shows": "who beat you, their fighter and phase, and the relation",
+     "samples": [
+      "They OVERCAME you: METAL overcomes WOOD"
+     ]
+    },
+    {
+     "name": "CounterPick",
+     "where": "below KillerCard",
+     "shows": "the phase that overcomes them and a button that opens PhaseSelect with it highlighted",
+     "samples": [
+      "Counter with FIRE (Hibiki)"
+     ]
+    },
+    {
+     "name": "RespawnTimer",
+     "where": "bottom-centre",
+     "samples": [
+      "Respawning in 4"
+     ]
+    },
+    {
+     "name": "SameFighterButton",
+     "where": "bottom-centre",
+     "samples": [
+      "SAME FIGHTER"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "TouchControls",
+   "kind": "hud",
+   "purpose": "phones are most of the genre's audience; shown only on touch devices",
+   "elements": [
+    {
+     "name": "TouchAttack",
+     "where": "largest, bottom-right above the jump button"
+    },
+    {
+     "name": "TouchBlock",
+     "where": "left of TouchAttack"
+    },
+    {
+     "name": "TouchDash",
+     "where": "above TouchAttack"
+    },
+    {
+     "name": "TouchAbility1",
+     "where": "arc around TouchAttack"
+    },
+    {
+     "name": "TouchAbility2",
+     "where": "arc"
+    },
+    {
+     "name": "TouchAbility3",
+     "where": "arc"
+    },
+    {
+     "name": "TouchAbility4",
+     "where": "arc"
+    },
+    {
+     "name": "TouchUlt",
+     "where": "top of the arc, glows at 100 Ki"
+    },
+    {
+     "name": "TouchMend",
+     "where": "hold to mend, left of the arc"
+    },
+    {
+     "name": "TouchPhase",
+     "where": "small, top-right, opens PhaseSelect"
+    }
+   ]
+  }
+ ],
+ "billboards": [
+  {
+   "name": "PhaseNameplate",
+   "over": "every player's head",
+   "shows": "display name, phase character in its colour, a thin health bar"
+  },
+  {
+   "name": "RelationIndicator",
+   "over": "the enemy you target (last hit or nearest in front)",
+   "shows": "the relation icon and word, coloured",
+   "samples": [
+    "OVERCOME",
+    "RESISTED",
+    "FEEDING",
+    "DRAWING"
+   ]
+  },
+  {
+   "name": "DamageNumber",
+   "over": "each hit",
+   "shows": "damage, coloured by relation, rising and fading",
+   "samples": [
+    "-24"
+   ]
+  },
+  {
+   "name": "DummyPhaseLabel",
+   "over": "each training dummy",
+   "shows": "its phase character and name and your relation to it",
+   "samples": [
+    "WATER DUMMY - you OVERCOME it"
+   ]
+  }
+ ],
+ "note": "roblox-ui spec. One tree emits the mockup, the .model.json and the Luau. Section 3 writes a spec generator with ui_kit.py from these screens; every name above is an instance name the asset plan checks for."
+}

@@ -1,0 +1,101 @@
+{
+  "name": "HiganbanaBattlegrounds",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "Shared": { "$path": "src/shared" },
+      "Remotes": {
+        "$className": "Folder",
+        "Action": { "$className": "RemoteEvent" },
+        "SetBlock": { "$className": "RemoteEvent" },
+        "Dash": { "$className": "RemoteEvent" },
+        "Mend": { "$className": "RemoteEvent" },
+        "SelectFighter": { "$className": "RemoteEvent" },
+        "MoveFx": { "$className": "RemoteEvent" },
+        "PhaseFx": { "$className": "RemoteEvent" },
+        "HitFx": { "$className": "RemoteEvent" },
+        "ProjectileFx": { "$className": "RemoteEvent" },
+        "ElderFx": { "$className": "RemoteEvent" },
+        "Impulse": { "$className": "RemoteEvent" },
+        "Teleport": { "$className": "RemoteEvent" },
+        "Notify": { "$className": "RemoteEvent" }
+      }
+    },
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+      "Server": { "$path": "src/server" }
+    },
+    "StarterPlayer": {
+      "$className": "StarterPlayer",
+      "$properties": {
+        "CameraMaxZoomDistance": 45,
+        "EnableMouseLockOption": true,
+        "CharacterWalkSpeed": 16
+      },
+      "StarterPlayerScripts": {
+        "$className": "StarterPlayerScripts",
+        "Client": { "$path": "src/client" }
+      }
+    },
+    "Workspace": {
+      "$className": "Workspace",
+      "$properties": {
+        "StreamingEnabled": false,
+        "FallenPartsDestroyHeight": -500
+      }
+    },
+    "Players": {
+      "$className": "Players",
+      "$properties": { "RespawnTime": 4, "CharacterAutoLoads": true }
+    },
+    "Lighting": {
+      "$className": "Lighting",
+      "$properties": {
+        "Technology": "Future",
+        "ClockTime": 17.65,
+        "GeographicLatitude": 18,
+        "Brightness": 2.1,
+        "ExposureCompensation": 0.05,
+        "Ambient": [0.11, 0.1, 0.13],
+        "OutdoorAmbient": [0.38, 0.38, 0.44],
+        "ColorShift_Top": [1, 0.6, 0.45],
+        "ColorShift_Bottom": [0.25, 0.35, 0.5],
+        "EnvironmentDiffuseScale": 1,
+        "EnvironmentSpecularScale": 1,
+        "GlobalShadows": true,
+        "ShadowSoftness": 0.3
+      },
+      "Atmosphere": {
+        "$className": "Atmosphere",
+        "$properties": {
+          "Density": 0.4,
+          "Offset": 0.2,
+          "Color": [0.58, 0.64, 0.64],
+          "Decay": [0.32, 0.36, 0.42],
+          "Glare": 0.4,
+          "Haze": 2
+        }
+      },
+      "Bloom": {
+        "$className": "BloomEffect",
+        "$properties": { "Intensity": 0.8, "Size": 32, "Threshold": 1.05 }
+      },
+      "Grade": {
+        "$className": "ColorCorrectionEffect",
+        "$properties": {
+          "Brightness": 0.01,
+          "Contrast": 0.14,
+          "Saturation": 0.06,
+          "TintColor": [1, 0.96, 0.95]
+        }
+      },
+      "SunRays": {
+        "$className": "SunRaysEffect",
+        "$properties": { "Intensity": 0.08, "Spread": 0.55 }
+      }
+    },
+    "SoundService": { "$className": "SoundService" },
+    "StarterGui": { "$className": "StarterGui" }
+  }
+}

@@ -1,0 +1,1087 @@
+{
+ "name": "FarShore",
+ "profile": "default",
+ "note": "The Far Shore: a cliff-edged plateau over a sea of mist, cut east-west by the dry, pale bed of the river of the dead. South bank: the Ferry Landing (spawn, select lantern, safe zone) with a pier over the dry bed and a torii before the stone bridge. Centre: the riverbed, the main arena, with stranded boats and cairns for cover and the bridge overhead. West reach: the Jizo Beach, a pebble bar in a cove (no PvP, five phase dummies). South-east: the Lily Fields on a low hill. North bank: the Elder's Grove on a gentle rise, with barrows to the west and a pine bluff to the east. Authored at spec heights; volume.lift raises everything by 8 in game. Parts on terrain sit at the terrain height (pads are flat; smooth terrain surfaces about 2 studs above the heightfield). This is the greybox: no part carries a mesh yet, because T9 judges a dressed map as a whole; dressing_plan lists what replaces what in section 3. Build the final layout against the references below, never from imagination. Run: python scripts/build_map.py <this spec>",
+ "references": [
+  {
+   "for": "Jizo Beach and the riverbed stones",
+   "subject": "Osorezan's Sai no Kawara (Aomori): barren pale stone fields, stacked cairns, pinwheels, red-bibbed Jizo statues"
+  },
+  {
+   "for": "Lily Fields",
+   "subject": "Kinchakuda spider-lily fields (Hidaka, Saitama): carpets of red spider lilies under trees at the autumn equinox"
+  },
+  {
+   "for": "the bridge",
+   "subject": "Meganebashi (Nagasaki): a low double-arched stone bridge over a shallow river"
+  },
+  {
+   "for": "the riverbed and the boats",
+   "subject": "a dry gravel riverbed with beached wooden boats"
+  },
+  {
+   "for": "palette and mood",
+   "subject": "public-domain Edo-period ukiyo-e landscape prints at dusk"
+  }
+ ],
+ "theme_plan": "Section 3 runs theme.py extract on the downloaded references to make themes/far_shore.json, then sets \"theme\" here. Until then the spec names no theme, so the blockout builds without one.",
+ "look": "Eternal dusk: a low sun in the west behind the mist, teal-grey fog, bloom on lilies and lanterns, warm highlights and cool shadows; Lighting.Technology Future. Terrain colours: Grass a dusky olive, Limestone bone-pale, Mud dark red-brown.",
+ "volume": {
+  "bounds": [
+   [
+    -320,
+    -100,
+    -320
+   ],
+   [
+    320,
+    200,
+    320
+   ]
+  ],
+  "killPlane": -70,
+  "ringOutOffset": 10,
+  "lift": 8,
+  "note": "A fall off any cliff reaches the kill plane in about a second; the ring-out fires at killPlane + ringOutOffset and is credited to the last hitter."
+ },
+ "terrain": {
+  "size": [
+   640,
+   640
+  ],
+  "seed": 23,
+  "seaFloor": -90,
+  "seaFloorRough": 4,
+  "tide": {
+   "low": -96,
+   "high": -92,
+   "periodSeconds": 480
+  },
+  "note_tide": "The tide sits below the sea floor on purpose: the river has run dry and the edge is a sea of mist (Atmosphere), not water.",
+  "materialZones": [
+   {
+    "center": [
+     0,
+     0
+    ],
+    "radius": 330,
+    "above": 14,
+    "below": 25,
+    "material": "Limestone",
+    "why": "the dry riverbed floor and low banks read bone-pale against the crimson lilies"
+   }
+  ],
+  "landforms": [
+   {
+    "name": "FarShore",
+    "center": [
+     0,
+     0
+    ],
+    "radius": [
+     280,
+     268
+    ],
+    "lobes": 5,
+    "lobeAmp": 0.06,
+    "rough": 5,
+    "roughRamp": 40,
+    "blend": 12,
+    "profile": [
+     [
+      -32,
+      -90
+     ],
+     [
+      0,
+      34
+     ],
+     [
+      14,
+      44
+     ],
+     [
+      300,
+      48
+     ]
+    ]
+   },
+   {
+    "name": "NorthRise",
+    "center": [
+     0,
+     -180
+    ],
+    "radius": [
+     160,
+     70
+    ],
+    "rough": 3,
+    "blend": 14,
+    "profile": [
+     [
+      0,
+      44
+     ],
+     [
+      40,
+      50
+     ],
+     [
+      70,
+      52
+     ]
+    ]
+   },
+   {
+    "name": "LilyHill",
+    "center": [
+     150,
+     140
+    ],
+    "radius": [
+     70,
+     55
+    ],
+    "rough": 4,
+    "blend": 12,
+    "profile": [
+     [
+      0,
+      44
+     ],
+     [
+      30,
+      50
+     ],
+     [
+      55,
+      54
+     ]
+    ]
+   },
+   {
+    "name": "PineBluff",
+    "center": [
+     170,
+     -140
+    ],
+    "radius": [
+     70,
+     50
+    ],
+    "rough": 4,
+    "blend": 12,
+    "profile": [
+     [
+      0,
+      44
+     ],
+     [
+      25,
+      52
+     ],
+     [
+      50,
+      56
+     ]
+    ]
+   },
+   {
+    "name": "BambooRidge",
+    "center": [
+     -120,
+     180
+    ],
+    "radius": [
+     70,
+     40
+    ],
+    "rough": 4,
+    "blend": 12,
+    "profile": [
+     [
+      0,
+      44
+     ],
+     [
+      20,
+      50
+     ],
+     [
+      40,
+      52
+     ]
+    ]
+   },
+   {
+    "name": "Barrows",
+    "center": [
+     -160,
+     -130
+    ],
+    "radius": [
+     60,
+     40
+    ],
+    "lobes": 3,
+    "lobeAmp": 0.2,
+    "rough": 3,
+    "blend": 10,
+    "profile": [
+     [
+      0,
+      44
+     ],
+     [
+      15,
+      49
+     ],
+     [
+      40,
+      51
+     ]
+    ]
+   },
+   {
+    "name": "SanzuBed",
+    "points": [
+     [
+      -340,
+      34
+     ],
+     [
+      -220,
+      14
+     ],
+     [
+      -100,
+      24
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      110,
+      -16
+     ],
+     [
+      220,
+      -2
+     ],
+     [
+      340,
+      18
+     ]
+    ],
+    "width": 80,
+    "warp": 6,
+    "op": "smin",
+    "rough": 2,
+    "blend": 8,
+    "profile": [
+     [
+      0,
+      46
+     ],
+     [
+      30,
+      34
+     ],
+     [
+      56,
+      24
+     ],
+     [
+      80,
+      22
+     ]
+    ],
+    "why": "the dry river: a 48-stud floor at ~22 with banks under 22 degrees, open at both ends as dry falls over the cliff"
+   }
+  ],
+  "pads": [
+   {
+    "name": "FerryLanding",
+    "center": [
+     0,
+     150
+    ],
+    "radius": 40,
+    "material": "Slate",
+    "height": 44,
+    "reason": "the flagstone quay where every soul lands: spawns, the fighter-select lantern and the safe zone"
+   },
+   {
+    "name": "JizoBeach",
+    "center": [
+     -196,
+     40
+    ],
+    "radius": 40,
+    "material": "Cobblestone",
+    "height": 26,
+    "reason": "a pebble bar in a cove of the river's west reach: the no-PvP training ground with the five phase dummies"
+   },
+   {
+    "name": "EldersGrove",
+    "center": [
+     0,
+     -190
+    ],
+    "radius": 60,
+    "material": "Mud",
+    "height": 52,
+    "reason": "a clearing of dark soil around the Elder's roots: the world-boss arena"
+   }
+  ],
+  "paths": [
+   {
+    "name": "LanternTrail",
+    "points": [
+     [
+      -30,
+      140
+     ],
+     [
+      -80,
+      128
+     ],
+     [
+      -130,
+      112
+     ],
+     [
+      -170,
+      86
+     ]
+    ],
+    "width": 10,
+    "maxGrade": 20,
+    "material": "Ground",
+    "why": "the tutorial's lantern trail from the landing down to the Jizo Beach"
+   },
+   {
+    "name": "GroveRoad",
+    "points": [
+     [
+      0,
+      -96
+     ],
+     [
+      0,
+      -130
+     ]
+    ],
+    "width": 12,
+    "maxGrade": 20,
+    "material": "Ground",
+    "why": "from the bridge's north end up to the grove"
+   }
+  ],
+  "zones": [
+   {
+    "name": "FerryLanding",
+    "center": [
+     0,
+     150
+    ],
+    "radius": 40,
+    "rule": "safe zone: no damage dealt or taken"
+   },
+   {
+    "name": "Riverbed",
+    "center": [
+     60,
+     -8
+    ],
+    "radius": 40,
+    "rule": "free-for-all"
+   },
+   {
+    "name": "JizoBeach",
+    "center": [
+     -196,
+     40
+    ],
+    "radius": 34,
+    "rule": "no PvP; dummies only; Ki earned here rolls back on leaving"
+   },
+   {
+    "name": "LilyFields",
+    "center": [
+     150,
+     140
+    ],
+    "radius": 50,
+    "rule": "free-for-all"
+   },
+   {
+    "name": "EldersGrove",
+    "center": [
+     0,
+     -170
+    ],
+    "radius": 40,
+    "rule": "free-for-all; the boss arena while the Elder is awake"
+   },
+   {
+    "name": "Barrows",
+    "center": [
+     -160,
+     -130
+    ],
+    "radius": 30,
+    "rule": "free-for-all"
+   },
+   {
+    "name": "PineBluff",
+    "center": [
+     170,
+     -140
+    ],
+    "radius": 30,
+    "rule": "free-for-all"
+   }
+  ]
+ },
+ "parts": [
+  {
+   "id": "BridgeDeck",
+   "size": [
+    18,
+    3,
+    176
+   ],
+   "pos": [
+    0,
+    44.5,
+    0
+   ],
+   "material": "Slate",
+   "color": [
+    214,
+    208,
+    196
+   ],
+   "roles": [
+    "bridge",
+    "high_ground"
+   ],
+   "note": "the stone bridge over the riverbed, top at 46"
+  },
+  {
+   "id": "BridgeRampN",
+   "size": [
+    18,
+    2,
+    10
+   ],
+   "pos": [
+    0,
+    45,
+    -93
+   ],
+   "ramp": "+z",
+   "material": "Slate",
+   "color": [
+    214,
+    208,
+    196
+   ],
+   "roles": [
+    "bridge"
+   ],
+   "grounded": true
+  },
+  {
+   "id": "BridgeRampS",
+   "size": [
+    18,
+    2,
+    10
+   ],
+   "pos": [
+    0,
+    45,
+    93
+   ],
+   "ramp": "-z",
+   "material": "Slate",
+   "color": [
+    214,
+    208,
+    196
+   ],
+   "roles": [
+    "bridge"
+   ],
+   "grounded": true
+  },
+  {
+   "id": "BridgePier",
+   "size": [
+    12,
+    26,
+    10
+   ],
+   "pos": [
+    0,
+    31,
+    0
+   ],
+   "material": "Slate",
+   "color": [
+    190,
+    184,
+    172
+   ],
+   "roles": [
+    "hard_cover",
+    "sightline_break"
+   ],
+   "grounded": true,
+   "note": "the central pier of the double arch"
+  },
+  {
+   "id": "BridgeParapetE",
+   "size": [
+    1.5,
+    3,
+    176
+   ],
+   "pos": [
+    8.25,
+    47.5,
+    0
+   ],
+   "material": "Slate",
+   "color": [
+    214,
+    208,
+    196
+   ],
+   "roles": [
+    "low_cover"
+   ]
+  },
+  {
+   "id": "BridgeParapetW",
+   "size": [
+    1.5,
+    3,
+    176
+   ],
+   "pos": [
+    -8.25,
+    47.5,
+    0
+   ],
+   "material": "Slate",
+   "color": [
+    214,
+    208,
+    196
+   ],
+   "roles": [
+    "low_cover"
+   ]
+  },
+  {
+   "id": "PierDeck",
+   "size": [
+    12,
+    2,
+    50
+   ],
+   "pos": [
+    -50,
+    45,
+    100
+   ],
+   "material": "WoodPlanks",
+   "color": [
+    107,
+    98,
+    89
+   ],
+   "roles": [
+    "landmark"
+   ],
+   "note": "the ferry pier, ending in the air over the dry bank"
+  },
+  {
+   "id": "ToriiPostE",
+   "size": [
+    2.4,
+    23,
+    2.4
+   ],
+   "pos": [
+    9,
+    52.5,
+    104
+   ],
+   "material": "SmoothPlastic",
+   "color": [
+    200,
+    52,
+    36
+   ],
+   "roles": [
+    "landmark"
+   ],
+   "grounded": true
+  },
+  {
+   "id": "ToriiPostW",
+   "size": [
+    2.4,
+    23,
+    2.4
+   ],
+   "pos": [
+    -9,
+    52.5,
+    104
+   ],
+   "material": "SmoothPlastic",
+   "color": [
+    200,
+    52,
+    36
+   ],
+   "roles": [
+    "landmark"
+   ],
+   "grounded": true
+  },
+  {
+   "id": "ToriiLintel",
+   "size": [
+    28,
+    2.4,
+    3
+   ],
+   "pos": [
+    0,
+    64.5,
+    104
+   ],
+   "material": "SmoothPlastic",
+   "color": [
+    27,
+    26,
+    31
+   ],
+   "roles": [
+    "landmark"
+   ]
+  },
+  {
+   "id": "FerrymanHut",
+   "size": [
+    20,
+    14,
+    16
+   ],
+   "pos": [
+    28,
+    51,
+    172
+   ],
+   "material": "WoodPlanks",
+   "color": [
+    59,
+    48,
+    42
+   ],
+   "roles": [
+    "structure",
+    "landmark"
+   ],
+   "grounded": true
+  },
+  {
+   "id": "SelectLantern",
+   "size": [
+    3,
+    7,
+    3
+   ],
+   "pos": [
+    0,
+    47.5,
+    128
+   ],
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "landmark",
+    "interactable"
+   ],
+   "grounded": true,
+   "note": "the Ferryman's Lantern: a ProximityPrompt opens Phase Select"
+  },
+  {
+   "id": "BoatA",
+   "size": [
+    8,
+    5,
+    24
+   ],
+   "pos": [
+    -60,
+    24,
+    20
+   ],
+   "yaw": 25,
+   "material": "WoodPlanks",
+   "color": [
+    107,
+    98,
+    89
+   ],
+   "roles": [
+    "hard_cover",
+    "sightline_break"
+   ],
+   "grounded": true
+  },
+  {
+   "id": "BoatB",
+   "size": [
+    8,
+    5,
+    24
+   ],
+   "pos": [
+    60,
+    24,
+    -20
+   ],
+   "yaw": -20,
+   "material": "WoodPlanks",
+   "color": [
+    107,
+    98,
+    89
+   ],
+   "roles": [
+    "hard_cover",
+    "sightline_break"
+   ],
+   "grounded": true
+  },
+  {
+   "id": "BoatC",
+   "size": [
+    8,
+    5,
+    24
+   ],
+   "pos": [
+    130,
+    24,
+    -2
+   ],
+   "yaw": 75,
+   "material": "WoodPlanks",
+   "color": [
+    107,
+    98,
+    89
+   ],
+   "roles": [
+    "hard_cover",
+    "sightline_break"
+   ],
+   "grounded": true
+  },
+  {
+   "id": "BoatD",
+   "size": [
+    8,
+    5,
+    24
+   ],
+   "pos": [
+    -120,
+    24,
+    10
+   ],
+   "yaw": -35,
+   "material": "WoodPlanks",
+   "color": [
+    107,
+    98,
+    89
+   ],
+   "roles": [
+    "hard_cover",
+    "sightline_break"
+   ],
+   "grounded": true
+  },
+  {
+   "id": "BoatE",
+   "size": [
+    8,
+    5,
+    24
+   ],
+   "pos": [
+    200,
+    24,
+    -18
+   ],
+   "yaw": 15,
+   "material": "WoodPlanks",
+   "color": [
+    107,
+    98,
+    89
+   ],
+   "roles": [
+    "hard_cover",
+    "sightline_break"
+   ],
+   "grounded": true
+  },
+  {
+   "id": "CairnA",
+   "size": [
+    5,
+    4,
+    5
+   ],
+   "pos": [
+    -30,
+    23.5,
+    0
+   ],
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "low_cover"
+   ],
+   "grounded": true
+  },
+  {
+   "id": "CairnB",
+   "size": [
+    5,
+    4,
+    5
+   ],
+   "pos": [
+    25,
+    23.5,
+    12
+   ],
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "low_cover"
+   ],
+   "grounded": true
+  },
+  {
+   "id": "CairnC",
+   "size": [
+    5,
+    4,
+    5
+   ],
+   "pos": [
+    95,
+    23.5,
+    -30
+   ],
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "low_cover"
+   ],
+   "grounded": true
+  },
+  {
+   "id": "CairnD",
+   "size": [
+    5,
+    4,
+    5
+   ],
+   "pos": [
+    170,
+    23.5,
+    4
+   ],
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "low_cover"
+   ],
+   "grounded": true
+  },
+  {
+   "id": "ElderTrunkBlock",
+   "size": [
+    24,
+    90,
+    24
+   ],
+   "pos": [
+    0,
+    97,
+    -215
+   ],
+   "material": "Wood",
+   "color": [
+    74,
+    38,
+    34
+   ],
+   "roles": [
+    "landmark",
+    "structure",
+    "boss_anchor"
+   ],
+   "grounded": true,
+   "note": "stand-in for the Elder until ElderService spawns the rigged tree here; seen from the whole map"
+  }
+ ],
+ "spawns": [
+  [
+   0,
+   47,
+   150
+  ],
+  [
+   -16,
+   47,
+   146
+  ],
+  [
+   16,
+   47,
+   146
+  ],
+  [
+   -12,
+   47,
+   164
+  ],
+  [
+   12,
+   47,
+   164
+  ],
+  [
+   0,
+   47,
+   176
+  ]
+ ],
+ "intent": {
+  "reachable": [
+   "BridgeDeck",
+   "PierDeck"
+  ],
+  "note": "Every zone is walkable from the landing: the banks stay under 22 degrees, the bridge has ramps at both ends, the beach cove opens onto the bed."
+ },
+ "sightlines": {
+  "minClearFraction": 0.25,
+  "maxClearFraction": 0.95,
+  "note": "An open brawler: long sightlines over the riverbed are intended for zoners; the boats, cairns, bridge pier and the hills break them."
+ },
+ "open_edges": "By design. The Far Shore is a plateau over a sea of mist: its cliffs and the two dry falls where the riverbed meets the edge are the ring-out boundary, and a fall is a death credited to the last hitter within 10 s. Barrier walls would remove the genre's ring-out play, so there are none.",
+ "dressing_plan": [
+  {
+   "mesh": "SpiderLilyCluster",
+   "count": "1500-2500, streamed",
+   "where": "drifts on both banks, the Lily Fields hill and the grove edge; none on the riverbed floor or the quay"
+  },
+  {
+   "mesh": "FerryBoat",
+   "count": 6,
+   "where": "replaces BoatA-E; one more beached under the pier"
+  },
+  {
+   "mesh": "StoneCairn",
+   "count": 45,
+   "where": "replaces CairnA-D; the rest across the Jizo Beach and the riverbed floor"
+  },
+  {
+   "mesh": "JizoStatue",
+   "count": 12,
+   "where": "a row along the beach cove wall and two by the lantern trail"
+  },
+  {
+   "mesh": "StoneLantern",
+   "count": 16,
+   "where": "every 24 studs along both bridge approaches and the lantern trail; two beside the select lantern"
+  },
+  {
+   "mesh": "ToriiGate",
+   "count": 1,
+   "where": "replaces ToriiPostE, ToriiPostW and ToriiLintel"
+  },
+  {
+   "mesh": "FerryPier",
+   "count": 1,
+   "where": "replaces PierDeck"
+  },
+  {
+   "mesh": "FerrymanHut",
+   "count": 1,
+   "where": "replaces the FerrymanHut block"
+  },
+  {
+   "mesh": "BridgeParapet",
+   "count": 22,
+   "where": "11 sections along each side of the deck, replacing BridgeParapetE and W"
+  },
+  {
+   "mesh": "NoboriBanner",
+   "count": 14,
+   "where": "a broken ring around the grove and on the barrows"
+  },
+  {
+   "mesh": "ArmorPile",
+   "count": 10,
+   "where": "the grove and the barrows, among the Elder's roots"
+  },
+  {
+   "mesh": "BambooCluster",
+   "count": 16,
+   "where": "the Bamboo Ridge and the east edge of the Lily Fields"
+  },
+  {
+   "mesh": "DeadPine",
+   "count": 14,
+   "where": "the Pine Bluff and the cliff rim, as silhouettes against the dusk"
+  }
+ ]
+}
