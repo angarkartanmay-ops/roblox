@@ -62,6 +62,10 @@ local SAP = Color3.fromRGB(224, 150, 40)
 local KI = Color3.fromRGB(224, 48, 62)
 local RED = Color3.fromRGB(235, 52, 52)
 local BLOCK_BLUE = Color3.fromRGB(150, 210, 255)
+-- Leaves and straw are smooth plastic in their own colour, not Grass or Fabric: those take their look
+-- from material textures fetched from Roblox's CDN, and where that fetch fails (measured) they render
+-- as flat near-black or dull grey.
+local SOFT = Enum.Material.SmoothPlastic
 
 local predicted: { [string]: number } = {}
 local confirmListeners: { (string) -> () } = {}
@@ -449,22 +453,23 @@ local function coins(position: Vector3, count: number)
 	end
 end
 
--- A phantom drum: a short cylinder with a pale skin, used by Hibiki's ultimate.
-local function drum(cframe: CFrame, scale: number, duration: number)
+-- A phantom drum: a short cylinder with a pale skin, used by Hibiki's ultimate. A `ghost` drum is
+-- nearly clear (one sitting by the viewer's camera would otherwise fill the screen).
+local function drum(cframe: CFrame, scale: number, duration: number, ghost: boolean?)
 	local body = Effects.part({
 		Shape = Enum.PartType.Cylinder,
 		Size = Vector3.new(2.4 * scale, 3.2 * scale, 3.2 * scale),
 		CFrame = cframe,
 		Color = FLAME,
 		Material = Enum.Material.SmoothPlastic,
-		Transparency = 0.35,
+		Transparency = if ghost then 0.88 else 0.35,
 	})
 	local skin = Effects.part({
 		Shape = Enum.PartType.Cylinder,
 		Size = Vector3.new(2.5 * scale, 2.9 * scale, 2.9 * scale),
 		CFrame = cframe,
 		Color = SALT,
-		Transparency = 0.45,
+		Transparency = if ghost then 0.92 else 0.45,
 	})
 	for _, piece in { body, skin } do
 		Effects.tween(piece, duration, { Transparency = 1 }, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
@@ -551,7 +556,7 @@ MOVES.RootSnare = function(ctx: Context)
 	areaTelegraph(point, 7, math.max(0.1, ctx.start + strikeAt - now()), LEAF)
 	at(ctx, strikeAt, function()
 		spikes(point, 6, 14, 6, BARK, Enum.Material.Wood, 1.2)
-		spikes(point, 5, 6, 4, LEAF, Enum.Material.Grass, 1.2)
+		spikes(point, 5, 6, 4, LEAF, SOFT, 1.2)
 		Effects.debris(point, 8, BARK, 6, 5)
 		petals(point + UP, 10, 12)
 		SoundController.play("heavy", point, 1, 0.8)
@@ -707,10 +712,14 @@ MOVES.FestivalOfDrums = function(ctx: Context)
 		return
 	end
 	local center = ground
+	-- The ring stands around Hibiki, so for this viewer the drums by the camera are ghosts.
+	local camera = Workspace.CurrentCamera
+	local eye = if camera then camera.CFrame.Position else nil
 	for index = 0, 7 do
 		local angle = index / 8 * math.pi * 2
 		local spot = center + Vector3.new(math.cos(angle) * 10, 3, math.sin(angle) * 10)
-		drum(CFrame.lookAt(spot, center + UP * 3) * CFrame.Angles(0, math.rad(90), 0), 1, 2.4)
+		local ghost = eye ~= nil and (eye - spot).Magnitude < 12
+		drum(CFrame.lookAt(spot, center + UP * 3) * CFrame.Angles(0, math.rad(90), 0), 1, 2.4, ghost)
 	end
 	SoundController.play("bell", center, 1.2, 0.6)
 	if ctx.isLocal then
@@ -1043,7 +1052,7 @@ PHASES["Graft:Lash"] = function(ctx: Context, position: Vector3)
 		return
 	end
 	local start = root.Position
-	line(start, position, LEAF, 0.6, 0.5, Enum.Material.Grass)
+	line(start, position, LEAF, 0.6, 0.5, SOFT)
 	line(start, position, LILY, 0.25, 0.35)
 	Effects.burst(position, LEAF, 8, 14, 0.6, 0.3)
 	-- the drawn sap: green motes running back to Tsuta
@@ -1061,31 +1070,35 @@ end
 PHASES["Graft:Miss"] = function(ctx: Context, position: Vector3)
 	local root = rootOf(ctx.model)
 	if root then
-		line(root.Position, position, LEAF, 0.4, 0.3, Enum.Material.Grass)
+		line(root.Position, position, LEAF, 0.4, 0.3, SOFT)
 	end
 end
 
-PHASES["ThousandRootBloom:Erupt"] = function(_ctx: Context, position: Vector3)
+PHASES["ThousandRootBloom:Erupt"] = function(ctx: Context, position: Vector3)
 	local ground = Effects.ground(position, 20)
+	-- The tree rises a stride ahead of the caster: centred on them, it swallowed their own view.
+	local flat = Vector3.new(ctx.facing.X, 0, ctx.facing.Z)
+	local ahead = if flat.Magnitude > 1e-3 then flat.Unit * 7 else Vector3.zero
+	local base = Effects.ground(position + ahead, 20)
 	local trunk = Effects.part({
 		Shape = Enum.PartType.Cylinder,
 		Size = Vector3.new(1, 5, 5),
-		CFrame = CFrame.new(ground) * CFrame.Angles(0, 0, math.rad(90)),
+		CFrame = CFrame.new(base) * CFrame.Angles(0, 0, math.rad(90)),
 		Color = BARK,
 		Material = Enum.Material.Wood,
 	})
 	Effects.tween(
 		trunk,
 		0.4,
-		{ Size = Vector3.new(26, 5, 5), CFrame = CFrame.new(ground + UP * 13) * CFrame.Angles(0, 0, math.rad(90)) },
+		{ Size = Vector3.new(26, 5, 5), CFrame = CFrame.new(base + UP * 13) * CFrame.Angles(0, 0, math.rad(90)) },
 		Enum.EasingStyle.Back
 	)
 	local crown = Effects.part({
 		Shape = Enum.PartType.Ball,
 		Size = Vector3.one * 2,
-		CFrame = CFrame.new(ground + UP * 26),
+		CFrame = CFrame.new(base + UP * 26),
 		Color = LILY,
-		Material = Enum.Material.Grass,
+		Material = SOFT,
 		Transparency = 0.15,
 	})
 	Effects.tween(crown, 0.5, { Size = Vector3.one * 22 }, Enum.EasingStyle.Back)
@@ -1166,7 +1179,7 @@ PHASES["Dohyo:Rise"] = function(ctx: Context, position: Vector3)
 			Size = Vector3.new(radius * 0.36, 1.6, 1.6),
 			CFrame = frame - UP * 1,
 			Color = STRAW,
-			Material = Enum.Material.Fabric,
+			Material = SOFT,
 		})
 		Effects.tween(bale, 0.35, { CFrame = frame + UP * 0.6 }, Enum.EasingStyle.Back)
 		table.insert(pieces, bale)
@@ -1486,7 +1499,7 @@ local function onHit(victim: Model?, attacker: Model?, amount: number, flags: nu
 		SoundController.play("heavy", position, 0.7, 1.5)
 	end
 	if bit32.btest(flags, Remotes.FLAG_SPROUT) then
-		spikes(Effects.ground(position, 8), 1.5, 5, 3, LEAF, Enum.Material.Grass, 0.8)
+		spikes(Effects.ground(position, 8), 1.5, 5, 3, LEAF, SOFT, 0.8)
 		petals(position, 10, 10)
 	end
 	if bit32.btest(flags, Remotes.FLAG_WOUND) then
@@ -1495,6 +1508,11 @@ local function onHit(victim: Model?, attacker: Model?, amount: number, flags: nu
 		SoundController.play("bell", position, 1, 1.2)
 	end
 	Effects.flash(victim, WHITE, 0.18)
+	-- The Elder wears its tree outside its combat model (ElderService): flash the tree too.
+	local tree = victim:FindFirstChild("Body")
+	if tree and tree:IsA("ObjectValue") and tree.Value and tree.Value:IsA("Model") then
+		Effects.flash(tree.Value, WHITE, 0.18)
+	end
 	AnimationController.hurt(victim)
 	SoundController.play("hit", position, if big then 1.2 else 0.9, if big then 0.8 else 1 + math.random() * 0.15)
 	if victim == character then
@@ -1858,7 +1876,7 @@ local function onElder(kind: string, data: any)
 		SoundController.play("bell", position, 1.5, 0.35)
 	elseif kind == "sprout" and hasPosition then
 		Effects.column(position, 10, 3, SAP, 0.6, 0.3)
-		spikes(position, 1.5, 5, 3, LEAF, Enum.Material.Grass, 0.7)
+		spikes(position, 1.5, 5, 3, LEAF, SOFT, 0.7)
 	elseif kind == "wither" and hasPosition then
 		if data.healed == true then
 			local model = Workspace:FindFirstChild("ThirstingElder", true)

@@ -299,6 +299,24 @@ def _reach(g, start):
 def t4_tides(t, spec, C, profile):
     h, meta = t["height"], t["meta"]
     nz, nx = h.shape
+    # GROUND BELOW THE RING-OUT IS LETHAL, NOT A TRAP. A plateau map over a void
+    # (sea of mist, sky) declares volume.killPlane; anyone who reaches a column
+    # under killPlane + ringOutOffset is dead, so that column is not dry land you
+    # can be stranded on. Without this every cliff skirt down to the sea floor
+    # counted as thousands of "stranded" columns. Heights here are spec heights,
+    # the kill plane is in game space, so take the lift off.
+    vol = spec.get("volume") or {}
+    if "killPlane" in vol:
+        lethal = vol["killPlane"] + vol.get("ringOutOffset", 0) - vol.get("lift", 0)
+        h = np.where(h < lethal, -1e4, h)
+    # A FACE THE GAME MAKES YOU SLIDE OFF IS NOT A LEDGE. volume.slideSlope is a
+    # promise the game keeps by setting Humanoid.MaxSlopeAngle to it: nobody can
+    # stand on ground steeper than that, so a cliff face over a void is a slide
+    # into the ring-out, not a ledge to be stranded on. Only honoured together
+    # with a kill plane, and only for columns that are steep on the raw field.
+    if "killPlane" in vol and "slideSlope" in vol:
+        sl, _ = _slope_aspect(t["height"])
+        h = np.where(sl > float(vol["slideSlope"]), -1e4, h)
     low, high = meta["tide"]["low"], meta["tide"]["high"]
     prof = {"wade": 2.0, "slope": profile.get("designMaxSlope", 45),
             "step": max(profile.get("autoStep", 2.0), profile.get("jumpApex", 6.37) * 0.8),

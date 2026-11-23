@@ -51,6 +51,7 @@ local TSUTA: FighterSpec = {
 		{
 			id = "RootSnare",
 			name = "Root Snare",
+			icon = "根",
 			description = "Roots burst from an aimed point up to 30 studs away after a short tell: 9 damage and a 1.2 s root.",
 			slot = "Ability1",
 			cooldown = 10,
@@ -67,6 +68,7 @@ local TSUTA: FighterSpec = {
 		{
 			id = "SeedVolley",
 			name = "Seed Volley",
+			icon = "種",
 			description = "Five seed darts in a fan, 3 damage each. Every hit plants a Sprout; three Sprouts burst for 8 damage and a short root.",
 			slot = "Ability2",
 			cooldown = 8,
@@ -141,6 +143,7 @@ local TSUTA: FighterSpec = {
 		{
 			id = "CanopyGuard",
 			name = "Canopy Guard",
+			icon = "傘",
 			description = "Opens the umbrella for 1.5 s: a frontal shield that reflects projectiles and roots melee attackers for 0.8 s.",
 			slot = "Ability3",
 			cooldown = 12,
@@ -154,6 +157,7 @@ local TSUTA: FighterSpec = {
 		{
 			id = "Graft",
 			name = "Graft",
+			icon = "接",
 			description = "A vine lash tethers the first enemy within 25 studs and pulls Tsuta to them; her next 3 hits heal her for 40% of damage.",
 			slot = "Ability4",
 			cooldown = 14,
@@ -167,6 +171,7 @@ local TSUTA: FighterSpec = {
 		{
 			id = "ThousandRootBloom",
 			name = "Thousand-Root Bloom",
+			icon = "千",
 			description = "Plants the umbrella: a lily-root tree erupts in 22 studs, roots everyone inside for 2 s and deals 28 damage over 3 s, healing Tsuta for 30%.",
 			slot = "Ultimate",
 			cooldown = 1,
@@ -212,6 +217,7 @@ local HIBIKI: FighterSpec = {
 		{
 			id = "WarBeat",
 			name = "War Beat",
+			icon = "鼓",
 			description = "Strikes the drum on his back: a 12-stud shockwave, 10 damage, knockback and burn.",
 			slot = "Ability1",
 			cooldown = 9,
@@ -235,6 +241,7 @@ local HIBIKI: FighterSpec = {
 		{
 			id = "FireRoll",
 			name = "Fire Roll",
+			icon = "炎",
 			description = "Drums the ground: a line of flame geysers runs 30 studs forward over 0.8 s, 11 damage.",
 			slot = "Ability2",
 			cooldown = 10,
@@ -292,6 +299,7 @@ local HIBIKI: FighterSpec = {
 		{
 			id = "Kakegoe",
 			name = "Kakegoe",
+			icon = "声",
 			description = "A battle shout: 3 s of super armor and +20% move speed, and his next hit is a Beat.",
 			slot = "Ability3",
 			cooldown = 15,
@@ -305,6 +313,7 @@ local HIBIKI: FighterSpec = {
 		{
 			id = "ThunderRoll",
 			name = "Thunder Roll",
+			icon = "雷",
 			description = "A 1.5 s drum roll: five flame pulses in a forward cone, 3 damage each; the last launches.",
 			slot = "Ability4",
 			cooldown = 13,
@@ -331,6 +340,7 @@ local HIBIKI: FighterSpec = {
 		{
 			id = "FestivalOfDrums",
 			name = "Festival of a Thousand Drums",
+			icon = "祭",
 			description = "Phantom taiko ring him in 18 studs and beat in turn, then all at once: 30 damage; the final beat launches and burns.",
 			slot = "Ultimate",
 			cooldown = 1,
@@ -391,6 +401,7 @@ local IWAO: FighterSpec = {
 		{
 			id = "ShikoStomp",
 			name = "Shiko Stomp",
+			icon = "踏",
 			description = "The leg-raise stomp: a 12-stud ring, 9 damage, 0.8 s stun, breaks guard.",
 			slot = "Ability1",
 			cooldown = 11,
@@ -414,6 +425,7 @@ local IWAO: FighterSpec = {
 		{
 			id = "BoulderGrip",
 			name = "Boulder Grip",
+			icon = "岩",
 			description = "A short grab: lifts the target and throws them 25 studs in the aimed direction, 12 damage on landing, +6 into a wall.",
 			slot = "Ability2",
 			cooldown = 12,
@@ -427,6 +439,7 @@ local IWAO: FighterSpec = {
 		{
 			id = "PurifyingSalt",
 			name = "Purifying Salt",
+			icon = "塩",
 			description = "A cone of thrown salt: strips buffs and stops Ki gain and Mend for 3 s.",
 			slot = "Ability3",
 			cooldown = 14,
@@ -441,6 +454,7 @@ local IWAO: FighterSpec = {
 		{
 			id = "TachiaiCharge",
 			name = "Tachiai Charge",
+			icon = "突",
 			description = "A straight charge that carries the first enemy; slamming them into a wall or another fighter sends out a 13-damage shockwave.",
 			slot = "Ability4",
 			cooldown = 12,
@@ -454,6 +468,7 @@ local IWAO: FighterSpec = {
 		{
 			id = "Dohyo",
 			name = "Dohyo of the Mountain",
+			icon = "山",
 			description = "Raises a 16-stud stone ring for 6 s. Enemies inside cannot leave, Iwao has super armor, and anyone knocked out of the ring takes 25 damage.",
 			slot = "Ultimate",
 			cooldown = 1,
@@ -498,6 +513,7 @@ local KANEMORI: FighterSpec = {
 		{
 			id = "ChainLash",
 			name = "Chain Lash",
+			icon = "鎖",
 			description = "Throws the weighted chain 25 studs: binds the first enemy (60% slow, 2 s), 8 damage, and yanks them 8 studs closer.",
 			slot = "Ability1",
 			cooldown = 9,
@@ -524,6 +540,7 @@ local KANEMORI: FighterSpec = {
 		{
 			id = "JitteCatch",
 			name = "Jitte Catch",
+			icon = "捕",
 			description = "A 0.6 s counter stance: catching a melee hit or a thrown weapon silences the attacker for 2.5 s and strikes back for 10.",
 			slot = "Ability2",
 			cooldown = 11,
@@ -537,6 +554,7 @@ local KANEMORI: FighterSpec = {
 		{
 			id = "IronEdict",
 			name = "Iron Edict",
+			icon = "令",
 			description = "Drives the jitte into the ground: iron spikes erupt in a 24-stud line, 11 damage and double guard damage.",
 			slot = "Ability3",
 			cooldown = 10,
@@ -622,6 +640,7 @@ local KANEMORI: FighterSpec = {
 		{
 			id = "HuntersChase",
 			name = "Hunter's Chase",
+			icon = "追",
 			description = "Dashes to the last enemy he hit (within 40 studs and 6 s) with a stunning blow: 9 damage, 0.7 s stun.",
 			slot = "Ability4",
 			cooldown = 13,
@@ -635,6 +654,7 @@ local KANEMORI: FighterSpec = {
 		{
 			id = "EdictOfChains",
 			name = "Edict of Chains",
+			icon = "縛",
 			description = "Chains burst from the ground within 20 studs, binding every enemy for 2.5 s and dragging them to him; then an iron shockwave, 30 damage.",
 			slot = "Ultimate",
 			cooldown = 1,
@@ -687,6 +707,7 @@ local ROKUMON: FighterSpec = {
 		{
 			id = "Riverpull",
 			name = "Riverpull",
+			icon = "引",
 			description = "A ghost-water sweep that drags enemies in a 20-stud cone toward him, 7 damage.",
 			slot = "Ability1",
 			cooldown = 10,
@@ -701,6 +722,7 @@ local ROKUMON: FighterSpec = {
 		{
 			id = "PhantomFerry",
 			name = "Phantom Ferry",
+			icon = "舟",
 			description = "Rides a phantom boat 35 studs forward, running enemies over: 10 damage and knockback.",
 			slot = "Ability2",
 			cooldown = 12,
@@ -755,6 +777,7 @@ local ROKUMON: FighterSpec = {
 		{
 			id = "Mist",
 			name = "Mist of the Crossing",
+			icon = "霧",
 			description = "Mist fills 14 studs for 4 s: enemies inside are slowed 40% and Rokumon fades half-transparent.",
 			slot = "Ability3",
 			cooldown = 15,
@@ -768,6 +791,7 @@ local ROKUMON: FighterSpec = {
 		{
 			id = "TollStrike",
 			name = "Toll Strike",
+			icon = "銭",
 			description = "An overhead oar blow: 8 damage plus 6 for every coin he holds. Spends all coins.",
 			slot = "Ability4",
 			cooldown = 9,
@@ -781,6 +805,7 @@ local ROKUMON: FighterSpec = {
 		{
 			id = "RiverReturns",
 			name = "The River Returns",
+			icon = "川",
 			description = "The dry river floods a 50-stud lane: the wave carries and slows enemies, then drains away and stuns them 1 s. 26 damage.",
 			slot = "Ultimate",
 			cooldown = 1,

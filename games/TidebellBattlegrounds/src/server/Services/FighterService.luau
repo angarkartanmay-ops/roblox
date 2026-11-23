@@ -27,6 +27,9 @@ local function setupCharacter(player: Player, character: Model)
 	if not humanoid or not humanoid:IsA("Humanoid") or not root or not root:IsA("BasePart") then
 		return
 	end
+	if not character.Parent then
+		character.AncestryChanged:Wait()
+	end
 	if character.Parent == nil then
 		return
 	end

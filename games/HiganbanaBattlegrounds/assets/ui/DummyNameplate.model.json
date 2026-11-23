@@ -1,0 +1,29 @@
+{
+ "className": "BillboardGui",
+ "children": [
+  {
+   "name": "TextLabel",
+   "className": "TextLabel"
+  },
+  {
+   "name": "Frame",
+   "className": "Frame",
+   "children": [
+    {
+     "name": "Frame",
+     "className": "Frame"
+    }
+   ]
+  },
+  {
+   "name": "DummyPhaseLabel",
+   "className": "TextLabel",
+   "children": [
+    {
+     "name": "UIStroke",
+     "className": "UIStroke"
+    }
+   ]
+  }
+ ]
+}

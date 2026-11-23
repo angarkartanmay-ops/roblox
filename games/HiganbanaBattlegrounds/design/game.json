@@ -1,659 +1,2049 @@
 {
- "title": "Higanbana Battlegrounds",
- "slug": "HiganbanaBattlegrounds",
- "pitch": "Wake among the red spider lilies on the far shore of the river of the dead, master one of the Five Phases and out-fight every other soul, while every hit you land spills Ki that wakes the Thirsting Elder, a tree that only the right phase can wound.",
- "core_loop": [
-  "choose a phase fighter at the Ferry Landing (or counter-pick from the death recap)",
-  "fight other souls in the dry riverbed, reading Overcome / Resisted / Feeding / Drawing on every target",
-  "spend the Ki your hits earn on an ultimate or on a Mend",
-  "score kills, streaks and Lily Petals; a death returns you to the landing to re-pick",
-  "spilled Ki fills the Thirst; the Thirsting Elder wakes and only the phase that overcomes its heart can wound it; fell it for Petals, Elder's Sap and the Lily Crown"
- ],
- "win_condition": "No round end (the genre's sandbox free-for-all). A session is won by topping the server Petal board; each awakening of the Thirsting Elder is won when the server fells it inside 4 minutes, and its top damage dealer wears the Lily Crown.",
- "lose_condition": "Health reaches 0, or a fall off the shore into the mist: the streak is lost and the soul returns to the Ferry Landing after 4 s. If the Elder is not felled within 4 minutes it drinks its fill, sinks back and pays nobody.",
- "players": {
-  "min": 1,
-  "max": 12
- },
- "session_minutes": 15,
- "out_of_scope": [
-  "saving anything between sessions (no DataStore or ProfileStore this build)",
-  "shop, Robux, game passes, developer products",
-  "quests, levels, unlocks, daily rewards",
-  "teams, parties, duels-on-request and trading",
-  "more than five fighters, a second map, PvE mobs other than the Elder and its Sap Sprouts",
-  "voice lines, cutscenes, custom chat, localization",
-  "any name, character, design, power, place or plot from the anime the brief referenced (the banned list lives in tests/originality.spec.luau, which scans src/, design/*.json and default.project.json)"
- ],
- "stages": {
-  "map": {
-   "spec": "design/map.json",
-   "status": "todo"
-  },
-  "meshes": {
-   "spec": "design/meshes.json",
-   "status": "todo"
-  },
-  "ui": {
-   "spec": "design/ui.json",
-   "status": "todo"
-  },
-  "animation": {
-   "spec": "design/animations.json",
-   "status": "todo"
-  },
-  "vfx": {
-   "spec": "design/vfx.json",
-   "status": "todo"
-  },
-  "sfx": {
-   "spec": "design/sfx.json",
-   "status": "todo"
-  }
- },
- "phases": {
-  "order": ["Wood", "Fire", "Earth", "Metal", "Water"],
-  "generates": {"Wood": "Fire", "Fire": "Earth", "Earth": "Metal", "Metal": "Water", "Water": "Wood"},
-  "overcomes": {"Wood": "Earth", "Earth": "Water", "Water": "Fire", "Fire": "Metal", "Metal": "Wood"},
-  "colors": {"Wood": [74, 168, 96], "Fire": [228, 72, 40], "Earth": [214, 168, 64], "Metal": [226, 230, 236], "Water": [40, 52, 104]},
-  "relations": {
-   "Overcome": "attacker's phase overcomes the target's: +20% damage, +50% guard damage. Red arrow icon.",
-   "Resisted": "the target's phase overcomes the attacker's: -15% damage. Grey shield icon.",
-   "Feeding": "the attacker's phase generates the target's: -10% damage and the target gains Ki equal to half of what the attacker would. Green leaf icon.",
-   "Drawing": "the target's phase generates the attacker's: normal damage, the attacker gains +50% Ki. Crimson mote icon.",
-   "Neutral": "same phase (mirror): no modifier."
-  },
-  "note": "Every pair of different phases is exactly one of Overcome/Resisted/Feeding/Drawing, so every phase has the same matchup profile: balanced by construction. Covered by a Lune spec in section 2."
- },
- "roster": [
-  {
-   "id": "Tsuta", "title": "the Briar Shrine-Keeper", "phase": "Wood", "role": "Controller / sustain", "difficulty": 2, "health": 100,
-   "weapon": "war wagasa (oil-paper umbrella with a steel ferrule), held; opens into a shield",
-   "worn": "none",
-   "moves": {
-    "M1": "Umbrella Strikes: 4-hit chain, 6-stud reach, 4 dmg per hit; hit 4 snaps the canopy open for knockback",
-    "1": "Root Snare: roots burst at an aimed point up to 30 studs away after a 0.5 s tell; 9 dmg and a 1.2 s root in 7 studs. CD 10 s",
-    "2": "Seed Volley: 5 seed darts in a fan, 3 dmg each; each hit adds a Sprout stack, 3 stacks burst for 8 dmg and a 0.6 s root. CD 8 s",
-    "3": "Canopy Guard: opens the umbrella for 1.5 s; frontal shield that reflects projectiles back at their owner; melee attackers are rooted 0.8 s. CD 12 s",
-    "4": "Graft: a vine lash tethers the first enemy within 25 studs and pulls Tsuta to them; her next 3 hits heal her for 40% of damage dealt. CD 14 s",
-    "G": "Thousand-Root Bloom (ultimate, 100 Ki): plants the umbrella; a giant lily-root tree erupts in 22 studs, roots everyone inside 2 s, 28 dmg over 3 s, heals Tsuta 30% of damage dealt"
-   },
-   "passive": "none",
-   "story": "Tended the spider-lily shrine on the far bank for longer than she can remember; she knows which roots drink."
-  },
-  {
-   "id": "Hibiki", "title": "the Ember Drummer", "phase": "Fire", "role": "Bruiser", "difficulty": 2, "health": 105,
-   "weapon": "twin taiko bachi (drumsticks), held one per hand",
-   "worn": "a small war taiko strapped on the back",
-   "moves": {
-    "M1": "Bachi Strikes: fast 4-hit chain, 3.5 dmg per hit; hit 4 is a double overhead strike that bursts into flame (knockback, burn)",
-    "1": "War Beat: strikes the drum on his back; a 12-stud ring shockwave, 10 dmg, knockback and burn. CD 9 s",
-    "2": "Fire Roll: drums the ground; a line of flame geysers travels 30 studs forward over 0.8 s, 11 dmg. CD 10 s",
-    "3": "Kakegoe: a battle shout; 3 s of super armor and +20% move speed, and his next hit is a Beat. CD 15 s",
-    "4": "Thunder Roll: 1.5 s channel, five flame pulses in a forward cone (3 dmg each), the last launches. CD 13 s",
-    "G": "Festival of a Thousand Drums (ultimate, 100 Ki): phantom taiko ring him in 18 studs and beat in sequence, then all at once: 30 dmg total, the final beat launches and burns"
-   },
-   "passive": "Rhythm: every 3rd consecutive landed hit within 2 s is a Beat: +25% damage and a small flame burst",
-   "story": "Beat the march for an army that never came home; he still keeps time."
-  },
-  {
-   "id": "Iwao", "title": "the Mountain Rikishi", "phase": "Earth", "role": "Grappler / tank", "difficulty": 1, "health": 120,
-   "weapon": "none: bare hands in stone bracers",
-   "worn": "stone bracers on both forearms and a braided white rope belt with paper streamers",
-   "moves": {
-    "M1": "Tsuppari: heavy open-palm slaps, 4-hit chain, 5 dmg per hit; hit 4 is a two-handed shove with big knockback",
-    "1": "Shiko Stomp: the sumo leg-raise stomp; 12-stud ring, 9 dmg, 0.8 s stun, breaks guard. CD 11 s",
-    "2": "Boulder Grip: a short grab; on catch, lifts and throws the target 25 studs in the aimed direction, 12 dmg on landing, +6 into a wall. CD 12 s",
-    "3": "Purifying Salt: a cone of thrown salt; strips buffs and stops Ki gain and Mend for 3 s (Purified). CD 14 s",
-    "4": "Tachiai Charge: a straight charge that carries the first enemy; slamming them into a wall or another player causes a stone shockwave, 13 dmg. CD 12 s",
-    "G": "Dohyo of the Mountain (ultimate, 100 Ki): raises a 16-stud stone ring around him for 6 s; enemies inside cannot leave; he gains super armor; anyone thrown or knocked out of the ring takes 25 dmg (ring-out)"
-   },
-   "passive": "Rooted: takes 30% less knockback",
-   "story": "The shrine festival's champion wrestler; the mountain he stood on is somewhere under the lilies."
-  },
-  {
-   "id": "Kanemori", "title": "the Iron Constable", "phase": "Metal", "role": "Duelist / counter", "difficulty": 3, "health": 95,
-   "weapon": "jitte (hooked steel truncheon), held; a weighted chain at the belt",
-   "worn": "flat lacquered iron jingasa hat",
-   "moves": {
-    "M1": "Jitte Strikes: quick 4-hit chain, 3.5 dmg per hit; hit 4 hooks and twists (0.6 s stagger)",
-    "1": "Chain Lash: throws the weighted chain 25 studs in a line; binds the first enemy (60% slow, 2 s), 8 dmg, and yanks them 8 studs toward him. CD 9 s",
-    "2": "Jitte Catch: a 0.6 s counter stance; catching a melee hit or a weapon projectile silences the attacker 2.5 s and counter-strikes for 10 dmg. CD 11 s",
-    "3": "Iron Edict: drives the jitte into the ground; a line of iron spikes erupts 24 studs forward, 11 dmg and +100% guard damage. CD 10 s",
-    "4": "Hunter's Chase: dashes to the last enemy he hit (within 40 studs and 6 s) with a stunning blow, 9 dmg, 0.7 s stun. CD 13 s",
-    "G": "Edict of Chains (ultimate, 100 Ki): chains burst from the ground within 20 studs, binding every enemy 2.5 s and dragging them to him; then an iron shockwave, 30 dmg"
-   },
-   "passive": "Arrest: his parries also silence the attacker for 2 s",
-   "story": "Arrested the wrong man the night the war began; he has been chasing the right one ever since."
-  },
-  {
-   "id": "Rokumon", "title": "the Sanzu Ferryman", "phase": "Water", "role": "Zoner", "difficulty": 2, "health": 100,
-   "weapon": "a long ferry oar, held two-handed like a staff",
-   "worn": "a wide straw sugegasa hat and a string of six square-holed coins at the belt",
-   "moves": {
-    "M1": "Oar Sweeps: wide sweeps with 9-stud reach, 4.5 dmg per hit; hit 4 scoops upward (launch)",
-    "1": "Riverpull: a ghost-water sweep that pulls enemies in a 20-stud cone toward him, 7 dmg. CD 10 s",
-    "2": "Phantom Ferry: rides a phantom boat 35 studs forward, running enemies over: 10 dmg and knockback. CD 12 s",
-    "3": "Mist of the Crossing: mist in 14 studs for 4 s; enemies inside are slowed 40%; he turns half-transparent. CD 15 s",
-    "4": "Toll Strike: an overhead oar blow, 8 dmg plus 6 per coin held; spends all coins. CD 9 s",
-    "G": "The River Returns (ultimate, 100 Ki): the dry river floods a 50-stud lane in the aimed direction: the wave carries enemies with it and slows them, then drains and stuns 1 s; 26 dmg"
-   },
-   "passive": "Fare: every 6th landed hit earns a coin (max 6)",
-   "story": "The ferryman of the dry river, out of work since it ran dry; whoever crosses back will need a boat."
-  }
- ],
- "elder": {
-  "name": "the Thirsting Elder",
-  "what": "a colossal ancient tree grown over the war's last battlefield: scarred dark-red bark, hollow reed-like branches ending in open tubes, old armour and banners in its roots, red spider lilies at its feet, and a hollow heart that glows in the colour of its current phase. It never walks; it attacks across its grove with roots and branches.",
-  "wakes": "when the server Thirst (total damage players deal to each other) reaches ThirstBase + ThirstPerPlayer x players, no earlier than 120 s after the server starts and 180 s after its last fall",
-  "health": "ElderHealthBase + ElderHealthPerPlayer x players at awakening; cannot be stunned or knocked back",
-  "heart": "cycles along the generating order Wood > Fire > Earth > Metal > Water every 18 s (12 s when enraged), with a 3 s warning",
-  "rules": [
-   "regenerates 1.5% of max health per second",
-   "a hit from the phase that overcomes its heart deals +50% and pauses regeneration for 4 s (Wound)",
-   "a hit from the phase its heart is generated by (Feeding) heals it for half the damage instead",
-   "other hits deal normal damage with the usual relation multipliers"
+  "title": "Higanbana Battlegrounds",
+  "slug": "HiganbanaBattlegrounds",
+  "pitch": "Wake among the red spider lilies on the far shore of the river of the dead, master one of the Five Phases and out-fight every other soul, while every hit you land spills Ki that wakes the Thirsting Elder, a tree that only the right phase can wound.",
+  "core_loop": [
+    "choose a phase fighter at the Ferry Landing (or counter-pick from the death recap)",
+    "fight other souls in the dry riverbed, reading Overcome / Resisted / Feeding / Drawing on every target",
+    "spend the Ki your hits earn on an ultimate or on a Mend",
+    "score kills, streaks and Lily Petals; a death returns you to the landing to re-pick",
+    "spilled Ki fills the Thirst; the Thirsting Elder wakes and only the phase that overcomes its heart can wound it; fell it for Petals, Elder's Sap and the Lily Crown"
   ],
-  "attacks": [
-   "Root Eruption: red circles under 1-3 players for 1.2 s, then roots burst up: 14 dmg and launch",
-   "Thirsting Reach: a red line toward the nearest player for 0.9 s, then a hollow branch grabs them and drains 15 health per second for 2.5 s, healing the Elder; any player can break the branch (120 health) to free them",
-   "Petal Storm: raises its branches for 2 s, then a ring of razor petals expands from the trunk: jump over it (16 dmg)",
-   "Enrage below 35%: faster heart cycle and attacks, and 3 Sap Sprouts spawn that heal it 5% each unless destroyed within 10 s"
+  "win_condition": "No round end (the genre's sandbox free-for-all). A session is won by topping the server Petal board; each awakening of the Thirsting Elder is won when the server fells it inside 4 minutes, and its top damage dealer wears the Lily Crown.",
+  "lose_condition": "Health reaches 0, or a fall off the shore into the mist: the streak is lost and the soul returns to the Ferry Landing after 4 s. If the Elder is not felled within 4 minutes it drinks its fill, sinks back and pays nobody.",
+  "players": {
+    "min": 1,
+    "max": 12
+  },
+  "session_minutes": 15,
+  "out_of_scope": [
+    "saving anything between sessions (no DataStore or ProfileStore this build)",
+    "shop, Robux, game passes, developer products",
+    "quests, levels, unlocks, daily rewards",
+    "teams, parties, duels-on-request and trading",
+    "more than five fighters, a second map, PvE mobs other than the Elder and its Sap Sprouts",
+    "voice lines, cutscenes, custom chat, localization",
+    "any name, character, design, power, place or plot from the anime the brief referenced (the banned list lives in tests/originality.spec.luau, which scans src/, design/*.json and default.project.json)"
   ],
-  "timeout": "240 s: it drinks its fill, heals to full, sinks back dormant and pays nobody",
-  "rewards": "every player who dealt at least 4% of its health: +30 Petals and Elder's Sap (+10% damage, +20% Mend rate for 120 s); the top damage dealer wears the Lily Crown for the rest of the session"
- },
- "systems": [
-  {"name": "CombatService", "side": "server", "owns": "every fighter's combat state: M1 chain index and timers, move timelines in flight, cooldowns, block and guard, parry windows, grabs, temporary arena objects (Dohyo ring, root tree), passive counters (Rhythm, Fare coins)"},
-  {"name": "KiService", "side": "server", "owns": "each fighter's Ki meter, the relation-based Ki transfers, ultimate readiness, and the Mend channel state"},
-  {"name": "ProjectileService", "side": "server", "owns": "live projectiles and travelling hitboxes: seed darts, chain lash, fire roll, iron spikes, phantom ferry, flood wave, reflected projectiles"},
-  {"name": "StatusService", "side": "server", "owns": "status effects per character (stun, slow, root, bound, silence, burn, purified, super armor, sprout stacks, Elder's Sap) and the movement they impose; zone membership (safe landing, no-PvP beach)"},
-  {"name": "FighterService", "side": "server", "owns": "each player's chosen fighter and phase, the out-of-combat phase-switch rule, and the weapon and worn-kit attachments"},
-  {"name": "MapService", "side": "server", "owns": "the built Far Shore (terrain, structures, props), its zones and barrier walls, and the dormant Elder's grove"},
-  {"name": "DummyService", "side": "server", "owns": "the five phase training dummies, their health and respawn, and the beach's Ki rollback on exit"},
-  {"name": "ThirstService", "side": "server", "owns": "the server Thirst meter (spilled Ki) and the awakening schedule"},
-  {"name": "ElderService", "side": "server", "owns": "the Thirsting Elder: health, heart phase and timer, regeneration and Wound state, attack schedule and telegraphs, grabbed players and the grab branch, Sap Sprouts, the contribution ledger, timeout and rewards"},
-  {"name": "StatsService", "side": "server", "owns": "leaderstats (Petals, Kills, Streak), kill credit (last-hitter window and ring-out credit), the kill feed, server announcements and the Lily Crown holder"},
-  {"name": "InputController", "side": "client", "owns": "input bindings for keyboard and mouse, gamepad and touch, outgoing intents, and local prediction with rollback"},
-  {"name": "AnimationController", "side": "client", "owns": "animation tracks per rig: authored clips from the animation stage, fighter idles, and the Elder's skinned clips"},
-  {"name": "VfxController", "side": "client", "owns": "every live effect instance and its cleanup"},
-  {"name": "HudController", "side": "client", "owns": "HUD view state: bars, ability cooldowns, target relation indicator, statuses, kill feed, combo counter, damage numbers, Thirst bloom, Elder bar, reward popup, touch buttons"},
-  {"name": "SelectController", "side": "client", "owns": "the Phase Select screen and the Death Recap screen"},
-  {"name": "SoundController", "side": "client", "owns": "the SoundBank built by the sfx stage and the music state machine (landing, riverbed, Elder, enraged)"}
- ],
- "config": {
-  "MaxPlayersPerServer": 12,
-  "RespawnSeconds": 4,
-  "LandingSafeRadius": 40,
-  "PhaseSwitchOutOfCombatSeconds": 8,
-  "RelationOvercomeDamage": 1.2,
-  "RelationOvercomeGuard": 1.5,
-  "RelationResistedDamage": 0.85,
-  "RelationFeedingDamage": 0.9,
-  "RelationFeedingKiToTarget": 0.5,
-  "RelationDrawingKiBonus": 0.5,
-  "KiMax": 100,
-  "KiPerDamageDealt": 1.0,
-  "KiPerDamageTaken": 0.5,
-  "MendKiPerSecond": 12,
-  "MendHealthPerKi": 1.0,
-  "MendLockoutAfterHitSeconds": 3,
-  "MendMoveSpeedMultiplier": 0.5,
-  "M1ChainHits": 4,
-  "M1ResetSeconds": 1.1,
-  "M1FinisherLockSeconds": 1.0,
-  "GuardMax": 100,
-  "BlockAbilityDamageTaken": 0.4,
-  "GuardBreakStunSeconds": 1.6,
-  "ParryWindowSeconds": 0.22,
-  "ParryStunSeconds": 1.25,
-  "DashCooldownSeconds": 1.8,
-  "KillCreditWindowSeconds": 10,
-  "PetalsPerKill": 5,
-  "PetalsPerStreakStepAbove2": 2,
-  "StreakAnnounceAt": [3, 5, 10],
-  "ThirstBase": 2400,
-  "ThirstPerPlayer": 300,
-  "ThirstFirstAwakeMinSeconds": 120,
-  "ThirstCooldownAfterFallSeconds": 180,
-  "ElderHealthBase": 2000,
-  "ElderHealthPerPlayer": 400,
-  "ElderPhaseSeconds": 18,
-  "ElderPhaseSecondsEnraged": 12,
-  "ElderPhaseWarningSeconds": 3,
-  "ElderRegenPercentPerSecond": 1.5,
-  "ElderWoundPauseSeconds": 4,
-  "ElderOvercomeBonus": 1.5,
-  "ElderFeedingHealFraction": 0.5,
-  "ElderEnrageAtFraction": 0.35,
-  "ElderTimeoutSeconds": 240,
-  "ElderBranchHealth": 120,
-  "ElderGrabDrainPerSecond": 15,
-  "ElderGrabSeconds": 2.5,
-  "SapSproutCount": 3,
-  "SapSproutHealSeconds": 10,
-  "SapSproutHealFraction": 0.05,
-  "ElderRewardMinContribution": 0.04,
-  "ElderRewardPetals": 30,
-  "ElderSapSeconds": 120,
-  "ElderSapDamageBonus": 0.1,
-  "ElderSapMendBonus": 0.2,
-  "HibikiBeatEveryHits": 3,
-  "HibikiBeatDamageBonus": 0.25,
-  "RokumonHitsPerCoin": 6,
-  "RokumonMaxCoins": 6,
-  "RokumonTollDamagePerCoin": 6,
-  "IwaoKnockbackTakenMultiplier": 0.7,
-  "IwaoDohyoSeconds": 6,
-  "IwaoDohyoRadius": 16,
-  "IwaoRingOutDamage": 25,
-  "KanemoriParrySilenceSeconds": 2,
-  "TsutaSproutBurstStacks": 3,
-  "CombatDebugAttribute": "HiganCombatDebug"
- },
- "plan": {
-  "overview": "Higanbana Battlegrounds. Roblox battlegrounds (anime-style free-for-all PvP brawler with a server world boss), original IP. PC, mobile, tablet and console, mobile-first touch controls. Ages 9+, mild violence, no blood.",
-  "pitch_and_usp": "Wake on the far shore of the river of the dead, master one of the Five Phases and out-fight every other soul while your fighting wakes a tree that only the right phase can wound. Why this over Jujutsu Shenanigans or The Strongest Battlegrounds: a world of its own that no anime owns, a Five Phases matchup layer that turns every fight into a counter-pick question, and PvP that grows a raid boss instead of a timer.",
-  "core_concept": "0 min: pick a fighter (Iwao, the easiest, is highlighted), land a first chain on a training dummy and see 'Overcome!'. 5 min: brawling in the riverbed, a first ultimate or Mend, a first kill, a first death and a counter-pick from the recap. 30 min: two or three Elder awakenings, swapping phases to wound its changing heart, a streak call-out, chasing the Lily Crown. Tomorrow: nothing persists this build (saving is out of scope), so the pull is mastery of five movesets and twenty matchups; saving and daily goals come next.",
-  "player_experience": "Weighty, readable and a little eerie: hits with hit-stop and crimson Ki spraying from every strike, lilies swaying in a dusk that never ends. Every hit says whether you are winning the matchup (relation icon and damage-number colour), so a loss reads as a lesson, not luck. First win inside 30 s (a full chain and 'Overcome!' on a dummy), first kill within about 3 minutes, first Elder fight around minute 5 on a busy server.",
-  "audience": "Primary: the battlegrounds audience, 9-16, mostly on phones, competitive-casual, already playing Jujutsu Shenanigans and The Strongest Battlegrounds and happy to learn movesets. Secondary: anime fans who like dark Japanese folklore. Social play is incidental (same server, Elder raids), not organised.",
-  "market": "Looked at (design/research.md): Jujutsu Shenanigans (84K concurrent, 8B visits; ~178K live in June 2026) and The Strongest Battlegrounds (42.5K, 19.7B visits) lead a 657K-player sub-genre, followed by a long tail of anime homages (Anime Ability Arena, Legends Battlegrounds, Jujutsu Beatdown, Heroes Battlegrounds). What they do well: instant recognition, simple four-ability kits, weighty hits. What they do badly (my reading): they own none of their worlds, ride another company's release calendar and have no matchup layer. The gap: an original world with a strong look, a readable counter system and a PvP-fed PvE event.",
-  "mechanics": "Movement: walk, run, jump, dash (1.8 s), knockback and ring-outs off the cliffs. Combat: 4-hit M1 chains, hold-to-block with a 100-point guard, 0.22 s parry, guard break, four abilities and an ultimate per fighter, three passives (Rhythm, Fare, Arrest) plus Iwao's knockback resistance, statuses (stun, slow, root, bound, silence, burn, purified, super armor, sprout). Phases: Overcome / Resisted / Feeding / Drawing on every hit. Ki: fills from dealing and taking damage, spent on the ultimate (100) or Mend (hold R: 12 Ki/s into health, broken by any hit, locked 3 s after damage). World: safe landing, no-PvP training beach, the Thirst meter and the Elder event. Economy: Lily Petals as a session score.",
-  "progression": "Short term (minutes): land a chain, a first kill, a first ultimate, learn a matchup. Medium term (a session): streaks (called out at 3, 5 and 10), Elder contributions, the Lily Crown, the top of the Petal board. Long term: none this build, deliberately: levels, unlocks and saved stats need a datastore, which is out of scope.",
-  "content": "One map, the Far Shore, in five areas. Five fighters (one per phase), each with an M1 chain, four abilities and an ultimate: 30 moves, plus 3 passives. Five phase training dummies. One world boss, the Thirsting Elder: a phase-cycling heart, 3 attacks, a breakable grab branch, an enrage with 3 Sap Sprouts. Collectibles: Lily Petals (score) and the Lily Crown (session cosmetic). No other NPCs: the select altar is a lantern at the ferry hut.",
-  "world": "Ferry Landing (south): spawn, select altar, safe zone; grey pier, ferry lanterns, a vermilion torii; no difficulty; open from the start. The Dry Riverbed (centre): the main arena; stranded ferry boats and cairns for cover, a stone bridge overhead; free-for-all, hardest PvP; open. Lily Fields (south-east, a low hill east of the landing): rolling spider lilies with bamboo edges, long sightlines over the riverbed for zoners, a flank route; medium; open. Jizo Beach (west reach, a Sai no Kawara of cairns and red-capped Jizo): training with the five phase dummies and a stone tablet of the two cycles; no PvP, Ki earned there is rolled back on leaving; open. Elder's Grove (north bank): a clearing of old banners and armour around the dormant Elder, whose heart pulses faster as the Thirst fills; the boss arena when it wakes; hardest; open, but the Elder only wakes on a full Thirst. Edges: cliffs into a sea of mist, a fall is a death credited to the last hitter.",
-  "story": "Every autumn equinox the red spider lilies bloom on the far shore of the Sanzu, the river every soul must cross. This year the river has run dry. Souls who still have their arts in them wake on its stones, and the ferryman's old tale says the river will carry one of them back to the living when it returns. Until then the shore belongs to whoever is still standing, and to the Thirsting Elder, a tree that grew where the last battle of a forgotten war was fought and drinks every drop of Ki spilled on its roots. Kept to one paragraph, fighter one-liners and the Elder's description; told through the world, not cutscenes. Later acts (not this build): II The Lantern Procession, III The River Returns.",
-  "ui_ux": "Phase Select: five cards around the Five Phases wheel (generating arrows outside, overcoming star inside), a detail panel with role, difficulty and moves, and a Cross button: 2 clicks. HUD: health, Ki (ultimate-ready glow), guard, five ability slots with cooldown sweeps, phase badge, the relation icon on the targeted enemy, status icons, kill feed, combo counter, damage numbers coloured by relation, the Thirst bloom, the Elder bar (heart phase and next-phase timer), announcement banner, Petals and streak, Mend bar. Death Recap: who beat you, with what relation, and the phase that counters them; 1 click opens Phase Select with the counter highlighted, or you respawn as the same fighter after 4 s. Elder Reward popup. Touch controls: ATTACK, BLOCK, DASH, 1-4, ULT, MEND, PHASE. Leaderboard: the Roblox player list with leaderstats. Using any ability is one key or one tap.",
-  "tutorial": "0:00 spawn on the landing quay; Phase Select opens with Iwao highlighted as the easiest. 0:15 after crossing, a lantern trail and a prompt point west to Jizo Beach ('Learn the Five Phases', optional). 0:30 the first dummy hit pops a relation card ('Overcome! Earth overcomes Water: +20%'). Contextual prompts tick off one at a time: M1 chain, block (the striker dummy attacks back), parry timing, dash, abilities 1-4, then Ki fills and 'G: ultimate ready'. 2:00 'The riverbed awaits'; leaving the beach rolls Ki back. In the riverbed the Thirst bloom appears with a one-line tooltip ('every hit spills Ki; when the lily blooms, the Elder wakes'). First awakening: a banner names the heart's phase, what overcomes it and what feeds it.",
-  "art_direction": "Ukiyo-e afterlife at eternal dusk: ink-black silhouettes, crimson spider lilies, bone-white stone and mist, aged gold for coins and lanterns. Stylised and hand-painted with chunky shapes that read on a phone; no photoreal PBR. Every asset class matches: meshes painted with paint_texture.py in the shared palette, phase accent colours (Wood green, Fire vermilion, Earth ochre, Metal silver-white, Water indigo) only on fighter kit and phase effects; VFX share those accents and use crimson Ki motes as the universal hit language; UI is brush-stroke bars on lacquer-black panels with gold trim; lighting is Future with a low sun, teal-grey fog and bloom on lilies and lanterns. Players keep their own avatar plus a fighter kit (a weapon and one worn piece).",
-  "audio": "Music per state: Ferry Landing and select (calm shakuhachi and koto), riverbed fighting (a low-intensity taiko loop that ducks under combat), Elder awake (intense taiko and shamisen), Elder enraged (a faster layer), Elder felled (the reward fanfare). Ambience: dusk wind, bell crickets, creaking stranded hulls, a distant temple bell. SFX roles in design/sfx.json: per-weapon swings, hit tiers with an Overcome accent, block, parry, guard break, dash, Ki full, Mend, every ability, passive and ultimate, every Elder attack and heart change, UI, death and respawn.",
-  "technical_architecture": "A fork of the Tidebell Battlegrounds engine (games/TidebellBattlegrounds/src), made in section 2: one server Script bootstrapping service modules, one client LocalScript bootstrapping controllers, Remotes declared in default.project.json; no Knit, so the Knit template new_game.py laid down is replaced. Shared pure modules, Lune-tested with no Roblox globals: Phases, Fighters, CombatMath, ElderRules, Poses, VfxCatalog. Engine services: Players, RunService, ReplicatedStorage, CollectionService, TweenService, Debris, PhysicsService collision groups, Workspace raycasts and spatial queries, SoundService, Lighting (Atmosphere, Bloom, ColorCorrection, SunRays), Animator and AnimationController for authored clips. Tooling: Rojo, Lune, selene, StyLua, luau-lsp, the roblox-map builder output loaded by MapService. A combat trace behind workspace attribute HiganCombatDebug prints why each intent was refused and each hit check's candidates.",
-  "data_saving": {"declined": "Session-only stats this build (scope law: no datastore). Petals, kills, streaks and the Lily Crown reset when the server closes, so nothing can be lost to a failed save. Next update: ProfileStore with session locking via roblox-data-stores."},
-  "security": "Server-authoritative. Clients send only intents: Action(slot, aimUnit), SetBlock(bool), Dash(direction), Mend(bool), SelectFighter(id). The server checks argument types, NaN and unit length on vectors, rate-limits every remote per player, and decides cooldowns, stun/silence/root state, hit detection, relation multipliers, damage, Ki, Mend conditions, phase switching (out of combat 8 s), the safe and no-PvP zones, kill credit, Elder contribution and every reward. Ki earned on the training beach is rolled back on leaving it.",
-  "multiplayer": "Up to 12 players per server (the VFX and animation budget on phones). Free-for-all. When a player leaves, their projectiles, grabs, rings and binds end, kill credit for anyone they damaged in the last 10 s passes to the next-highest damager, and their Elder contribution is dropped; the Elder's health is fixed at awakening. Solo play works: the dummies and an Elder scaled to one player.",
-  "monetisation": {"declined": "No Robux this build (out_of_scope). When it comes it is cosmetic only (Lily Crown variants, Ki colours, weapon skins), never power."},
-  "economy": "One currency, Lily Petals, used as a session score. Enters: +5 per kill, +2 per streak step above 2, +30 for an Elder contribution of at least 4% of its health. Leaves: never, because there is no shop in scope, so nothing can inflate; it ranks the server board and resets with the server.",
-  "retention": "In a session: the Elder wakes every 5 to 7 minutes on a busy server, streak call-outs, the Lily Crown, and twenty phase matchups to learn. Across days: weak by design this build, because nothing persists (no datastore, out of scope); the next update adds saving, daily phase challenges and cosmetic unlocks.",
-  "social": "Leaderboard (leaderstats: Petals, Kills, Streak), kill feed, server-wide streak and Elder announcements, the visible Lily Crown, and the Elder's grab that another player can break to free you. Declined: friends lists, parties, teams, trading and chat features beyond default Roblox chat."
- },
- "asset_plan": [
-  {"entity": "The Far Shore (map)", "needs": [
-   {"stage": "map", "name": "FarShore", "why": "the five-area layout (landing, riverbed, lily fields, Jizo beach, Elder's grove) proven reachable before any art"},
-   {"stage": "meshes", "name": "SpiderLilyCluster", "why": "the title flower; thousands carpet the fields and banks, so it must be cheap and instanced"},
-   {"stage": "meshes", "name": "FerryBoat", "why": "stranded boats are the riverbed's main cover"},
-   {"stage": "meshes", "name": "StoneCairn", "why": "Sai no Kawara cairns: low cover in the riverbed and the beach's identity"},
-   {"stage": "meshes", "name": "JizoStatue", "why": "the training beach's landmark; red caps read at distance"},
-   {"stage": "meshes", "name": "StoneLantern", "why": "lines the bridge road and lights the dusk"},
-   {"stage": "meshes", "name": "ToriiGate", "why": "marks the Ferry Landing from anywhere on the map"},
-   {"stage": "meshes", "name": "FerryPier", "why": "the spawn pier every player stands on first"},
-   {"stage": "meshes", "name": "FerrymanHut", "why": "the backdrop of the select altar at the landing"},
-   {"stage": "meshes", "name": "BridgeParapet", "why": "the stone bridge's railings; the deck itself is map geometry"},
-   {"stage": "meshes", "name": "NoboriBanner", "why": "tattered war banners ring the Elder's grove and tell its story"},
-   {"stage": "meshes", "name": "ArmorPile", "why": "abandoned armour the Elder's roots grow through"},
-   {"stage": "meshes", "name": "BambooCluster", "why": "edges of the lily fields; breaks long sightlines"},
-   {"stage": "meshes", "name": "DeadPine", "why": "silhouettes on the cliff rim against the dusk sky"},
-   {"stage": "vfx", "name": "DriftingPetals", "why": "ambient spider-lily petals so the world moves"},
-   {"stage": "vfx", "name": "RiverMist", "why": "low mist in the riverbed and over the cliffs hides the map's edge"},
-   {"stage": "vfx", "name": "LanternGlow", "why": "the bridge-road lanterns flicker"},
-   {"stage": "sfx", "name": "ambience_dusk", "why": "wind and bell crickets under everything"},
-   {"stage": "sfx", "name": "ambience_riverbed", "why": "creaking hulls and shifting stones in the riverbed"},
-   {"stage": "sfx", "name": "music_landing", "why": "calm music while choosing a fighter"},
-   {"stage": "sfx", "name": "music_riverbed", "why": "the fight loop"}
-  ]},
-  {"entity": "Training dummies (five, one per phase)", "needs": [
-   {"stage": "meshes", "name": "TrainingDummy", "why": "a straw dummy tinted per phase, so players practise the phase wheel"},
-   {"stage": "ui", "name": "DummyPhaseLabel", "why": "names each dummy's phase and your relation to it"},
-   {"stage": "vfx", "name": "DummyHitFlash", "why": "confirms a practice hit"},
-   {"stage": "sfx", "name": "dummy_hit", "why": "a straw thump so practice hits are heard"}
-  ]},
-  {"entity": "Phase relations (every hit)", "needs": [
-   {"stage": "ui", "name": "PhaseBadge", "why": "your own phase glyph and name on the HUD"},
-   {"stage": "ui", "name": "RelationIndicator", "why": "the Overcome / Resisted / Feeding / Drawing icon for whoever you target: the matchup at a glance"},
-   {"stage": "ui", "name": "DamageNumber", "why": "floating damage numbers coloured by relation, so a strong hit reads even without the icon"},
-   {"stage": "ui", "name": "PhaseNameplate", "why": "every player's phase glyph and health over their head, so matchups read at range"},
-   {"stage": "vfx", "name": "Hit_Overcome", "why": "a red burst so a strong hit is unmistakable"},
-   {"stage": "vfx", "name": "Hit_Feeding", "why": "a green leaf swirl into the target: you are feeding them"},
-   {"stage": "vfx", "name": "Hit_Drawing", "why": "crimson motes flowing back to the attacker: you drew Ki"},
-   {"stage": "vfx", "name": "Hit_Neutral", "why": "the plain hit spark for mirror and resisted hits"},
-   {"stage": "sfx", "name": "hit_light", "why": "light-hit impact"},
-   {"stage": "sfx", "name": "hit_heavy", "why": "heavy and finisher impact"},
-   {"stage": "sfx", "name": "hit_overcome_accent", "why": "an accent layer on Overcome hits so ears learn the wheel too"}
-  ]},
-  {"entity": "Shared combat (every fighter)", "needs": [
-   {"stage": "animation", "name": "Block_Hold", "why": "holding block must read at a glance"},
-   {"stage": "animation", "name": "Parry", "why": "the parry flash needs a matching pose"},
-   {"stage": "animation", "name": "Dash", "why": "a lunge, so a dash is not a slide"},
-   {"stage": "animation", "name": "Mend_Channel", "why": "a kneeling breath while turning Ki into health, so others can punish it"},
-   {"stage": "animation", "name": "HitStun", "why": "a flinch so stuns are visible"},
-   {"stage": "animation", "name": "GuardBreak", "why": "a stagger when guard breaks"},
-   {"stage": "ui", "name": "Vitals", "why": "health, Ki and guard bars: the three numbers every fight is about"},
-   {"stage": "ui", "name": "AbilityBar", "why": "M1, the four abilities and the ultimate with cooldown sweeps, one key or one tap each"},
-   {"stage": "vfx", "name": "BlockSpark", "why": "blocked hits spark on the guard"},
-   {"stage": "vfx", "name": "ParryFlash", "why": "the parry is the best moment in a duel"},
-   {"stage": "vfx", "name": "GuardBreakShatter", "why": "guard break must be obvious"},
-   {"stage": "vfx", "name": "DashGust", "why": "dash direction readable at distance"},
-   {"stage": "vfx", "name": "KiFullAura", "why": "an ultimate-ready fighter is visible to enemies too"},
-   {"stage": "vfx", "name": "MendAura", "why": "everyone can see who is healing"},
-   {"stage": "vfx", "name": "SoulWisp", "why": "death: the soul drifts back toward the landing"},
-   {"stage": "vfx", "name": "RespawnBloom", "why": "respawn: lilies bloom around you on the landing quay"},
-   {"stage": "sfx", "name": "block_hit", "why": "blocked-hit thud"},
-   {"stage": "sfx", "name": "parry_clang", "why": "parry"},
-   {"stage": "sfx", "name": "guard_break", "why": "guard-break crack"},
-   {"stage": "sfx", "name": "dash_whoosh", "why": "dash"},
-   {"stage": "sfx", "name": "ki_full", "why": "a chime when the ultimate is ready"},
-   {"stage": "sfx", "name": "mend_loop", "why": "a breathing hum while mending"},
-   {"stage": "sfx", "name": "death_soul", "why": "the soul leaving"},
-   {"stage": "sfx", "name": "respawn_bell", "why": "a temple bell on respawn"}
-  ]},
-  {"entity": "Statuses", "needs": [
-   {"stage": "ui", "name": "StatusRow", "why": "your stun, slow, root, bound, silence, burn, purified, super armor, sprout, coin and Elder's Sap icons on the HUD"},
-   {"stage": "vfx", "name": "Status_Stun", "why": "stunned players must be visible to their attacker"},
-   {"stage": "vfx", "name": "Status_Rooted", "why": "roots around the feet"},
-   {"stage": "vfx", "name": "Status_Bound", "why": "chains around the body"},
-   {"stage": "vfx", "name": "Status_Silence", "why": "a paper seal: no abilities"},
-   {"stage": "vfx", "name": "Status_Burn", "why": "embers while burning"},
-   {"stage": "vfx", "name": "Status_Purified", "why": "salt glitter: no Ki gain, no Mend"},
-   {"stage": "vfx", "name": "Status_Slow", "why": "drag lines at the feet"},
-   {"stage": "vfx", "name": "Status_SuperArmor", "why": "shows who cannot be stunned"}
-  ]},
-  {"entity": "Tsuta (Wood): kit", "needs": [
-   {"stage": "meshes", "name": "Wagasa", "why": "the closed war umbrella she carries and strikes with"},
-   {"stage": "meshes", "name": "WagasaOpen", "why": "the open canopy for Canopy Guard and the M1 finisher"},
-   {"stage": "animation", "name": "Tsuta_Idle", "why": "her own carry: umbrella point-down like a cane at her side"},
-   {"stage": "ui", "name": "FighterCard_Tsuta", "why": "her card on the Phase Select wheel"},
-   {"stage": "ui", "name": "FighterDetail_Tsuta", "why": "her six move icons, names and one-line descriptions on the select screen; the HUD ability bar reuses the icons"},
-   {"stage": "vfx", "name": "Tsuta_Trail", "why": "umbrella swing trail in Wood green"},
-   {"stage": "sfx", "name": "tsuta_swing", "why": "umbrella swing"}
-  ]},
-  {"entity": "Tsuta: M1 Umbrella Strikes", "needs": [
-   {"stage": "animation", "name": "Tsuta_M1_A", "why": "first and third hits"},
-   {"stage": "animation", "name": "Tsuta_M1_B", "why": "second hit, alternating so the chain is not one looping frame"},
-   {"stage": "animation", "name": "Tsuta_M1_Finisher", "why": "the canopy-snap finisher"},
-   {"stage": "vfx", "name": "Tsuta_CanopySnap", "why": "the finisher's burst"},
-   {"stage": "sfx", "name": "tsuta_canopy_open", "why": "the canopy snapping open"}
-  ]},
-  {"entity": "Tsuta: Root Snare", "needs": [
-   {"stage": "animation", "name": "Tsuta_RootSnare", "why": "the planting gesture that sells the cast"},
-   {"stage": "vfx", "name": "Tsuta_RootSnare", "why": "the tell circle, then roots bursting up"},
-   {"stage": "sfx", "name": "tsuta_roots", "why": "players must hear the roots coming"}
-  ]},
-  {"entity": "Tsuta: Seed Volley", "needs": [
-   {"stage": "animation", "name": "Tsuta_SeedVolley", "why": "opening the canopy toward the target"},
-   {"stage": "vfx", "name": "Tsuta_SeedDarts", "why": "the five darts in flight"},
-   {"stage": "vfx", "name": "Tsuta_SproutBurst", "why": "the third stack bursting"},
-   {"stage": "sfx", "name": "tsuta_seed_darts", "why": "the volley"},
-   {"stage": "sfx", "name": "tsuta_sprout_burst", "why": "the burst"}
-  ]},
-  {"entity": "Tsuta: Canopy Guard", "needs": [
-   {"stage": "animation", "name": "Tsuta_CanopyGuard", "why": "the open-umbrella shield stance"},
-   {"stage": "vfx", "name": "Tsuta_CanopyReflect", "why": "a projectile bouncing back must be visible"},
-   {"stage": "sfx", "name": "tsuta_reflect", "why": "the reflect ping"}
-  ]},
-  {"entity": "Tsuta: Graft", "needs": [
-   {"stage": "animation", "name": "Tsuta_Graft", "why": "the vine lash and pull"},
-   {"stage": "vfx", "name": "Tsuta_GraftVine", "why": "the tether between her and the target"},
-   {"stage": "vfx", "name": "Tsuta_GraftHeal", "why": "shows her next hits are healing her"},
-   {"stage": "sfx", "name": "tsuta_vine", "why": "the lash"}
-  ]},
-  {"entity": "Tsuta: Thousand-Root Bloom (ultimate)", "needs": [
-   {"stage": "animation", "name": "Tsuta_ThousandRootBloom", "why": "planting the umbrella"},
-   {"stage": "vfx", "name": "Tsuta_ThousandRootBloom", "why": "the giant root tree erupting"},
-   {"stage": "sfx", "name": "tsuta_ult", "why": "the ultimate's payoff"}
-  ]},
-  {"entity": "Hibiki (Fire): kit", "needs": [
-   {"stage": "meshes", "name": "TaikoBachi", "why": "the drumsticks he fights with, one per hand"},
-   {"stage": "meshes", "name": "BackTaiko", "why": "the war drum worn on his back, struck by War Beat"},
-   {"stage": "animation", "name": "Hibiki_Idle", "why": "a drummer's ready stance, sticks raised"},
-   {"stage": "ui", "name": "FighterCard_Hibiki", "why": "his card on the Phase Select wheel"},
-   {"stage": "ui", "name": "FighterDetail_Hibiki", "why": "his six move icons, names and one-line descriptions on the select screen; the HUD ability bar reuses the icons"},
-   {"stage": "vfx", "name": "Hibiki_Trail", "why": "ember trail on the sticks"},
-   {"stage": "vfx", "name": "Hibiki_Beat", "why": "the Rhythm passive's flame burst on every Beat"},
-   {"stage": "sfx", "name": "hibiki_swing", "why": "stick swing"},
-   {"stage": "sfx", "name": "hibiki_beat", "why": "a drum hit on every Beat, so the rhythm is audible"}
-  ]},
-  {"entity": "Hibiki: M1 Bachi Strikes", "needs": [
-   {"stage": "animation", "name": "Hibiki_M1_A", "why": "first and third hits"},
-   {"stage": "animation", "name": "Hibiki_M1_B", "why": "second hit, alternating"},
-   {"stage": "animation", "name": "Hibiki_M1_Finisher", "why": "the double overhead strike"},
-   {"stage": "vfx", "name": "Hibiki_FinisherFlame", "why": "the finisher's flame burst"},
-   {"stage": "sfx", "name": "hibiki_finisher", "why": "the finisher's boom"}
-  ]},
-  {"entity": "Hibiki: War Beat", "needs": [
-   {"stage": "animation", "name": "Hibiki_WarBeat", "why": "spinning to strike the drum on his back"},
-   {"stage": "vfx", "name": "Hibiki_WarBeatRing", "why": "the ring shockwave's radius must read"},
-   {"stage": "sfx", "name": "hibiki_war_beat", "why": "a deep drum boom"}
-  ]},
-  {"entity": "Hibiki: Fire Roll", "needs": [
-   {"stage": "animation", "name": "Hibiki_FireRoll", "why": "drumming the ground"},
-   {"stage": "vfx", "name": "Hibiki_FireRollGeysers", "why": "the travelling line of geysers"},
-   {"stage": "sfx", "name": "hibiki_fire_roll", "why": "a rolling drum and flame roar"}
-  ]},
-  {"entity": "Hibiki: Kakegoe", "needs": [
-   {"stage": "animation", "name": "Hibiki_Kakegoe", "why": "the battle shout pose"},
-   {"stage": "vfx", "name": "Hibiki_KakegoeAura", "why": "shows the super armor and speed"},
-   {"stage": "sfx", "name": "hibiki_kakegoe", "why": "a taiko shout accent (no voice line)"}
-  ]},
-  {"entity": "Hibiki: Thunder Roll", "needs": [
-   {"stage": "animation", "name": "Hibiki_ThunderRoll", "why": "the channelled drum roll"},
-   {"stage": "vfx", "name": "Hibiki_ThunderRollPulses", "why": "five pulses in the cone"},
-   {"stage": "sfx", "name": "hibiki_thunder_roll", "why": "the channelled roll"}
-  ]},
-  {"entity": "Hibiki: Festival of a Thousand Drums (ultimate)", "needs": [
-   {"stage": "animation", "name": "Hibiki_FestivalOfDrums", "why": "conducting the phantom drums"},
-   {"stage": "vfx", "name": "Hibiki_FestivalOfDrums", "why": "the ring of phantom taiko and their shockwaves"},
-   {"stage": "sfx", "name": "hibiki_ult", "why": "the ultimate's drum crescendo"}
-  ]},
-  {"entity": "Iwao (Earth): kit", "needs": [
-   {"stage": "meshes", "name": "StoneBracer", "why": "worn on both forearms; his only 'weapon'"},
-   {"stage": "meshes", "name": "RopeBelt", "why": "the braided rope belt with paper streamers that marks him as the champion"},
-   {"stage": "animation", "name": "Iwao_Idle", "why": "a low, wide wrestler's ready stance"},
-   {"stage": "ui", "name": "FighterCard_Iwao", "why": "his card on the Phase Select wheel"},
-   {"stage": "ui", "name": "FighterDetail_Iwao", "why": "his six move icons, names and one-line descriptions on the select screen; the HUD ability bar reuses the icons"},
-   {"stage": "vfx", "name": "Iwao_DustImpact", "why": "dust on every heavy slap"},
-   {"stage": "sfx", "name": "iwao_slap", "why": "open-palm slap"}
-  ]},
-  {"entity": "Iwao: M1 Tsuppari", "needs": [
-   {"stage": "animation", "name": "Iwao_M1_A", "why": "right-hand slap"},
-   {"stage": "animation", "name": "Iwao_M1_B", "why": "left-hand slap, alternating"},
-   {"stage": "animation", "name": "Iwao_M1_Finisher", "why": "the two-handed shove"},
-   {"stage": "vfx", "name": "Iwao_ShoveWave", "why": "the finisher's push wave"},
-   {"stage": "sfx", "name": "iwao_shove", "why": "the finisher's thump"}
-  ]},
-  {"entity": "Iwao: Shiko Stomp", "needs": [
-   {"stage": "animation", "name": "Iwao_ShikoStomp", "why": "the leg-raise stomp everyone recognises"},
-   {"stage": "vfx", "name": "Iwao_ShikoQuake", "why": "the stun ring cracking the ground"},
-   {"stage": "sfx", "name": "iwao_stomp", "why": "a ground-shaking stomp"}
-  ]},
-  {"entity": "Iwao: Boulder Grip", "needs": [
-   {"stage": "animation", "name": "Iwao_BoulderGrip", "why": "the grab, lift and throw"},
-   {"stage": "animation", "name": "Grabbed_Thrown", "why": "the victim's side of the throw"},
-   {"stage": "vfx", "name": "Iwao_ThrowLanding", "why": "the landing impact"},
-   {"stage": "sfx", "name": "iwao_throw", "why": "grab and landing thud"}
-  ]},
-  {"entity": "Iwao: Purifying Salt", "needs": [
-   {"stage": "animation", "name": "Iwao_PurifyingSalt", "why": "the ritual salt toss"},
-   {"stage": "vfx", "name": "Iwao_SaltCone", "why": "the cone of salt"},
-   {"stage": "sfx", "name": "iwao_salt", "why": "a scatter of salt"}
-  ]},
-  {"entity": "Iwao: Tachiai Charge", "needs": [
-   {"stage": "animation", "name": "Iwao_TachiaiCharge", "why": "the low explosive charge"},
-   {"stage": "vfx", "name": "Iwao_ChargeShockwave", "why": "the wall-slam shockwave"},
-   {"stage": "sfx", "name": "iwao_charge", "why": "the charge and slam"}
-  ]},
-  {"entity": "Iwao: Dohyo of the Mountain (ultimate)", "needs": [
-   {"stage": "meshes", "name": "DohyoRing", "why": "the raised stone ring that traps enemies for 6 s"},
-   {"stage": "animation", "name": "Iwao_Dohyo", "why": "raising the ring"},
-   {"stage": "vfx", "name": "Iwao_DohyoRise", "why": "the ring rising out of the ground"},
-   {"stage": "vfx", "name": "Iwao_RingOut", "why": "a ring-out must be a celebrated moment"},
-   {"stage": "sfx", "name": "iwao_ult", "why": "the ring rising"},
-   {"stage": "sfx", "name": "iwao_ring_out", "why": "the ring-out call"}
-  ]},
-  {"entity": "Kanemori (Metal): kit", "needs": [
-   {"stage": "meshes", "name": "Jitte", "why": "the hooked truncheon he fights with"},
-   {"stage": "meshes", "name": "WeightedChain", "why": "the chain coiled at his belt and thrown by Chain Lash"},
-   {"stage": "meshes", "name": "Jingasa", "why": "the iron hat that marks a constable"},
-   {"stage": "animation", "name": "Kanemori_Idle", "why": "jitte held hook-up at the waist, ready to catch"},
-   {"stage": "ui", "name": "FighterCard_Kanemori", "why": "his card on the Phase Select wheel"},
-   {"stage": "ui", "name": "FighterDetail_Kanemori", "why": "his six move icons, names and one-line descriptions on the select screen; the HUD ability bar reuses the icons"},
-   {"stage": "vfx", "name": "Kanemori_Trail", "why": "steel glint trail on the jitte"},
-   {"stage": "vfx", "name": "Kanemori_ArrestSeal", "why": "the Arrest passive's silence on a parry"},
-   {"stage": "sfx", "name": "kanemori_swing", "why": "jitte swing"},
-   {"stage": "sfx", "name": "kanemori_arrest", "why": "a clang and seal on Arrest"}
-  ]},
-  {"entity": "Kanemori: M1 Jitte Strikes", "needs": [
-   {"stage": "animation", "name": "Kanemori_M1_A", "why": "first and third hits"},
-   {"stage": "animation", "name": "Kanemori_M1_B", "why": "second hit, alternating"},
-   {"stage": "animation", "name": "Kanemori_M1_Finisher", "why": "the hook-and-twist"},
-   {"stage": "vfx", "name": "Kanemori_HookTwist", "why": "the finisher's stagger spark"},
-   {"stage": "sfx", "name": "kanemori_hook", "why": "the finisher's metal scrape"}
-  ]},
-  {"entity": "Kanemori: Chain Lash", "needs": [
-   {"stage": "animation", "name": "Kanemori_ChainLash", "why": "the chain throw and yank"},
-   {"stage": "vfx", "name": "Kanemori_ChainLash", "why": "the chain in flight and the bind"},
-   {"stage": "sfx", "name": "kanemori_chain", "why": "rattling chain"}
-  ]},
-  {"entity": "Kanemori: Jitte Catch", "needs": [
-   {"stage": "animation", "name": "Kanemori_JitteCatch", "why": "the catching stance and counter-strike"},
-   {"stage": "vfx", "name": "Kanemori_CatchFlash", "why": "a successful catch must be obvious"},
-   {"stage": "sfx", "name": "kanemori_catch", "why": "the catch clang"}
-  ]},
-  {"entity": "Kanemori: Iron Edict", "needs": [
-   {"stage": "animation", "name": "Kanemori_IronEdict", "why": "driving the jitte into the ground"},
-   {"stage": "vfx", "name": "Kanemori_IronSpikes", "why": "the line of spikes erupting"},
-   {"stage": "sfx", "name": "kanemori_spikes", "why": "iron bursting from stone"}
-  ]},
-  {"entity": "Kanemori: Hunter's Chase", "needs": [
-   {"stage": "animation", "name": "Kanemori_HuntersChase", "why": "the pursuit dash and blow"},
-   {"stage": "vfx", "name": "Kanemori_ChaseStreak", "why": "the dash streak to the target"},
-   {"stage": "sfx", "name": "kanemori_chase", "why": "the dash and blow"}
-  ]},
-  {"entity": "Kanemori: Edict of Chains (ultimate)", "needs": [
-   {"stage": "animation", "name": "Kanemori_EdictOfChains", "why": "raising the chains and pulling them in"},
-   {"stage": "vfx", "name": "Kanemori_EdictOfChains", "why": "chains bursting up, dragging, and the iron shockwave"},
-   {"stage": "sfx", "name": "kanemori_ult", "why": "the ultimate's chains and shockwave"}
-  ]},
-  {"entity": "Rokumon (Water): kit", "needs": [
-   {"stage": "meshes", "name": "FerryOar", "why": "the long oar he fights with"},
-   {"stage": "meshes", "name": "Sugegasa", "why": "the wide straw hat that is his silhouette"},
-   {"stage": "meshes", "name": "CoinString", "why": "the six coins at his belt that show the Fare count"},
-   {"stage": "animation", "name": "Rokumon_Idle", "why": "the oar carried over the shoulder, blade up and behind"},
-   {"stage": "ui", "name": "FighterCard_Rokumon", "why": "his card on the Phase Select wheel"},
-   {"stage": "ui", "name": "FighterDetail_Rokumon", "why": "his six move icons, names and one-line descriptions on the select screen; the HUD ability bar reuses the icons"},
-   {"stage": "vfx", "name": "Rokumon_Trail", "why": "ghost-water trail on the oar"},
-   {"stage": "vfx", "name": "Rokumon_Coin", "why": "a coin flashes when Fare pays out"},
-   {"stage": "sfx", "name": "rokumon_swing", "why": "oar swoosh"},
-   {"stage": "sfx", "name": "rokumon_coin", "why": "a coin clink on every Fare"}
-  ]},
-  {"entity": "Rokumon: M1 Oar Sweeps", "needs": [
-   {"stage": "animation", "name": "Rokumon_M1_A", "why": "first and third sweeps"},
-   {"stage": "animation", "name": "Rokumon_M1_B", "why": "second sweep, alternating"},
-   {"stage": "animation", "name": "Rokumon_M1_Finisher", "why": "the upward scoop"},
-   {"stage": "vfx", "name": "Rokumon_ScoopSplash", "why": "the finisher's splash"},
-   {"stage": "sfx", "name": "rokumon_scoop", "why": "the finisher's splash"}
-  ]},
-  {"entity": "Rokumon: Riverpull", "needs": [
-   {"stage": "animation", "name": "Rokumon_Riverpull", "why": "the dragging sweep"},
-   {"stage": "vfx", "name": "Rokumon_Riverpull", "why": "ghost water pulling in the cone"},
-   {"stage": "sfx", "name": "rokumon_pull", "why": "a rushing undertow"}
-  ]},
-  {"entity": "Rokumon: Phantom Ferry", "needs": [
-   {"stage": "meshes", "name": "PhantomBoat", "why": "the ghostly boat he rides forward"},
-   {"stage": "animation", "name": "Rokumon_PhantomFerry", "why": "riding and steering with the oar"},
-   {"stage": "vfx", "name": "Rokumon_PhantomFerry", "why": "the ghost boat's glow and wake"},
-   {"stage": "sfx", "name": "rokumon_ferry", "why": "creaking boat and water"}
-  ]},
-  {"entity": "Rokumon: Mist of the Crossing", "needs": [
-   {"stage": "animation", "name": "Rokumon_Mist", "why": "the oar swirl that raises the mist"},
-   {"stage": "vfx", "name": "Rokumon_Mist", "why": "the slowing mist's edge must be readable"},
-   {"stage": "sfx", "name": "rokumon_mist", "why": "a cold hiss"}
-  ]},
-  {"entity": "Rokumon: Toll Strike", "needs": [
-   {"stage": "animation", "name": "Rokumon_TollStrike", "why": "the overhead oar blow"},
-   {"stage": "vfx", "name": "Rokumon_TollStrike", "why": "coins spent in a burst on impact"},
-   {"stage": "sfx", "name": "rokumon_toll", "why": "a bell toll scaled by coins"}
-  ]},
-  {"entity": "Rokumon: The River Returns (ultimate)", "needs": [
-   {"stage": "animation", "name": "Rokumon_RiverReturns", "why": "calling the river back"},
-   {"stage": "vfx", "name": "Rokumon_RiverReturns", "why": "the flood wave down its lane, then draining"},
-   {"stage": "sfx", "name": "rokumon_ult", "why": "a flood roar"}
-  ]},
-  {"entity": "The Thirsting Elder (world boss): body", "needs": [
-   {"stage": "meshes", "name": "ElderTrunk", "why": "the hero tree, seen from the whole map while dormant"},
-   {"stage": "meshes", "name": "ElderCrown", "why": "the canopy of hollow reed branches"},
-   {"stage": "meshes", "name": "ElderHeart", "why": "the glowing heart that shows its current phase"},
-   {"stage": "animation", "name": "Elder_Wake", "why": "the awakening must be a server-wide moment"},
-   {"stage": "animation", "name": "Elder_Fall", "why": "felling it needs a payoff"},
-   {"stage": "animation", "name": "Elder_Withdraw", "why": "on timeout it sinks back, sated"},
-   {"stage": "animation", "name": "Elder_Idle", "why": "a slow sway so the awake Elder never freezes between attacks"},
-   {"stage": "vfx", "name": "Elder_HeartPhase", "why": "the heart's colour is the puzzle: which phase can wound it"},
-   {"stage": "vfx", "name": "Elder_PhaseShiftWarning", "why": "a 3 s warning before the heart changes"},
-   {"stage": "vfx", "name": "Elder_Regen", "why": "shows it healing, so players switch phase"},
-   {"stage": "vfx", "name": "Elder_Wound", "why": "shows an overcoming hit has paused its regeneration"},
-   {"stage": "vfx", "name": "Elder_FeedHeal", "why": "a feeding hit visibly heals it"},
-   {"stage": "vfx", "name": "Elder_DormantPulse", "why": "the dormant heart pulses faster as the Thirst fills"},
-   {"stage": "ui", "name": "ElderBar", "why": "boss health, heart phase and next-phase timer"},
-   {"stage": "ui", "name": "ThirstMeter", "why": "the server's spilled Ki as a lily bud that blooms"},
-   {"stage": "sfx", "name": "elder_wake", "why": "a groan heard across the map"},
-   {"stage": "sfx", "name": "elder_phase_shift", "why": "a chime on every heart change"},
-   {"stage": "sfx", "name": "elder_fall", "why": "the felling crash"},
-   {"stage": "sfx", "name": "music_elder", "why": "the boss loop"},
-   {"stage": "sfx", "name": "music_elder_enraged", "why": "a faster layer below 35%"}
-  ]},
-  {"entity": "Elder attack: Root Eruption", "needs": [
-   {"stage": "meshes", "name": "ElderRoot", "why": "the root that bursts out of the ground"},
-   {"stage": "animation", "name": "Elder_RootSlam", "why": "the trunk driving its roots down"},
-   {"stage": "vfx", "name": "Elder_RootTell", "why": "the red circle 1.2 s before"},
-   {"stage": "vfx", "name": "Elder_RootEruption", "why": "the eruption itself"},
-   {"stage": "sfx", "name": "elder_roots", "why": "cracking earth"}
-  ]},
-  {"entity": "Elder attack: Thirsting Reach (grab)", "needs": [
-   {"stage": "meshes", "name": "ElderBranchTube", "why": "the hollow branch that grabs and drains a player"},
-   {"stage": "animation", "name": "Elder_BranchLash", "why": "the branch lashing out"},
-   {"stage": "animation", "name": "Grabbed_Drained", "why": "the victim held and drained"},
-   {"stage": "vfx", "name": "Elder_ReachTell", "why": "the red line 0.9 s before"},
-   {"stage": "vfx", "name": "Elder_KiDrain", "why": "Ki motes flowing from the victim into the branch"},
-   {"stage": "vfx", "name": "Elder_BranchBreak", "why": "breaking the branch frees an ally: a co-op moment"},
-   {"stage": "sfx", "name": "elder_lash", "why": "the lash"},
-   {"stage": "sfx", "name": "elder_drain", "why": "a draining loop"},
-   {"stage": "sfx", "name": "elder_branch_break", "why": "the branch snapping"}
-  ]},
-  {"entity": "Elder attack: Petal Storm (jump ring)", "needs": [
-   {"stage": "animation", "name": "Elder_PetalStorm", "why": "branches raised for 2 s: the tell"},
-   {"stage": "vfx", "name": "Elder_PetalStormRing", "why": "the expanding ring players jump over"},
-   {"stage": "sfx", "name": "elder_petal_storm", "why": "a rising rush of petals"}
-  ]},
-  {"entity": "Elder enrage: Sap Sprouts", "needs": [
-   {"stage": "meshes", "name": "SapSprout", "why": "the sapling adds that heal the Elder unless destroyed"},
-   {"stage": "animation", "name": "Elder_Enrage", "why": "the enrage shudder"},
-   {"stage": "vfx", "name": "Elder_EnrageAura", "why": "shows it is enraged"},
-   {"stage": "vfx", "name": "Elder_SproutHealBeam", "why": "the sprout-to-Elder heal link: kill these first"},
-   {"stage": "sfx", "name": "elder_enrage", "why": "the enrage roar"},
-   {"stage": "sfx", "name": "sprout_spawn", "why": "sprouts bursting from the soil"}
-  ]},
-  {"entity": "Elder rewards", "needs": [
-   {"stage": "meshes", "name": "LilyCrown", "why": "the top damage dealer wears it for the session"},
-   {"stage": "vfx", "name": "ElderSapBuff", "why": "shows who carries Elder's Sap"},
-   {"stage": "ui", "name": "RewardPopup", "why": "tells each contributor what they earned"},
-   {"stage": "sfx", "name": "reward_fanfare", "why": "the payoff"}
-  ]},
-  {"entity": "Phase Select screen", "needs": [
-   {"stage": "ui", "name": "PhaseSelect", "why": "five cards around the Five Phases wheel: the screen teaches the system"},
-   {"stage": "sfx", "name": "ui_select", "why": "hover and confirm"}
-  ]},
-  {"entity": "HUD", "needs": [
-   {"stage": "ui", "name": "HUD", "why": "health, Ki, guard, ability bar, relation indicator, statuses, feed, combo, damage numbers, announcements, Mend bar"},
-   {"stage": "sfx", "name": "ui_killfeed", "why": "a tick on every kill-feed line"},
-   {"stage": "sfx", "name": "streak_announce", "why": "the streak call-out"}
-  ]},
-  {"entity": "Death Recap", "needs": [
-   {"stage": "ui", "name": "DeathRecap", "why": "who beat you, with what relation, and the counter-pick"}
-  ]},
-  {"entity": "Touch controls", "needs": [
-   {"stage": "ui", "name": "TouchControls", "why": "phones are most of the genre's audience"}
-  ]}
- ],
- "publish": {
-  "universe_id": null,
-  "place_id": null
- }
+  "stages": {
+    "map": {
+      "spec": "design/map.json",
+      "status": "done",
+      "note": "proven (prove WARN only: T6 coast, T8 cliff cover, P2) and installed in places/HiganbanaBattlegrounds.rbxl"
+    },
+    "meshes": {
+      "spec": "design/meshes.json",
+      "status": "done",
+      "note": "38 meshes via Studio generate_mesh, manifest assets/meshes/manifest.json"
+    },
+    "ui": {
+      "spec": "design/ui.json",
+      "status": "done",
+      "note": "runtime-built UI, exported trees in assets/ui/, mockup assets/ui/mockup.png"
+    },
+    "animation": {
+      "spec": "design/animations.json",
+      "status": "todo"
+    },
+    "vfx": {
+      "spec": "design/vfx.json",
+      "status": "todo"
+    },
+    "sfx": {
+      "spec": "design/sfx.json",
+      "status": "todo"
+    }
+  },
+  "phases": {
+    "order": [
+      "Wood",
+      "Fire",
+      "Earth",
+      "Metal",
+      "Water"
+    ],
+    "generates": {
+      "Wood": "Fire",
+      "Fire": "Earth",
+      "Earth": "Metal",
+      "Metal": "Water",
+      "Water": "Wood"
+    },
+    "overcomes": {
+      "Wood": "Earth",
+      "Earth": "Water",
+      "Water": "Fire",
+      "Fire": "Metal",
+      "Metal": "Wood"
+    },
+    "colors": {
+      "Wood": [
+        74,
+        168,
+        96
+      ],
+      "Fire": [
+        228,
+        72,
+        40
+      ],
+      "Earth": [
+        214,
+        168,
+        64
+      ],
+      "Metal": [
+        226,
+        230,
+        236
+      ],
+      "Water": [
+        40,
+        52,
+        104
+      ]
+    },
+    "relations": {
+      "Overcome": "attacker's phase overcomes the target's: +20% damage, +50% guard damage. Red arrow icon.",
+      "Resisted": "the target's phase overcomes the attacker's: -15% damage. Grey shield icon.",
+      "Feeding": "the attacker's phase generates the target's: -10% damage and the target gains Ki equal to half of what the attacker would. Green leaf icon.",
+      "Drawing": "the target's phase generates the attacker's: normal damage, the attacker gains +50% Ki. Crimson mote icon.",
+      "Neutral": "same phase (mirror): no modifier."
+    },
+    "note": "Every pair of different phases is exactly one of Overcome/Resisted/Feeding/Drawing, so every phase has the same matchup profile: balanced by construction. Covered by a Lune spec in section 2."
+  },
+  "roster": [
+    {
+      "id": "Tsuta",
+      "title": "the Briar Shrine-Keeper",
+      "phase": "Wood",
+      "role": "Controller / sustain",
+      "difficulty": 2,
+      "health": 100,
+      "weapon": "war wagasa (oil-paper umbrella with a steel ferrule), held; opens into a shield",
+      "worn": "none",
+      "moves": {
+        "M1": "Umbrella Strikes: 4-hit chain, 6-stud reach, 4 dmg per hit; hit 4 snaps the canopy open for knockback",
+        "1": "Root Snare: roots burst at an aimed point up to 30 studs away after a 0.5 s tell; 9 dmg and a 1.2 s root in 7 studs. CD 10 s",
+        "2": "Seed Volley: 5 seed darts in a fan, 3 dmg each; each hit adds a Sprout stack, 3 stacks burst for 8 dmg and a 0.6 s root. CD 8 s",
+        "3": "Canopy Guard: opens the umbrella for 1.5 s; frontal shield that reflects projectiles back at their owner; melee attackers are rooted 0.8 s. CD 12 s",
+        "4": "Graft: a vine lash tethers the first enemy within 25 studs and pulls Tsuta to them; her next 3 hits heal her for 40% of damage dealt. CD 14 s",
+        "G": "Thousand-Root Bloom (ultimate, 100 Ki): plants the umbrella; a giant lily-root tree erupts in 22 studs, roots everyone inside 2 s, 28 dmg over 3 s, heals Tsuta 30% of damage dealt"
+      },
+      "passive": "none",
+      "story": "Tended the spider-lily shrine on the far bank for longer than she can remember; she knows which roots drink."
+    },
+    {
+      "id": "Hibiki",
+      "title": "the Ember Drummer",
+      "phase": "Fire",
+      "role": "Bruiser",
+      "difficulty": 2,
+      "health": 105,
+      "weapon": "twin taiko bachi (drumsticks), held one per hand",
+      "worn": "a small war taiko strapped on the back",
+      "moves": {
+        "M1": "Bachi Strikes: fast 4-hit chain, 3.5 dmg per hit; hit 4 is a double overhead strike that bursts into flame (knockback, burn)",
+        "1": "War Beat: strikes the drum on his back; a 12-stud ring shockwave, 10 dmg, knockback and burn. CD 9 s",
+        "2": "Fire Roll: drums the ground; a line of flame geysers travels 30 studs forward over 0.8 s, 11 dmg. CD 10 s",
+        "3": "Kakegoe: a battle shout; 3 s of super armor and +20% move speed, and his next hit is a Beat. CD 15 s",
+        "4": "Thunder Roll: 1.5 s channel, five flame pulses in a forward cone (3 dmg each), the last launches. CD 13 s",
+        "G": "Festival of a Thousand Drums (ultimate, 100 Ki): phantom taiko ring him in 18 studs and beat in sequence, then all at once: 30 dmg total, the final beat launches and burns"
+      },
+      "passive": "Rhythm: every 3rd consecutive landed hit within 2 s is a Beat: +25% damage and a small flame burst",
+      "story": "Beat the march for an army that never came home; he still keeps time."
+    },
+    {
+      "id": "Iwao",
+      "title": "the Mountain Rikishi",
+      "phase": "Earth",
+      "role": "Grappler / tank",
+      "difficulty": 1,
+      "health": 120,
+      "weapon": "none: bare hands in stone bracers",
+      "worn": "stone bracers on both forearms and a braided white rope belt with paper streamers",
+      "moves": {
+        "M1": "Tsuppari: heavy open-palm slaps, 4-hit chain, 5 dmg per hit; hit 4 is a two-handed shove with big knockback",
+        "1": "Shiko Stomp: the sumo leg-raise stomp; 12-stud ring, 9 dmg, 0.8 s stun, breaks guard. CD 11 s",
+        "2": "Boulder Grip: a short grab; on catch, lifts and throws the target 25 studs in the aimed direction, 12 dmg on landing, +6 into a wall. CD 12 s",
+        "3": "Purifying Salt: a cone of thrown salt; strips buffs and stops Ki gain and Mend for 3 s (Purified). CD 14 s",
+        "4": "Tachiai Charge: a straight charge that carries the first enemy; slamming them into a wall or another player causes a stone shockwave, 13 dmg. CD 12 s",
+        "G": "Dohyo of the Mountain (ultimate, 100 Ki): raises a 16-stud stone ring around him for 6 s; enemies inside cannot leave; he gains super armor; anyone thrown or knocked out of the ring takes 25 dmg (ring-out)"
+      },
+      "passive": "Rooted: takes 30% less knockback",
+      "story": "The shrine festival's champion wrestler; the mountain he stood on is somewhere under the lilies."
+    },
+    {
+      "id": "Kanemori",
+      "title": "the Iron Constable",
+      "phase": "Metal",
+      "role": "Duelist / counter",
+      "difficulty": 3,
+      "health": 95,
+      "weapon": "jitte (hooked steel truncheon), held; a weighted chain at the belt",
+      "worn": "flat lacquered iron jingasa hat",
+      "moves": {
+        "M1": "Jitte Strikes: quick 4-hit chain, 3.5 dmg per hit; hit 4 hooks and twists (0.6 s stagger)",
+        "1": "Chain Lash: throws the weighted chain 25 studs in a line; binds the first enemy (60% slow, 2 s), 8 dmg, and yanks them 8 studs toward him. CD 9 s",
+        "2": "Jitte Catch: a 0.6 s counter stance; catching a melee hit or a weapon projectile silences the attacker 2.5 s and counter-strikes for 10 dmg. CD 11 s",
+        "3": "Iron Edict: drives the jitte into the ground; a line of iron spikes erupts 24 studs forward, 11 dmg and +100% guard damage. CD 10 s",
+        "4": "Hunter's Chase: dashes to the last enemy he hit (within 40 studs and 6 s) with a stunning blow, 9 dmg, 0.7 s stun. CD 13 s",
+        "G": "Edict of Chains (ultimate, 100 Ki): chains burst from the ground within 20 studs, binding every enemy 2.5 s and dragging them to him; then an iron shockwave, 30 dmg"
+      },
+      "passive": "Arrest: his parries also silence the attacker for 2 s",
+      "story": "Arrested the wrong man the night the war began; he has been chasing the right one ever since."
+    },
+    {
+      "id": "Rokumon",
+      "title": "the Sanzu Ferryman",
+      "phase": "Water",
+      "role": "Zoner",
+      "difficulty": 2,
+      "health": 100,
+      "weapon": "a long ferry oar, held two-handed like a staff",
+      "worn": "a wide straw sugegasa hat and a string of six square-holed coins at the belt",
+      "moves": {
+        "M1": "Oar Sweeps: wide sweeps with 9-stud reach, 4.5 dmg per hit; hit 4 scoops upward (launch)",
+        "1": "Riverpull: a ghost-water sweep that pulls enemies in a 20-stud cone toward him, 7 dmg. CD 10 s",
+        "2": "Phantom Ferry: rides a phantom boat 35 studs forward, running enemies over: 10 dmg and knockback. CD 12 s",
+        "3": "Mist of the Crossing: mist in 14 studs for 4 s; enemies inside are slowed 40%; he turns half-transparent. CD 15 s",
+        "4": "Toll Strike: an overhead oar blow, 8 dmg plus 6 per coin held; spends all coins. CD 9 s",
+        "G": "The River Returns (ultimate, 100 Ki): the dry river floods a 50-stud lane in the aimed direction: the wave carries enemies with it and slows them, then drains and stuns 1 s; 26 dmg"
+      },
+      "passive": "Fare: every 6th landed hit earns a coin (max 6)",
+      "story": "The ferryman of the dry river, out of work since it ran dry; whoever crosses back will need a boat."
+    }
+  ],
+  "elder": {
+    "name": "the Thirsting Elder",
+    "what": "a colossal ancient tree grown over the war's last battlefield: scarred dark-red bark, hollow reed-like branches ending in open tubes, old armour and banners in its roots, red spider lilies at its feet, and a hollow heart that glows in the colour of its current phase. It never walks; it attacks across its grove with roots and branches.",
+    "wakes": "when the server Thirst (total damage players deal to each other) reaches ThirstBase + ThirstPerPlayer x players, no earlier than 120 s after the server starts and 180 s after its last fall",
+    "health": "ElderHealthBase + ElderHealthPerPlayer x players at awakening; cannot be stunned or knocked back",
+    "heart": "cycles along the generating order Wood > Fire > Earth > Metal > Water every 18 s (12 s when enraged), with a 3 s warning",
+    "rules": [
+      "regenerates 1.5% of max health per second",
+      "a hit from the phase that overcomes its heart deals +50% and pauses regeneration for 4 s (Wound)",
+      "a hit from the phase its heart is generated by (Feeding) heals it for half the damage instead",
+      "other hits deal normal damage with the usual relation multipliers"
+    ],
+    "attacks": [
+      "Root Eruption: red circles under 1-3 players for 1.2 s, then roots burst up: 14 dmg and launch",
+      "Thirsting Reach: a red line toward the nearest player for 0.9 s, then a hollow branch grabs them and drains 15 health per second for 2.5 s, healing the Elder; any player can break the branch (120 health) to free them",
+      "Petal Storm: raises its branches for 2 s, then a ring of razor petals expands from the trunk: jump over it (16 dmg)",
+      "Enrage below 35%: faster heart cycle and attacks, and 3 Sap Sprouts spawn that heal it 5% each unless destroyed within 10 s"
+    ],
+    "timeout": "240 s: it drinks its fill, heals to full, sinks back dormant and pays nobody",
+    "rewards": "every player who dealt at least 4% of its health: +30 Petals and Elder's Sap (+10% damage, +20% Mend rate for 120 s); the top damage dealer wears the Lily Crown for the rest of the session"
+  },
+  "systems": [
+    {
+      "name": "CombatService",
+      "side": "server",
+      "owns": "every fighter's combat state: M1 chain index and timers, move timelines in flight, cooldowns, block and guard, parry windows, grabs, temporary arena objects (Dohyo ring, root tree), passive counters (Rhythm, Fare coins)"
+    },
+    {
+      "name": "KiService",
+      "side": "server",
+      "owns": "each fighter's Ki meter, the relation-based Ki transfers, ultimate readiness, and the Mend channel state"
+    },
+    {
+      "name": "ProjectileService",
+      "side": "server",
+      "owns": "live projectiles and travelling hitboxes: seed darts, chain lash, fire roll, iron spikes, phantom ferry, flood wave, reflected projectiles"
+    },
+    {
+      "name": "StatusService",
+      "side": "server",
+      "owns": "status effects per character (stun, slow, root, bound, silence, burn, purified, super armor, sprout stacks, Elder's Sap) and the movement they impose; zone membership (safe landing, no-PvP beach)"
+    },
+    {
+      "name": "FighterService",
+      "side": "server",
+      "owns": "each player's chosen fighter and phase, the out-of-combat phase-switch rule, and the weapon and worn-kit attachments"
+    },
+    {
+      "name": "MapService",
+      "side": "server",
+      "owns": "the built Far Shore (terrain, structures, props), its zones and barrier walls, and the dormant Elder's grove"
+    },
+    {
+      "name": "DummyService",
+      "side": "server",
+      "owns": "the five phase training dummies, their health and respawn, and the beach's Ki rollback on exit"
+    },
+    {
+      "name": "ThirstService",
+      "side": "server",
+      "owns": "the server Thirst meter (spilled Ki) and the awakening schedule"
+    },
+    {
+      "name": "ElderService",
+      "side": "server",
+      "owns": "the Thirsting Elder: health, heart phase and timer, regeneration and Wound state, attack schedule and telegraphs, grabbed players and the grab branch, Sap Sprouts, the contribution ledger, timeout and rewards"
+    },
+    {
+      "name": "StatsService",
+      "side": "server",
+      "owns": "leaderstats (Petals, Kills, Streak), kill credit (last-hitter window and ring-out credit), the kill feed, server announcements and the Lily Crown holder"
+    },
+    {
+      "name": "InputController",
+      "side": "client",
+      "owns": "input bindings for keyboard and mouse, gamepad and touch, outgoing intents, and local prediction with rollback"
+    },
+    {
+      "name": "AnimationController",
+      "side": "client",
+      "owns": "animation tracks per rig: authored clips from the animation stage, fighter idles, and the Elder's skinned clips"
+    },
+    {
+      "name": "VfxController",
+      "side": "client",
+      "owns": "every live effect instance and its cleanup"
+    },
+    {
+      "name": "HudController",
+      "side": "client",
+      "owns": "HUD view state: bars, ability cooldowns, target relation indicator, statuses, kill feed, combo counter, damage numbers, Thirst bloom, Elder bar, reward popup, touch buttons"
+    },
+    {
+      "name": "SelectController",
+      "side": "client",
+      "owns": "the Phase Select screen and the Death Recap screen"
+    },
+    {
+      "name": "SoundController",
+      "side": "client",
+      "owns": "the SoundBank built by the sfx stage and the music state machine (landing, riverbed, Elder, enraged)"
+    }
+  ],
+  "config": {
+    "MaxPlayersPerServer": 12,
+    "RespawnSeconds": 4,
+    "LandingSafeRadius": 40,
+    "PhaseSwitchOutOfCombatSeconds": 8,
+    "RelationOvercomeDamage": 1.2,
+    "RelationOvercomeGuard": 1.5,
+    "RelationResistedDamage": 0.85,
+    "RelationFeedingDamage": 0.9,
+    "RelationFeedingKiToTarget": 0.5,
+    "RelationDrawingKiBonus": 0.5,
+    "KiMax": 100,
+    "KiPerDamageDealt": 1.0,
+    "KiPerDamageTaken": 0.5,
+    "MendKiPerSecond": 12,
+    "MendHealthPerKi": 1.0,
+    "MendLockoutAfterHitSeconds": 3,
+    "MendMoveSpeedMultiplier": 0.5,
+    "M1ChainHits": 4,
+    "M1ResetSeconds": 1.1,
+    "M1FinisherLockSeconds": 1.0,
+    "GuardMax": 100,
+    "BlockAbilityDamageTaken": 0.4,
+    "GuardBreakStunSeconds": 1.6,
+    "ParryWindowSeconds": 0.22,
+    "ParryStunSeconds": 1.25,
+    "DashCooldownSeconds": 1.8,
+    "KillCreditWindowSeconds": 10,
+    "PetalsPerKill": 5,
+    "PetalsPerStreakStepAbove2": 2,
+    "StreakAnnounceAt": [
+      3,
+      5,
+      10
+    ],
+    "ThirstBase": 2400,
+    "ThirstPerPlayer": 300,
+    "ThirstFirstAwakeMinSeconds": 120,
+    "ThirstCooldownAfterFallSeconds": 180,
+    "ElderHealthBase": 2000,
+    "ElderHealthPerPlayer": 400,
+    "ElderPhaseSeconds": 18,
+    "ElderPhaseSecondsEnraged": 12,
+    "ElderPhaseWarningSeconds": 3,
+    "ElderRegenPercentPerSecond": 1.5,
+    "ElderWoundPauseSeconds": 4,
+    "ElderOvercomeBonus": 1.5,
+    "ElderFeedingHealFraction": 0.5,
+    "ElderEnrageAtFraction": 0.35,
+    "ElderTimeoutSeconds": 240,
+    "ElderBranchHealth": 120,
+    "ElderGrabDrainPerSecond": 15,
+    "ElderGrabSeconds": 2.5,
+    "SapSproutCount": 3,
+    "SapSproutHealSeconds": 10,
+    "SapSproutHealFraction": 0.05,
+    "ElderRewardMinContribution": 0.04,
+    "ElderRewardPetals": 30,
+    "ElderSapSeconds": 120,
+    "ElderSapDamageBonus": 0.1,
+    "ElderSapMendBonus": 0.2,
+    "HibikiBeatEveryHits": 3,
+    "HibikiBeatDamageBonus": 0.25,
+    "RokumonHitsPerCoin": 6,
+    "RokumonMaxCoins": 6,
+    "RokumonTollDamagePerCoin": 6,
+    "IwaoKnockbackTakenMultiplier": 0.7,
+    "IwaoDohyoSeconds": 6,
+    "IwaoDohyoRadius": 16,
+    "IwaoRingOutDamage": 25,
+    "KanemoriParrySilenceSeconds": 2,
+    "TsutaSproutBurstStacks": 3,
+    "CombatDebugAttribute": "HiganCombatDebug"
+  },
+  "plan": {
+    "overview": "Higanbana Battlegrounds. Roblox battlegrounds (anime-style free-for-all PvP brawler with a server world boss), original IP. PC, mobile, tablet and console, mobile-first touch controls. Ages 9+, mild violence, no blood.",
+    "pitch_and_usp": "Wake on the far shore of the river of the dead, master one of the Five Phases and out-fight every other soul while your fighting wakes a tree that only the right phase can wound. Why this over Jujutsu Shenanigans or The Strongest Battlegrounds: a world of its own that no anime owns, a Five Phases matchup layer that turns every fight into a counter-pick question, and PvP that grows a raid boss instead of a timer.",
+    "core_concept": "0 min: pick a fighter (Iwao, the easiest, is highlighted), land a first chain on a training dummy and see 'Overcome!'. 5 min: brawling in the riverbed, a first ultimate or Mend, a first kill, a first death and a counter-pick from the recap. 30 min: two or three Elder awakenings, swapping phases to wound its changing heart, a streak call-out, chasing the Lily Crown. Tomorrow: nothing persists this build (saving is out of scope), so the pull is mastery of five movesets and twenty matchups; saving and daily goals come next.",
+    "player_experience": "Weighty, readable and a little eerie: hits with hit-stop and crimson Ki spraying from every strike, lilies swaying in a dusk that never ends. Every hit says whether you are winning the matchup (relation icon and damage-number colour), so a loss reads as a lesson, not luck. First win inside 30 s (a full chain and 'Overcome!' on a dummy), first kill within about 3 minutes, first Elder fight around minute 5 on a busy server.",
+    "audience": "Primary: the battlegrounds audience, 9-16, mostly on phones, competitive-casual, already playing Jujutsu Shenanigans and The Strongest Battlegrounds and happy to learn movesets. Secondary: anime fans who like dark Japanese folklore. Social play is incidental (same server, Elder raids), not organised.",
+    "market": "Looked at (design/research.md): Jujutsu Shenanigans (84K concurrent, 8B visits; ~178K live in June 2026) and The Strongest Battlegrounds (42.5K, 19.7B visits) lead a 657K-player sub-genre, followed by a long tail of anime homages (Anime Ability Arena, Legends Battlegrounds, Jujutsu Beatdown, Heroes Battlegrounds). What they do well: instant recognition, simple four-ability kits, weighty hits. What they do badly (my reading): they own none of their worlds, ride another company's release calendar and have no matchup layer. The gap: an original world with a strong look, a readable counter system and a PvP-fed PvE event.",
+    "mechanics": "Movement: walk, run, jump, dash (1.8 s), knockback and ring-outs off the cliffs. Combat: 4-hit M1 chains, hold-to-block with a 100-point guard, 0.22 s parry, guard break, four abilities and an ultimate per fighter, three passives (Rhythm, Fare, Arrest) plus Iwao's knockback resistance, statuses (stun, slow, root, bound, silence, burn, purified, super armor, sprout). Phases: Overcome / Resisted / Feeding / Drawing on every hit. Ki: fills from dealing and taking damage, spent on the ultimate (100) or Mend (hold R: 12 Ki/s into health, broken by any hit, locked 3 s after damage). World: safe landing, no-PvP training beach, the Thirst meter and the Elder event. Economy: Lily Petals as a session score.",
+    "progression": "Short term (minutes): land a chain, a first kill, a first ultimate, learn a matchup. Medium term (a session): streaks (called out at 3, 5 and 10), Elder contributions, the Lily Crown, the top of the Petal board. Long term: none this build, deliberately: levels, unlocks and saved stats need a datastore, which is out of scope.",
+    "content": "One map, the Far Shore, in five areas. Five fighters (one per phase), each with an M1 chain, four abilities and an ultimate: 30 moves, plus 3 passives. Five phase training dummies. One world boss, the Thirsting Elder: a phase-cycling heart, 3 attacks, a breakable grab branch, an enrage with 3 Sap Sprouts. Collectibles: Lily Petals (score) and the Lily Crown (session cosmetic). No other NPCs: the select altar is a lantern at the ferry hut.",
+    "world": "Ferry Landing (south): spawn, select altar, safe zone; grey pier, ferry lanterns, a vermilion torii; no difficulty; open from the start. The Dry Riverbed (centre): the main arena; stranded ferry boats and cairns for cover, a stone bridge overhead; free-for-all, hardest PvP; open. Lily Fields (south-east, a low hill east of the landing): rolling spider lilies with bamboo edges, long sightlines over the riverbed for zoners, a flank route; medium; open. Jizo Beach (west reach, a Sai no Kawara of cairns and red-capped Jizo): training with the five phase dummies and a stone tablet of the two cycles; no PvP, Ki earned there is rolled back on leaving; open. Elder's Grove (north bank): a clearing of old banners and armour around the dormant Elder, whose heart pulses faster as the Thirst fills; the boss arena when it wakes; hardest; open, but the Elder only wakes on a full Thirst. Edges: cliffs into a sea of mist, a fall is a death credited to the last hitter.",
+    "story": "Every autumn equinox the red spider lilies bloom on the far shore of the Sanzu, the river every soul must cross. This year the river has run dry. Souls who still have their arts in them wake on its stones, and the ferryman's old tale says the river will carry one of them back to the living when it returns. Until then the shore belongs to whoever is still standing, and to the Thirsting Elder, a tree that grew where the last battle of a forgotten war was fought and drinks every drop of Ki spilled on its roots. Kept to one paragraph, fighter one-liners and the Elder's description; told through the world, not cutscenes. Later acts (not this build): II The Lantern Procession, III The River Returns.",
+    "ui_ux": "Phase Select: five cards around the Five Phases wheel (generating arrows outside, overcoming star inside), a detail panel with role, difficulty and moves, and a Cross button: 2 clicks. HUD: health, Ki (ultimate-ready glow), guard, five ability slots with cooldown sweeps, phase badge, the relation icon on the targeted enemy, status icons, kill feed, combo counter, damage numbers coloured by relation, the Thirst bloom, the Elder bar (heart phase and next-phase timer), announcement banner, Petals and streak, Mend bar. Death Recap: who beat you, with what relation, and the phase that counters them; 1 click opens Phase Select with the counter highlighted, or you respawn as the same fighter after 4 s. Elder Reward popup. Touch controls: ATTACK, BLOCK, DASH, 1-4, ULT, MEND, PHASE. Leaderboard: the Roblox player list with leaderstats. Using any ability is one key or one tap.",
+    "tutorial": "0:00 spawn on the landing quay; Phase Select opens with Iwao highlighted as the easiest. 0:15 after crossing, a lantern trail and a prompt point west to Jizo Beach ('Learn the Five Phases', optional). 0:30 the first dummy hit pops a relation card ('Overcome! Earth overcomes Water: +20%'). Contextual prompts tick off one at a time: M1 chain, block (the striker dummy attacks back), parry timing, dash, abilities 1-4, then Ki fills and 'G: ultimate ready'. 2:00 'The riverbed awaits'; leaving the beach rolls Ki back. In the riverbed the Thirst bloom appears with a one-line tooltip ('every hit spills Ki; when the lily blooms, the Elder wakes'). First awakening: a banner names the heart's phase, what overcomes it and what feeds it.",
+    "art_direction": "Ukiyo-e afterlife at eternal dusk: ink-black silhouettes, crimson spider lilies, bone-white stone and mist, aged gold for coins and lanterns. Stylised and hand-painted with chunky shapes that read on a phone; no photoreal PBR. Every asset class matches: meshes painted with paint_texture.py in the shared palette, phase accent colours (Wood green, Fire vermilion, Earth ochre, Metal silver-white, Water indigo) only on fighter kit and phase effects; VFX share those accents and use crimson Ki motes as the universal hit language; UI is brush-stroke bars on lacquer-black panels with gold trim; lighting is Future with a low sun, teal-grey fog and bloom on lilies and lanterns. Players keep their own avatar plus a fighter kit (a weapon and one worn piece).",
+    "audio": "Music per state: Ferry Landing and select (calm shakuhachi and koto), riverbed fighting (a low-intensity taiko loop that ducks under combat), Elder awake (intense taiko and shamisen), Elder enraged (a faster layer), Elder felled (the reward fanfare). Ambience: dusk wind, bell crickets, creaking stranded hulls, a distant temple bell. SFX roles in design/sfx.json: per-weapon swings, hit tiers with an Overcome accent, block, parry, guard break, dash, Ki full, Mend, every ability, passive and ultimate, every Elder attack and heart change, UI, death and respawn.",
+    "technical_architecture": "A fork of the Tidebell Battlegrounds engine (games/TidebellBattlegrounds/src), made in section 2: one server Script bootstrapping service modules, one client LocalScript bootstrapping controllers, Remotes declared in default.project.json; no Knit, so the Knit template new_game.py laid down is replaced. Shared pure modules, Lune-tested with no Roblox globals: Phases, Fighters, CombatMath, ElderRules, Poses, VfxCatalog. Engine services: Players, RunService, ReplicatedStorage, CollectionService, TweenService, Debris, PhysicsService collision groups, Workspace raycasts and spatial queries, SoundService, Lighting (Atmosphere, Bloom, ColorCorrection, SunRays), Animator and AnimationController for authored clips. Tooling: Rojo, Lune, selene, StyLua, luau-lsp, the roblox-map builder output loaded by MapService. A combat trace behind workspace attribute HiganCombatDebug prints why each intent was refused and each hit check's candidates.",
+    "data_saving": {
+      "declined": "Session-only stats this build (scope law: no datastore). Petals, kills, streaks and the Lily Crown reset when the server closes, so nothing can be lost to a failed save. Next update: ProfileStore with session locking via roblox-data-stores."
+    },
+    "security": "Server-authoritative. Clients send only intents: Action(slot, aimUnit), SetBlock(bool), Dash(direction), Mend(bool), SelectFighter(id). The server checks argument types, NaN and unit length on vectors, rate-limits every remote per player, and decides cooldowns, stun/silence/root state, hit detection, relation multipliers, damage, Ki, Mend conditions, phase switching (out of combat 8 s), the safe and no-PvP zones, kill credit, Elder contribution and every reward. Ki earned on the training beach is rolled back on leaving it.",
+    "multiplayer": "Up to 12 players per server (the VFX and animation budget on phones). Free-for-all. When a player leaves, their projectiles, grabs, rings and binds end, kill credit for anyone they damaged in the last 10 s passes to the next-highest damager, and their Elder contribution is dropped; the Elder's health is fixed at awakening. Solo play works: the dummies and an Elder scaled to one player.",
+    "monetisation": {
+      "declined": "No Robux this build (out_of_scope). When it comes it is cosmetic only (Lily Crown variants, Ki colours, weapon skins), never power."
+    },
+    "economy": "One currency, Lily Petals, used as a session score. Enters: +5 per kill, +2 per streak step above 2, +30 for an Elder contribution of at least 4% of its health. Leaves: never, because there is no shop in scope, so nothing can inflate; it ranks the server board and resets with the server.",
+    "retention": "In a session: the Elder wakes every 5 to 7 minutes on a busy server, streak call-outs, the Lily Crown, and twenty phase matchups to learn. Across days: weak by design this build, because nothing persists (no datastore, out of scope); the next update adds saving, daily phase challenges and cosmetic unlocks.",
+    "social": "Leaderboard (leaderstats: Petals, Kills, Streak), kill feed, server-wide streak and Elder announcements, the visible Lily Crown, and the Elder's grab that another player can break to free you. Declined: friends lists, parties, teams, trading and chat features beyond default Roblox chat."
+  },
+  "asset_plan": [
+    {
+      "entity": "The Far Shore (map)",
+      "needs": [
+        {
+          "stage": "map",
+          "name": "FarShore",
+          "why": "the five-area layout (landing, riverbed, lily fields, Jizo beach, Elder's grove) proven reachable before any art"
+        },
+        {
+          "stage": "meshes",
+          "name": "SpiderLilyCluster",
+          "why": "the title flower; thousands carpet the fields and banks, so it must be cheap and instanced"
+        },
+        {
+          "stage": "meshes",
+          "name": "FerryBoat",
+          "why": "stranded boats are the riverbed's main cover"
+        },
+        {
+          "stage": "meshes",
+          "name": "StoneCairn",
+          "why": "Sai no Kawara cairns: low cover in the riverbed and the beach's identity"
+        },
+        {
+          "stage": "meshes",
+          "name": "JizoStatue",
+          "why": "the training beach's landmark; red caps read at distance"
+        },
+        {
+          "stage": "meshes",
+          "name": "StoneLantern",
+          "why": "lines the bridge road and lights the dusk"
+        },
+        {
+          "stage": "meshes",
+          "name": "ToriiGate",
+          "why": "marks the Ferry Landing from anywhere on the map"
+        },
+        {
+          "stage": "meshes",
+          "name": "FerryPier",
+          "why": "the spawn pier every player stands on first"
+        },
+        {
+          "stage": "meshes",
+          "name": "FerrymanHut",
+          "why": "the backdrop of the select altar at the landing"
+        },
+        {
+          "stage": "meshes",
+          "name": "BridgeParapet",
+          "why": "the stone bridge's railings; the deck itself is map geometry"
+        },
+        {
+          "stage": "meshes",
+          "name": "NoboriBanner",
+          "why": "tattered war banners ring the Elder's grove and tell its story"
+        },
+        {
+          "stage": "meshes",
+          "name": "ArmorPile",
+          "why": "abandoned armour the Elder's roots grow through"
+        },
+        {
+          "stage": "meshes",
+          "name": "BambooCluster",
+          "why": "edges of the lily fields; breaks long sightlines"
+        },
+        {
+          "stage": "meshes",
+          "name": "DeadPine",
+          "why": "silhouettes on the cliff rim against the dusk sky"
+        },
+        {
+          "stage": "vfx",
+          "name": "DriftingPetals",
+          "why": "ambient spider-lily petals so the world moves"
+        },
+        {
+          "stage": "vfx",
+          "name": "RiverMist",
+          "why": "low mist in the riverbed and over the cliffs hides the map's edge"
+        },
+        {
+          "stage": "vfx",
+          "name": "LanternGlow",
+          "why": "the bridge-road lanterns flicker"
+        },
+        {
+          "stage": "sfx",
+          "name": "ambience_dusk",
+          "why": "wind and bell crickets under everything"
+        },
+        {
+          "stage": "sfx",
+          "name": "ambience_riverbed",
+          "why": "creaking hulls and shifting stones in the riverbed"
+        },
+        {
+          "stage": "sfx",
+          "name": "music_landing",
+          "why": "calm music while choosing a fighter"
+        },
+        {
+          "stage": "sfx",
+          "name": "music_riverbed",
+          "why": "the fight loop"
+        }
+      ]
+    },
+    {
+      "entity": "Training dummies (five, one per phase)",
+      "needs": [
+        {
+          "stage": "meshes",
+          "name": "TrainingDummy",
+          "why": "a straw dummy tinted per phase, so players practise the phase wheel"
+        },
+        {
+          "stage": "ui",
+          "name": "DummyPhaseLabel",
+          "why": "names each dummy's phase and your relation to it"
+        },
+        {
+          "stage": "vfx",
+          "name": "DummyHitFlash",
+          "why": "confirms a practice hit"
+        },
+        {
+          "stage": "sfx",
+          "name": "dummy_hit",
+          "why": "a straw thump so practice hits are heard"
+        }
+      ]
+    },
+    {
+      "entity": "Phase relations (every hit)",
+      "needs": [
+        {
+          "stage": "ui",
+          "name": "PhaseBadge",
+          "why": "your own phase glyph and name on the HUD"
+        },
+        {
+          "stage": "ui",
+          "name": "RelationIndicator",
+          "why": "the Overcome / Resisted / Feeding / Drawing icon for whoever you target: the matchup at a glance"
+        },
+        {
+          "stage": "ui",
+          "name": "DamageNumber",
+          "why": "floating damage numbers coloured by relation, so a strong hit reads even without the icon"
+        },
+        {
+          "stage": "ui",
+          "name": "PhaseNameplate",
+          "why": "every player's phase glyph and health over their head, so matchups read at range"
+        },
+        {
+          "stage": "vfx",
+          "name": "Hit_Overcome",
+          "why": "a red burst so a strong hit is unmistakable"
+        },
+        {
+          "stage": "vfx",
+          "name": "Hit_Feeding",
+          "why": "a green leaf swirl into the target: you are feeding them"
+        },
+        {
+          "stage": "vfx",
+          "name": "Hit_Drawing",
+          "why": "crimson motes flowing back to the attacker: you drew Ki"
+        },
+        {
+          "stage": "vfx",
+          "name": "Hit_Neutral",
+          "why": "the plain hit spark for mirror and resisted hits"
+        },
+        {
+          "stage": "sfx",
+          "name": "hit_light",
+          "why": "light-hit impact"
+        },
+        {
+          "stage": "sfx",
+          "name": "hit_heavy",
+          "why": "heavy and finisher impact"
+        },
+        {
+          "stage": "sfx",
+          "name": "hit_overcome_accent",
+          "why": "an accent layer on Overcome hits so ears learn the wheel too"
+        }
+      ]
+    },
+    {
+      "entity": "Shared combat (every fighter)",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Block_Hold",
+          "why": "holding block must read at a glance"
+        },
+        {
+          "stage": "animation",
+          "name": "Parry",
+          "why": "the parry flash needs a matching pose"
+        },
+        {
+          "stage": "animation",
+          "name": "Dash",
+          "why": "a lunge, so a dash is not a slide"
+        },
+        {
+          "stage": "animation",
+          "name": "Mend_Channel",
+          "why": "a kneeling breath while turning Ki into health, so others can punish it"
+        },
+        {
+          "stage": "animation",
+          "name": "HitStun",
+          "why": "a flinch so stuns are visible"
+        },
+        {
+          "stage": "animation",
+          "name": "GuardBreak",
+          "why": "a stagger when guard breaks"
+        },
+        {
+          "stage": "ui",
+          "name": "Vitals",
+          "why": "health, Ki and guard bars: the three numbers every fight is about"
+        },
+        {
+          "stage": "ui",
+          "name": "AbilityBar",
+          "why": "M1, the four abilities and the ultimate with cooldown sweeps, one key or one tap each"
+        },
+        {
+          "stage": "vfx",
+          "name": "BlockSpark",
+          "why": "blocked hits spark on the guard"
+        },
+        {
+          "stage": "vfx",
+          "name": "ParryFlash",
+          "why": "the parry is the best moment in a duel"
+        },
+        {
+          "stage": "vfx",
+          "name": "GuardBreakShatter",
+          "why": "guard break must be obvious"
+        },
+        {
+          "stage": "vfx",
+          "name": "DashGust",
+          "why": "dash direction readable at distance"
+        },
+        {
+          "stage": "vfx",
+          "name": "KiFullAura",
+          "why": "an ultimate-ready fighter is visible to enemies too"
+        },
+        {
+          "stage": "vfx",
+          "name": "MendAura",
+          "why": "everyone can see who is healing"
+        },
+        {
+          "stage": "vfx",
+          "name": "SoulWisp",
+          "why": "death: the soul drifts back toward the landing"
+        },
+        {
+          "stage": "vfx",
+          "name": "RespawnBloom",
+          "why": "respawn: lilies bloom around you on the landing quay"
+        },
+        {
+          "stage": "sfx",
+          "name": "block_hit",
+          "why": "blocked-hit thud"
+        },
+        {
+          "stage": "sfx",
+          "name": "parry_clang",
+          "why": "parry"
+        },
+        {
+          "stage": "sfx",
+          "name": "guard_break",
+          "why": "guard-break crack"
+        },
+        {
+          "stage": "sfx",
+          "name": "dash_whoosh",
+          "why": "dash"
+        },
+        {
+          "stage": "sfx",
+          "name": "ki_full",
+          "why": "a chime when the ultimate is ready"
+        },
+        {
+          "stage": "sfx",
+          "name": "mend_loop",
+          "why": "a breathing hum while mending"
+        },
+        {
+          "stage": "sfx",
+          "name": "death_soul",
+          "why": "the soul leaving"
+        },
+        {
+          "stage": "sfx",
+          "name": "respawn_bell",
+          "why": "a temple bell on respawn"
+        }
+      ]
+    },
+    {
+      "entity": "Statuses",
+      "needs": [
+        {
+          "stage": "ui",
+          "name": "StatusRow",
+          "why": "your stun, slow, root, bound, silence, burn, purified, super armor, sprout, coin and Elder's Sap icons on the HUD"
+        },
+        {
+          "stage": "vfx",
+          "name": "Status_Stun",
+          "why": "stunned players must be visible to their attacker"
+        },
+        {
+          "stage": "vfx",
+          "name": "Status_Rooted",
+          "why": "roots around the feet"
+        },
+        {
+          "stage": "vfx",
+          "name": "Status_Bound",
+          "why": "chains around the body"
+        },
+        {
+          "stage": "vfx",
+          "name": "Status_Silence",
+          "why": "a paper seal: no abilities"
+        },
+        {
+          "stage": "vfx",
+          "name": "Status_Burn",
+          "why": "embers while burning"
+        },
+        {
+          "stage": "vfx",
+          "name": "Status_Purified",
+          "why": "salt glitter: no Ki gain, no Mend"
+        },
+        {
+          "stage": "vfx",
+          "name": "Status_Slow",
+          "why": "drag lines at the feet"
+        },
+        {
+          "stage": "vfx",
+          "name": "Status_SuperArmor",
+          "why": "shows who cannot be stunned"
+        }
+      ]
+    },
+    {
+      "entity": "Tsuta (Wood): kit",
+      "needs": [
+        {
+          "stage": "meshes",
+          "name": "Wagasa",
+          "why": "the closed war umbrella she carries and strikes with"
+        },
+        {
+          "stage": "meshes",
+          "name": "WagasaOpen",
+          "why": "the open canopy for Canopy Guard and the M1 finisher"
+        },
+        {
+          "stage": "animation",
+          "name": "Tsuta_Idle",
+          "why": "her own carry: umbrella point-down like a cane at her side"
+        },
+        {
+          "stage": "ui",
+          "name": "FighterCard_Tsuta",
+          "why": "her card on the Phase Select wheel"
+        },
+        {
+          "stage": "ui",
+          "name": "FighterDetail_Tsuta",
+          "why": "her six move icons, names and one-line descriptions on the select screen; the HUD ability bar reuses the icons"
+        },
+        {
+          "stage": "vfx",
+          "name": "Tsuta_Trail",
+          "why": "umbrella swing trail in Wood green"
+        },
+        {
+          "stage": "sfx",
+          "name": "tsuta_swing",
+          "why": "umbrella swing"
+        }
+      ]
+    },
+    {
+      "entity": "Tsuta: M1 Umbrella Strikes",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Tsuta_M1_A",
+          "why": "first and third hits"
+        },
+        {
+          "stage": "animation",
+          "name": "Tsuta_M1_B",
+          "why": "second hit, alternating so the chain is not one looping frame"
+        },
+        {
+          "stage": "animation",
+          "name": "Tsuta_M1_Finisher",
+          "why": "the canopy-snap finisher"
+        },
+        {
+          "stage": "vfx",
+          "name": "Tsuta_CanopySnap",
+          "why": "the finisher's burst"
+        },
+        {
+          "stage": "sfx",
+          "name": "tsuta_canopy_open",
+          "why": "the canopy snapping open"
+        }
+      ]
+    },
+    {
+      "entity": "Tsuta: Root Snare",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Tsuta_RootSnare",
+          "why": "the planting gesture that sells the cast"
+        },
+        {
+          "stage": "vfx",
+          "name": "Tsuta_RootSnare",
+          "why": "the tell circle, then roots bursting up"
+        },
+        {
+          "stage": "sfx",
+          "name": "tsuta_roots",
+          "why": "players must hear the roots coming"
+        }
+      ]
+    },
+    {
+      "entity": "Tsuta: Seed Volley",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Tsuta_SeedVolley",
+          "why": "opening the canopy toward the target"
+        },
+        {
+          "stage": "vfx",
+          "name": "Tsuta_SeedDarts",
+          "why": "the five darts in flight"
+        },
+        {
+          "stage": "vfx",
+          "name": "Tsuta_SproutBurst",
+          "why": "the third stack bursting"
+        },
+        {
+          "stage": "sfx",
+          "name": "tsuta_seed_darts",
+          "why": "the volley"
+        },
+        {
+          "stage": "sfx",
+          "name": "tsuta_sprout_burst",
+          "why": "the burst"
+        }
+      ]
+    },
+    {
+      "entity": "Tsuta: Canopy Guard",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Tsuta_CanopyGuard",
+          "why": "the open-umbrella shield stance"
+        },
+        {
+          "stage": "vfx",
+          "name": "Tsuta_CanopyReflect",
+          "why": "a projectile bouncing back must be visible"
+        },
+        {
+          "stage": "sfx",
+          "name": "tsuta_reflect",
+          "why": "the reflect ping"
+        }
+      ]
+    },
+    {
+      "entity": "Tsuta: Graft",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Tsuta_Graft",
+          "why": "the vine lash and pull"
+        },
+        {
+          "stage": "vfx",
+          "name": "Tsuta_GraftVine",
+          "why": "the tether between her and the target"
+        },
+        {
+          "stage": "vfx",
+          "name": "Tsuta_GraftHeal",
+          "why": "shows her next hits are healing her"
+        },
+        {
+          "stage": "sfx",
+          "name": "tsuta_vine",
+          "why": "the lash"
+        }
+      ]
+    },
+    {
+      "entity": "Tsuta: Thousand-Root Bloom (ultimate)",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Tsuta_ThousandRootBloom",
+          "why": "planting the umbrella"
+        },
+        {
+          "stage": "vfx",
+          "name": "Tsuta_ThousandRootBloom",
+          "why": "the giant root tree erupting"
+        },
+        {
+          "stage": "sfx",
+          "name": "tsuta_ult",
+          "why": "the ultimate's payoff"
+        }
+      ]
+    },
+    {
+      "entity": "Hibiki (Fire): kit",
+      "needs": [
+        {
+          "stage": "meshes",
+          "name": "TaikoBachi",
+          "why": "the drumsticks he fights with, one per hand"
+        },
+        {
+          "stage": "meshes",
+          "name": "BackTaiko",
+          "why": "the war drum worn on his back, struck by War Beat"
+        },
+        {
+          "stage": "animation",
+          "name": "Hibiki_Idle",
+          "why": "a drummer's ready stance, sticks raised"
+        },
+        {
+          "stage": "ui",
+          "name": "FighterCard_Hibiki",
+          "why": "his card on the Phase Select wheel"
+        },
+        {
+          "stage": "ui",
+          "name": "FighterDetail_Hibiki",
+          "why": "his six move icons, names and one-line descriptions on the select screen; the HUD ability bar reuses the icons"
+        },
+        {
+          "stage": "vfx",
+          "name": "Hibiki_Trail",
+          "why": "ember trail on the sticks"
+        },
+        {
+          "stage": "vfx",
+          "name": "Hibiki_Beat",
+          "why": "the Rhythm passive's flame burst on every Beat"
+        },
+        {
+          "stage": "sfx",
+          "name": "hibiki_swing",
+          "why": "stick swing"
+        },
+        {
+          "stage": "sfx",
+          "name": "hibiki_beat",
+          "why": "a drum hit on every Beat, so the rhythm is audible"
+        }
+      ]
+    },
+    {
+      "entity": "Hibiki: M1 Bachi Strikes",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Hibiki_M1_A",
+          "why": "first and third hits"
+        },
+        {
+          "stage": "animation",
+          "name": "Hibiki_M1_B",
+          "why": "second hit, alternating"
+        },
+        {
+          "stage": "animation",
+          "name": "Hibiki_M1_Finisher",
+          "why": "the double overhead strike"
+        },
+        {
+          "stage": "vfx",
+          "name": "Hibiki_FinisherFlame",
+          "why": "the finisher's flame burst"
+        },
+        {
+          "stage": "sfx",
+          "name": "hibiki_finisher",
+          "why": "the finisher's boom"
+        }
+      ]
+    },
+    {
+      "entity": "Hibiki: War Beat",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Hibiki_WarBeat",
+          "why": "spinning to strike the drum on his back"
+        },
+        {
+          "stage": "vfx",
+          "name": "Hibiki_WarBeatRing",
+          "why": "the ring shockwave's radius must read"
+        },
+        {
+          "stage": "sfx",
+          "name": "hibiki_war_beat",
+          "why": "a deep drum boom"
+        }
+      ]
+    },
+    {
+      "entity": "Hibiki: Fire Roll",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Hibiki_FireRoll",
+          "why": "drumming the ground"
+        },
+        {
+          "stage": "vfx",
+          "name": "Hibiki_FireRollGeysers",
+          "why": "the travelling line of geysers"
+        },
+        {
+          "stage": "sfx",
+          "name": "hibiki_fire_roll",
+          "why": "a rolling drum and flame roar"
+        }
+      ]
+    },
+    {
+      "entity": "Hibiki: Kakegoe",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Hibiki_Kakegoe",
+          "why": "the battle shout pose"
+        },
+        {
+          "stage": "vfx",
+          "name": "Hibiki_KakegoeAura",
+          "why": "shows the super armor and speed"
+        },
+        {
+          "stage": "sfx",
+          "name": "hibiki_kakegoe",
+          "why": "a taiko shout accent (no voice line)"
+        }
+      ]
+    },
+    {
+      "entity": "Hibiki: Thunder Roll",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Hibiki_ThunderRoll",
+          "why": "the channelled drum roll"
+        },
+        {
+          "stage": "vfx",
+          "name": "Hibiki_ThunderRollPulses",
+          "why": "five pulses in the cone"
+        },
+        {
+          "stage": "sfx",
+          "name": "hibiki_thunder_roll",
+          "why": "the channelled roll"
+        }
+      ]
+    },
+    {
+      "entity": "Hibiki: Festival of a Thousand Drums (ultimate)",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Hibiki_FestivalOfDrums",
+          "why": "conducting the phantom drums"
+        },
+        {
+          "stage": "vfx",
+          "name": "Hibiki_FestivalOfDrums",
+          "why": "the ring of phantom taiko and their shockwaves"
+        },
+        {
+          "stage": "sfx",
+          "name": "hibiki_ult",
+          "why": "the ultimate's drum crescendo"
+        }
+      ]
+    },
+    {
+      "entity": "Iwao (Earth): kit",
+      "needs": [
+        {
+          "stage": "meshes",
+          "name": "StoneBracer",
+          "why": "worn on both forearms; his only 'weapon'"
+        },
+        {
+          "stage": "meshes",
+          "name": "RopeBelt",
+          "why": "the braided rope belt with paper streamers that marks him as the champion"
+        },
+        {
+          "stage": "animation",
+          "name": "Iwao_Idle",
+          "why": "a low, wide wrestler's ready stance"
+        },
+        {
+          "stage": "ui",
+          "name": "FighterCard_Iwao",
+          "why": "his card on the Phase Select wheel"
+        },
+        {
+          "stage": "ui",
+          "name": "FighterDetail_Iwao",
+          "why": "his six move icons, names and one-line descriptions on the select screen; the HUD ability bar reuses the icons"
+        },
+        {
+          "stage": "vfx",
+          "name": "Iwao_DustImpact",
+          "why": "dust on every heavy slap"
+        },
+        {
+          "stage": "sfx",
+          "name": "iwao_slap",
+          "why": "open-palm slap"
+        }
+      ]
+    },
+    {
+      "entity": "Iwao: M1 Tsuppari",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Iwao_M1_A",
+          "why": "right-hand slap"
+        },
+        {
+          "stage": "animation",
+          "name": "Iwao_M1_B",
+          "why": "left-hand slap, alternating"
+        },
+        {
+          "stage": "animation",
+          "name": "Iwao_M1_Finisher",
+          "why": "the two-handed shove"
+        },
+        {
+          "stage": "vfx",
+          "name": "Iwao_ShoveWave",
+          "why": "the finisher's push wave"
+        },
+        {
+          "stage": "sfx",
+          "name": "iwao_shove",
+          "why": "the finisher's thump"
+        }
+      ]
+    },
+    {
+      "entity": "Iwao: Shiko Stomp",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Iwao_ShikoStomp",
+          "why": "the leg-raise stomp everyone recognises"
+        },
+        {
+          "stage": "vfx",
+          "name": "Iwao_ShikoQuake",
+          "why": "the stun ring cracking the ground"
+        },
+        {
+          "stage": "sfx",
+          "name": "iwao_stomp",
+          "why": "a ground-shaking stomp"
+        }
+      ]
+    },
+    {
+      "entity": "Iwao: Boulder Grip",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Iwao_BoulderGrip",
+          "why": "the grab, lift and throw"
+        },
+        {
+          "stage": "animation",
+          "name": "Grabbed_Thrown",
+          "why": "the victim's side of the throw"
+        },
+        {
+          "stage": "vfx",
+          "name": "Iwao_ThrowLanding",
+          "why": "the landing impact"
+        },
+        {
+          "stage": "sfx",
+          "name": "iwao_throw",
+          "why": "grab and landing thud"
+        }
+      ]
+    },
+    {
+      "entity": "Iwao: Purifying Salt",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Iwao_PurifyingSalt",
+          "why": "the ritual salt toss"
+        },
+        {
+          "stage": "vfx",
+          "name": "Iwao_SaltCone",
+          "why": "the cone of salt"
+        },
+        {
+          "stage": "sfx",
+          "name": "iwao_salt",
+          "why": "a scatter of salt"
+        }
+      ]
+    },
+    {
+      "entity": "Iwao: Tachiai Charge",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Iwao_TachiaiCharge",
+          "why": "the low explosive charge"
+        },
+        {
+          "stage": "vfx",
+          "name": "Iwao_ChargeShockwave",
+          "why": "the wall-slam shockwave"
+        },
+        {
+          "stage": "sfx",
+          "name": "iwao_charge",
+          "why": "the charge and slam"
+        }
+      ]
+    },
+    {
+      "entity": "Iwao: Dohyo of the Mountain (ultimate)",
+      "needs": [
+        {
+          "stage": "meshes",
+          "name": "DohyoRing",
+          "why": "the raised stone ring that traps enemies for 6 s"
+        },
+        {
+          "stage": "animation",
+          "name": "Iwao_Dohyo",
+          "why": "raising the ring"
+        },
+        {
+          "stage": "vfx",
+          "name": "Iwao_DohyoRise",
+          "why": "the ring rising out of the ground"
+        },
+        {
+          "stage": "vfx",
+          "name": "Iwao_RingOut",
+          "why": "a ring-out must be a celebrated moment"
+        },
+        {
+          "stage": "sfx",
+          "name": "iwao_ult",
+          "why": "the ring rising"
+        },
+        {
+          "stage": "sfx",
+          "name": "iwao_ring_out",
+          "why": "the ring-out call"
+        }
+      ]
+    },
+    {
+      "entity": "Kanemori (Metal): kit",
+      "needs": [
+        {
+          "stage": "meshes",
+          "name": "Jitte",
+          "why": "the hooked truncheon he fights with"
+        },
+        {
+          "stage": "meshes",
+          "name": "WeightedChain",
+          "why": "the chain coiled at his belt and thrown by Chain Lash"
+        },
+        {
+          "stage": "meshes",
+          "name": "Jingasa",
+          "why": "the iron hat that marks a constable"
+        },
+        {
+          "stage": "animation",
+          "name": "Kanemori_Idle",
+          "why": "jitte held hook-up at the waist, ready to catch"
+        },
+        {
+          "stage": "ui",
+          "name": "FighterCard_Kanemori",
+          "why": "his card on the Phase Select wheel"
+        },
+        {
+          "stage": "ui",
+          "name": "FighterDetail_Kanemori",
+          "why": "his six move icons, names and one-line descriptions on the select screen; the HUD ability bar reuses the icons"
+        },
+        {
+          "stage": "vfx",
+          "name": "Kanemori_Trail",
+          "why": "steel glint trail on the jitte"
+        },
+        {
+          "stage": "vfx",
+          "name": "Kanemori_ArrestSeal",
+          "why": "the Arrest passive's silence on a parry"
+        },
+        {
+          "stage": "sfx",
+          "name": "kanemori_swing",
+          "why": "jitte swing"
+        },
+        {
+          "stage": "sfx",
+          "name": "kanemori_arrest",
+          "why": "a clang and seal on Arrest"
+        }
+      ]
+    },
+    {
+      "entity": "Kanemori: M1 Jitte Strikes",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Kanemori_M1_A",
+          "why": "first and third hits"
+        },
+        {
+          "stage": "animation",
+          "name": "Kanemori_M1_B",
+          "why": "second hit, alternating"
+        },
+        {
+          "stage": "animation",
+          "name": "Kanemori_M1_Finisher",
+          "why": "the hook-and-twist"
+        },
+        {
+          "stage": "vfx",
+          "name": "Kanemori_HookTwist",
+          "why": "the finisher's stagger spark"
+        },
+        {
+          "stage": "sfx",
+          "name": "kanemori_hook",
+          "why": "the finisher's metal scrape"
+        }
+      ]
+    },
+    {
+      "entity": "Kanemori: Chain Lash",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Kanemori_ChainLash",
+          "why": "the chain throw and yank"
+        },
+        {
+          "stage": "vfx",
+          "name": "Kanemori_ChainLash",
+          "why": "the chain in flight and the bind"
+        },
+        {
+          "stage": "sfx",
+          "name": "kanemori_chain",
+          "why": "rattling chain"
+        }
+      ]
+    },
+    {
+      "entity": "Kanemori: Jitte Catch",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Kanemori_JitteCatch",
+          "why": "the catching stance and counter-strike"
+        },
+        {
+          "stage": "vfx",
+          "name": "Kanemori_CatchFlash",
+          "why": "a successful catch must be obvious"
+        },
+        {
+          "stage": "sfx",
+          "name": "kanemori_catch",
+          "why": "the catch clang"
+        }
+      ]
+    },
+    {
+      "entity": "Kanemori: Iron Edict",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Kanemori_IronEdict",
+          "why": "driving the jitte into the ground"
+        },
+        {
+          "stage": "vfx",
+          "name": "Kanemori_IronSpikes",
+          "why": "the line of spikes erupting"
+        },
+        {
+          "stage": "sfx",
+          "name": "kanemori_spikes",
+          "why": "iron bursting from stone"
+        }
+      ]
+    },
+    {
+      "entity": "Kanemori: Hunter's Chase",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Kanemori_HuntersChase",
+          "why": "the pursuit dash and blow"
+        },
+        {
+          "stage": "vfx",
+          "name": "Kanemori_ChaseStreak",
+          "why": "the dash streak to the target"
+        },
+        {
+          "stage": "sfx",
+          "name": "kanemori_chase",
+          "why": "the dash and blow"
+        }
+      ]
+    },
+    {
+      "entity": "Kanemori: Edict of Chains (ultimate)",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Kanemori_EdictOfChains",
+          "why": "raising the chains and pulling them in"
+        },
+        {
+          "stage": "vfx",
+          "name": "Kanemori_EdictOfChains",
+          "why": "chains bursting up, dragging, and the iron shockwave"
+        },
+        {
+          "stage": "sfx",
+          "name": "kanemori_ult",
+          "why": "the ultimate's chains and shockwave"
+        }
+      ]
+    },
+    {
+      "entity": "Rokumon (Water): kit",
+      "needs": [
+        {
+          "stage": "meshes",
+          "name": "FerryOar",
+          "why": "the long oar he fights with"
+        },
+        {
+          "stage": "meshes",
+          "name": "Sugegasa",
+          "why": "the wide straw hat that is his silhouette"
+        },
+        {
+          "stage": "meshes",
+          "name": "CoinString",
+          "why": "the six coins at his belt that show the Fare count"
+        },
+        {
+          "stage": "animation",
+          "name": "Rokumon_Idle",
+          "why": "the oar carried over the shoulder, blade up and behind"
+        },
+        {
+          "stage": "ui",
+          "name": "FighterCard_Rokumon",
+          "why": "his card on the Phase Select wheel"
+        },
+        {
+          "stage": "ui",
+          "name": "FighterDetail_Rokumon",
+          "why": "his six move icons, names and one-line descriptions on the select screen; the HUD ability bar reuses the icons"
+        },
+        {
+          "stage": "vfx",
+          "name": "Rokumon_Trail",
+          "why": "ghost-water trail on the oar"
+        },
+        {
+          "stage": "vfx",
+          "name": "Rokumon_Coin",
+          "why": "a coin flashes when Fare pays out"
+        },
+        {
+          "stage": "sfx",
+          "name": "rokumon_swing",
+          "why": "oar swoosh"
+        },
+        {
+          "stage": "sfx",
+          "name": "rokumon_coin",
+          "why": "a coin clink on every Fare"
+        }
+      ]
+    },
+    {
+      "entity": "Rokumon: M1 Oar Sweeps",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Rokumon_M1_A",
+          "why": "first and third sweeps"
+        },
+        {
+          "stage": "animation",
+          "name": "Rokumon_M1_B",
+          "why": "second sweep, alternating"
+        },
+        {
+          "stage": "animation",
+          "name": "Rokumon_M1_Finisher",
+          "why": "the upward scoop"
+        },
+        {
+          "stage": "vfx",
+          "name": "Rokumon_ScoopSplash",
+          "why": "the finisher's splash"
+        },
+        {
+          "stage": "sfx",
+          "name": "rokumon_scoop",
+          "why": "the finisher's splash"
+        }
+      ]
+    },
+    {
+      "entity": "Rokumon: Riverpull",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Rokumon_Riverpull",
+          "why": "the dragging sweep"
+        },
+        {
+          "stage": "vfx",
+          "name": "Rokumon_Riverpull",
+          "why": "ghost water pulling in the cone"
+        },
+        {
+          "stage": "sfx",
+          "name": "rokumon_pull",
+          "why": "a rushing undertow"
+        }
+      ]
+    },
+    {
+      "entity": "Rokumon: Phantom Ferry",
+      "needs": [
+        {
+          "stage": "meshes",
+          "name": "PhantomBoat",
+          "why": "the ghostly boat he rides forward"
+        },
+        {
+          "stage": "animation",
+          "name": "Rokumon_PhantomFerry",
+          "why": "riding and steering with the oar"
+        },
+        {
+          "stage": "vfx",
+          "name": "Rokumon_PhantomFerry",
+          "why": "the ghost boat's glow and wake"
+        },
+        {
+          "stage": "sfx",
+          "name": "rokumon_ferry",
+          "why": "creaking boat and water"
+        }
+      ]
+    },
+    {
+      "entity": "Rokumon: Mist of the Crossing",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Rokumon_Mist",
+          "why": "the oar swirl that raises the mist"
+        },
+        {
+          "stage": "vfx",
+          "name": "Rokumon_Mist",
+          "why": "the slowing mist's edge must be readable"
+        },
+        {
+          "stage": "sfx",
+          "name": "rokumon_mist",
+          "why": "a cold hiss"
+        }
+      ]
+    },
+    {
+      "entity": "Rokumon: Toll Strike",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Rokumon_TollStrike",
+          "why": "the overhead oar blow"
+        },
+        {
+          "stage": "vfx",
+          "name": "Rokumon_TollStrike",
+          "why": "coins spent in a burst on impact"
+        },
+        {
+          "stage": "sfx",
+          "name": "rokumon_toll",
+          "why": "a bell toll scaled by coins"
+        }
+      ]
+    },
+    {
+      "entity": "Rokumon: The River Returns (ultimate)",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Rokumon_RiverReturns",
+          "why": "calling the river back"
+        },
+        {
+          "stage": "vfx",
+          "name": "Rokumon_RiverReturns",
+          "why": "the flood wave down its lane, then draining"
+        },
+        {
+          "stage": "sfx",
+          "name": "rokumon_ult",
+          "why": "a flood roar"
+        }
+      ]
+    },
+    {
+      "entity": "The Thirsting Elder (world boss): body",
+      "needs": [
+        {
+          "stage": "meshes",
+          "name": "ElderTrunk",
+          "why": "the hero tree, seen from the whole map while dormant"
+        },
+        {
+          "stage": "meshes",
+          "name": "ElderCrown",
+          "why": "the canopy of hollow reed branches"
+        },
+        {
+          "stage": "meshes",
+          "name": "ElderHeart",
+          "why": "the glowing heart that shows its current phase"
+        },
+        {
+          "stage": "animation",
+          "name": "Elder_Wake",
+          "why": "the awakening must be a server-wide moment"
+        },
+        {
+          "stage": "animation",
+          "name": "Elder_Fall",
+          "why": "felling it needs a payoff"
+        },
+        {
+          "stage": "animation",
+          "name": "Elder_Withdraw",
+          "why": "on timeout it sinks back, sated"
+        },
+        {
+          "stage": "animation",
+          "name": "Elder_Idle",
+          "why": "a slow sway so the awake Elder never freezes between attacks"
+        },
+        {
+          "stage": "vfx",
+          "name": "Elder_HeartPhase",
+          "why": "the heart's colour is the puzzle: which phase can wound it"
+        },
+        {
+          "stage": "vfx",
+          "name": "Elder_PhaseShiftWarning",
+          "why": "a 3 s warning before the heart changes"
+        },
+        {
+          "stage": "vfx",
+          "name": "Elder_Regen",
+          "why": "shows it healing, so players switch phase"
+        },
+        {
+          "stage": "vfx",
+          "name": "Elder_Wound",
+          "why": "shows an overcoming hit has paused its regeneration"
+        },
+        {
+          "stage": "vfx",
+          "name": "Elder_FeedHeal",
+          "why": "a feeding hit visibly heals it"
+        },
+        {
+          "stage": "vfx",
+          "name": "Elder_DormantPulse",
+          "why": "the dormant heart pulses faster as the Thirst fills"
+        },
+        {
+          "stage": "ui",
+          "name": "ElderBar",
+          "why": "boss health, heart phase and next-phase timer"
+        },
+        {
+          "stage": "ui",
+          "name": "ThirstMeter",
+          "why": "the server's spilled Ki as a lily bud that blooms"
+        },
+        {
+          "stage": "sfx",
+          "name": "elder_wake",
+          "why": "a groan heard across the map"
+        },
+        {
+          "stage": "sfx",
+          "name": "elder_phase_shift",
+          "why": "a chime on every heart change"
+        },
+        {
+          "stage": "sfx",
+          "name": "elder_fall",
+          "why": "the felling crash"
+        },
+        {
+          "stage": "sfx",
+          "name": "music_elder",
+          "why": "the boss loop"
+        },
+        {
+          "stage": "sfx",
+          "name": "music_elder_enraged",
+          "why": "a faster layer below 35%"
+        }
+      ]
+    },
+    {
+      "entity": "Elder attack: Root Eruption",
+      "needs": [
+        {
+          "stage": "meshes",
+          "name": "ElderRoot",
+          "why": "the root that bursts out of the ground"
+        },
+        {
+          "stage": "animation",
+          "name": "Elder_RootSlam",
+          "why": "the trunk driving its roots down"
+        },
+        {
+          "stage": "vfx",
+          "name": "Elder_RootTell",
+          "why": "the red circle 1.2 s before"
+        },
+        {
+          "stage": "vfx",
+          "name": "Elder_RootEruption",
+          "why": "the eruption itself"
+        },
+        {
+          "stage": "sfx",
+          "name": "elder_roots",
+          "why": "cracking earth"
+        }
+      ]
+    },
+    {
+      "entity": "Elder attack: Thirsting Reach (grab)",
+      "needs": [
+        {
+          "stage": "meshes",
+          "name": "ElderBranchTube",
+          "why": "the hollow branch that grabs and drains a player"
+        },
+        {
+          "stage": "animation",
+          "name": "Elder_BranchLash",
+          "why": "the branch lashing out"
+        },
+        {
+          "stage": "animation",
+          "name": "Grabbed_Drained",
+          "why": "the victim held and drained"
+        },
+        {
+          "stage": "vfx",
+          "name": "Elder_ReachTell",
+          "why": "the red line 0.9 s before"
+        },
+        {
+          "stage": "vfx",
+          "name": "Elder_KiDrain",
+          "why": "Ki motes flowing from the victim into the branch"
+        },
+        {
+          "stage": "vfx",
+          "name": "Elder_BranchBreak",
+          "why": "breaking the branch frees an ally: a co-op moment"
+        },
+        {
+          "stage": "sfx",
+          "name": "elder_lash",
+          "why": "the lash"
+        },
+        {
+          "stage": "sfx",
+          "name": "elder_drain",
+          "why": "a draining loop"
+        },
+        {
+          "stage": "sfx",
+          "name": "elder_branch_break",
+          "why": "the branch snapping"
+        }
+      ]
+    },
+    {
+      "entity": "Elder attack: Petal Storm (jump ring)",
+      "needs": [
+        {
+          "stage": "animation",
+          "name": "Elder_PetalStorm",
+          "why": "branches raised for 2 s: the tell"
+        },
+        {
+          "stage": "vfx",
+          "name": "Elder_PetalStormRing",
+          "why": "the expanding ring players jump over"
+        },
+        {
+          "stage": "sfx",
+          "name": "elder_petal_storm",
+          "why": "a rising rush of petals"
+        }
+      ]
+    },
+    {
+      "entity": "Elder enrage: Sap Sprouts",
+      "needs": [
+        {
+          "stage": "meshes",
+          "name": "SapSprout",
+          "why": "the sapling adds that heal the Elder unless destroyed"
+        },
+        {
+          "stage": "animation",
+          "name": "Elder_Enrage",
+          "why": "the enrage shudder"
+        },
+        {
+          "stage": "vfx",
+          "name": "Elder_EnrageAura",
+          "why": "shows it is enraged"
+        },
+        {
+          "stage": "vfx",
+          "name": "Elder_SproutHealBeam",
+          "why": "the sprout-to-Elder heal link: kill these first"
+        },
+        {
+          "stage": "sfx",
+          "name": "elder_enrage",
+          "why": "the enrage roar"
+        },
+        {
+          "stage": "sfx",
+          "name": "sprout_spawn",
+          "why": "sprouts bursting from the soil"
+        }
+      ]
+    },
+    {
+      "entity": "Elder rewards",
+      "needs": [
+        {
+          "stage": "meshes",
+          "name": "LilyCrown",
+          "why": "the top damage dealer wears it for the session"
+        },
+        {
+          "stage": "vfx",
+          "name": "ElderSapBuff",
+          "why": "shows who carries Elder's Sap"
+        },
+        {
+          "stage": "ui",
+          "name": "RewardPopup",
+          "why": "tells each contributor what they earned"
+        },
+        {
+          "stage": "sfx",
+          "name": "reward_fanfare",
+          "why": "the payoff"
+        }
+      ]
+    },
+    {
+      "entity": "Phase Select screen",
+      "needs": [
+        {
+          "stage": "ui",
+          "name": "PhaseSelect",
+          "why": "five cards around the Five Phases wheel: the screen teaches the system"
+        },
+        {
+          "stage": "sfx",
+          "name": "ui_select",
+          "why": "hover and confirm"
+        }
+      ]
+    },
+    {
+      "entity": "HUD",
+      "needs": [
+        {
+          "stage": "ui",
+          "name": "HUD",
+          "why": "health, Ki, guard, ability bar, relation indicator, statuses, feed, combo, damage numbers, announcements, Mend bar"
+        },
+        {
+          "stage": "sfx",
+          "name": "ui_killfeed",
+          "why": "a tick on every kill-feed line"
+        },
+        {
+          "stage": "sfx",
+          "name": "streak_announce",
+          "why": "the streak call-out"
+        }
+      ]
+    },
+    {
+      "entity": "Death Recap",
+      "needs": [
+        {
+          "stage": "ui",
+          "name": "DeathRecap",
+          "why": "who beat you, with what relation, and the counter-pick"
+        }
+      ]
+    },
+    {
+      "entity": "Touch controls",
+      "needs": [
+        {
+          "stage": "ui",
+          "name": "TouchControls",
+          "why": "phones are most of the genre's audience"
+        }
+      ]
+    }
+  ],
+  "publish": {
+    "universe_id": null,
+    "place_id": null
+  }
 }

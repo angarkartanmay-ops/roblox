@@ -1,0 +1,1195 @@
+{
+ "className": "ScreenGui",
+ "children": [
+  {
+   "name": "Bottom",
+   "className": "Frame",
+   "children": [
+    {
+     "name": "UIScale",
+     "className": "UIScale"
+    },
+    {
+     "name": "StatusRow",
+     "className": "Frame",
+     "children": [
+      {
+       "name": "UIListLayout",
+       "className": "UIListLayout"
+      },
+      {
+       "name": "Stunned",
+       "className": "TextLabel",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "UIPadding",
+         "className": "UIPadding"
+        }
+       ]
+      },
+      {
+       "name": "GuardBroken",
+       "className": "TextLabel",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "UIPadding",
+         "className": "UIPadding"
+        }
+       ]
+      },
+      {
+       "name": "Grabbed",
+       "className": "TextLabel",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "UIPadding",
+         "className": "UIPadding"
+        }
+       ]
+      },
+      {
+       "name": "Rooted",
+       "className": "TextLabel",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "UIPadding",
+         "className": "UIPadding"
+        }
+       ]
+      },
+      {
+       "name": "Bound",
+       "className": "TextLabel",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "UIPadding",
+         "className": "UIPadding"
+        }
+       ]
+      },
+      {
+       "name": "Silenced",
+       "className": "TextLabel",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "UIPadding",
+         "className": "UIPadding"
+        }
+       ]
+      },
+      {
+       "name": "Slowed",
+       "className": "TextLabel",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "UIPadding",
+         "className": "UIPadding"
+        }
+       ]
+      },
+      {
+       "name": "Burning",
+       "className": "TextLabel",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "UIPadding",
+         "className": "UIPadding"
+        }
+       ]
+      },
+      {
+       "name": "Purified",
+       "className": "TextLabel",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "UIPadding",
+         "className": "UIPadding"
+        }
+       ]
+      },
+      {
+       "name": "SuperArmor",
+       "className": "TextLabel",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "UIPadding",
+         "className": "UIPadding"
+        }
+       ]
+      },
+      {
+       "name": "Sprouts",
+       "className": "TextLabel",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "UIPadding",
+         "className": "UIPadding"
+        }
+       ]
+      },
+      {
+       "name": "Sap",
+       "className": "TextLabel",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "UIPadding",
+         "className": "UIPadding"
+        }
+       ]
+      },
+      {
+       "name": "Hasted",
+       "className": "TextLabel",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "UIPadding",
+         "className": "UIPadding"
+        }
+       ]
+      },
+      {
+       "name": "Mist",
+       "className": "TextLabel",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "UIPadding",
+         "className": "UIPadding"
+        }
+       ]
+      },
+      {
+       "name": "Passive",
+       "className": "TextLabel",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "UIPadding",
+         "className": "UIPadding"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "PhaseBadge",
+     "className": "Frame",
+     "children": [
+      {
+       "name": "UICorner",
+       "className": "UICorner"
+      },
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      },
+      {
+       "name": "Glyph",
+       "className": "TextLabel"
+      },
+      {
+       "name": "PhaseName",
+       "className": "TextLabel"
+      },
+      {
+       "name": "FighterName",
+       "className": "TextLabel"
+      }
+     ]
+    },
+    {
+     "name": "Vitals",
+     "className": "Frame",
+     "children": [
+      {
+       "name": "HealthBar",
+       "className": "Frame",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "Fill",
+         "className": "Frame",
+         "children": [
+          {
+           "name": "UICorner",
+           "className": "UICorner"
+          }
+         ]
+        },
+        {
+         "name": "Caption",
+         "className": "TextLabel",
+         "children": [
+          {
+           "name": "UIStroke",
+           "className": "UIStroke"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "name": "KiBar",
+       "className": "Frame",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "Fill",
+         "className": "Frame",
+         "children": [
+          {
+           "name": "UICorner",
+           "className": "UICorner"
+          }
+         ]
+        },
+        {
+         "name": "Caption",
+         "className": "TextLabel",
+         "children": [
+          {
+           "name": "UIStroke",
+           "className": "UIStroke"
+          }
+         ]
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        }
+       ]
+      },
+      {
+       "name": "GuardBar",
+       "className": "Frame",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "Fill",
+         "className": "Frame",
+         "children": [
+          {
+           "name": "UICorner",
+           "className": "UICorner"
+          }
+         ]
+        },
+        {
+         "name": "Caption",
+         "className": "TextLabel",
+         "children": [
+          {
+           "name": "UIStroke",
+           "className": "UIStroke"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "name": "MendBar",
+       "className": "Frame",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "Fill",
+         "className": "Frame",
+         "children": [
+          {
+           "name": "UICorner",
+           "className": "UICorner"
+          }
+         ]
+        },
+        {
+         "name": "Caption",
+         "className": "TextLabel",
+         "children": [
+          {
+           "name": "UIStroke",
+           "className": "UIStroke"
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "AbilityBar",
+     "className": "Frame",
+     "children": [
+      {
+       "name": "UIListLayout",
+       "className": "UIListLayout"
+      },
+      {
+       "name": "Slot_M1",
+       "className": "Frame",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "Icon",
+         "className": "TextLabel"
+        },
+        {
+         "name": "MoveName",
+         "className": "TextLabel"
+        },
+        {
+         "name": "Key",
+         "className": "TextLabel"
+        },
+        {
+         "name": "Sweep",
+         "className": "Frame"
+        },
+        {
+         "name": "Seconds",
+         "className": "TextLabel",
+         "children": [
+          {
+           "name": "UIStroke",
+           "className": "UIStroke"
+          }
+         ]
+        },
+        {
+         "name": "ComboPips",
+         "className": "Frame",
+         "children": [
+          {
+           "name": "UIListLayout",
+           "className": "UIListLayout"
+          },
+          {
+           "name": "Pip1",
+           "className": "Frame",
+           "children": [
+            {
+             "name": "UICorner",
+             "className": "UICorner"
+            }
+           ]
+          },
+          {
+           "name": "Pip2",
+           "className": "Frame",
+           "children": [
+            {
+             "name": "UICorner",
+             "className": "UICorner"
+            }
+           ]
+          },
+          {
+           "name": "Pip3",
+           "className": "Frame",
+           "children": [
+            {
+             "name": "UICorner",
+             "className": "UICorner"
+            }
+           ]
+          },
+          {
+           "name": "Pip4",
+           "className": "Frame",
+           "children": [
+            {
+             "name": "UICorner",
+             "className": "UICorner"
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "name": "Slot_1",
+       "className": "Frame",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "Icon",
+         "className": "TextLabel"
+        },
+        {
+         "name": "MoveName",
+         "className": "TextLabel"
+        },
+        {
+         "name": "Key",
+         "className": "TextLabel"
+        },
+        {
+         "name": "Sweep",
+         "className": "Frame"
+        },
+        {
+         "name": "Seconds",
+         "className": "TextLabel",
+         "children": [
+          {
+           "name": "UIStroke",
+           "className": "UIStroke"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "name": "Slot_2",
+       "className": "Frame",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "Icon",
+         "className": "TextLabel"
+        },
+        {
+         "name": "MoveName",
+         "className": "TextLabel"
+        },
+        {
+         "name": "Key",
+         "className": "TextLabel"
+        },
+        {
+         "name": "Sweep",
+         "className": "Frame"
+        },
+        {
+         "name": "Seconds",
+         "className": "TextLabel",
+         "children": [
+          {
+           "name": "UIStroke",
+           "className": "UIStroke"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "name": "Slot_3",
+       "className": "Frame",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "Icon",
+         "className": "TextLabel"
+        },
+        {
+         "name": "MoveName",
+         "className": "TextLabel"
+        },
+        {
+         "name": "Key",
+         "className": "TextLabel"
+        },
+        {
+         "name": "Sweep",
+         "className": "Frame"
+        },
+        {
+         "name": "Seconds",
+         "className": "TextLabel",
+         "children": [
+          {
+           "name": "UIStroke",
+           "className": "UIStroke"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "name": "Slot_4",
+       "className": "Frame",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "Icon",
+         "className": "TextLabel"
+        },
+        {
+         "name": "MoveName",
+         "className": "TextLabel"
+        },
+        {
+         "name": "Key",
+         "className": "TextLabel"
+        },
+        {
+         "name": "Sweep",
+         "className": "Frame"
+        },
+        {
+         "name": "Seconds",
+         "className": "TextLabel",
+         "children": [
+          {
+           "name": "UIStroke",
+           "className": "UIStroke"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "name": "Slot_G",
+       "className": "Frame",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "Icon",
+         "className": "TextLabel"
+        },
+        {
+         "name": "MoveName",
+         "className": "TextLabel"
+        },
+        {
+         "name": "Key",
+         "className": "TextLabel"
+        },
+        {
+         "name": "Sweep",
+         "className": "Frame"
+        },
+        {
+         "name": "Seconds",
+         "className": "TextLabel",
+         "children": [
+          {
+           "name": "UIStroke",
+           "className": "UIStroke"
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Toast",
+     "className": "TextLabel",
+     "children": [
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "TopLeft",
+   "className": "Frame",
+   "children": [
+    {
+     "name": "UIScale",
+     "className": "UIScale"
+    },
+    {
+     "name": "PetalsPanel",
+     "className": "Frame",
+     "children": [
+      {
+       "name": "UICorner",
+       "className": "UICorner"
+      },
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      },
+      {
+       "name": "Icon",
+       "className": "TextLabel"
+      },
+      {
+       "name": "Caption",
+       "className": "TextLabel"
+      },
+      {
+       "name": "Petals",
+       "className": "TextLabel"
+      },
+      {
+       "name": "Streak",
+       "className": "TextLabel"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "TopRight",
+   "className": "Frame",
+   "children": [
+    {
+     "name": "UIScale",
+     "className": "UIScale"
+    },
+    {
+     "name": "ThirstMeter",
+     "className": "Frame",
+     "children": [
+      {
+       "name": "UICorner",
+       "className": "UICorner"
+      },
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      },
+      {
+       "name": "Bud",
+       "className": "CanvasGroup",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "Fill",
+         "className": "Frame"
+        }
+       ]
+      },
+      {
+       "name": "Title",
+       "className": "TextLabel"
+      },
+      {
+       "name": "Percent",
+       "className": "TextLabel"
+      }
+     ]
+    },
+    {
+     "name": "KillFeed",
+     "className": "Frame",
+     "children": [
+      {
+       "name": "UIListLayout",
+       "className": "UIListLayout"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "TopCentre",
+   "className": "Frame",
+   "children": [
+    {
+     "name": "UIScale",
+     "className": "UIScale"
+    },
+    {
+     "name": "ElderBar",
+     "className": "Frame",
+     "children": [
+      {
+       "name": "UICorner",
+       "className": "UICorner"
+      },
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      },
+      {
+       "name": "Title",
+       "className": "TextLabel"
+      },
+      {
+       "name": "TimeLeft",
+       "className": "TextLabel"
+      },
+      {
+       "name": "Health",
+       "className": "Frame",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "Fill",
+         "className": "Frame",
+         "children": [
+          {
+           "name": "UICorner",
+           "className": "UICorner"
+          }
+         ]
+        },
+        {
+         "name": "Caption",
+         "className": "TextLabel",
+         "children": [
+          {
+           "name": "UIStroke",
+           "className": "UIStroke"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "name": "Heart",
+       "className": "TextLabel"
+      },
+      {
+       "name": "State",
+       "className": "TextLabel"
+      }
+     ]
+    },
+    {
+     "name": "Announcement",
+     "className": "TextLabel",
+     "children": [
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Middle",
+   "className": "Frame",
+   "children": [
+    {
+     "name": "UIScale",
+     "className": "UIScale"
+    },
+    {
+     "name": "ComboCounter",
+     "className": "TextLabel",
+     "children": [
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      }
+     ]
+    },
+    {
+     "name": "RewardPopup",
+     "className": "Frame",
+     "children": [
+      {
+       "name": "UICorner",
+       "className": "UICorner"
+      },
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      },
+      {
+       "name": "Lines",
+       "className": "TextLabel",
+       "children": [
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "TouchControls",
+   "className": "Frame",
+   "children": [
+    {
+     "name": "UIScale",
+     "className": "UIScale"
+    },
+    {
+     "name": "TouchAttack",
+     "className": "TextButton",
+     "children": [
+      {
+       "name": "UICorner",
+       "className": "UICorner"
+      },
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      },
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      }
+     ]
+    },
+    {
+     "name": "TouchBlock",
+     "className": "TextButton",
+     "children": [
+      {
+       "name": "UICorner",
+       "className": "UICorner"
+      },
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      },
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      }
+     ]
+    },
+    {
+     "name": "TouchDash",
+     "className": "TextButton",
+     "children": [
+      {
+       "name": "UICorner",
+       "className": "UICorner"
+      },
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      },
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      }
+     ]
+    },
+    {
+     "name": "TouchAbility1",
+     "className": "TextButton",
+     "children": [
+      {
+       "name": "UICorner",
+       "className": "UICorner"
+      },
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      },
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      }
+     ]
+    },
+    {
+     "name": "TouchAbility2",
+     "className": "TextButton",
+     "children": [
+      {
+       "name": "UICorner",
+       "className": "UICorner"
+      },
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      },
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      }
+     ]
+    },
+    {
+     "name": "TouchAbility3",
+     "className": "TextButton",
+     "children": [
+      {
+       "name": "UICorner",
+       "className": "UICorner"
+      },
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      },
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      }
+     ]
+    },
+    {
+     "name": "TouchAbility4",
+     "className": "TextButton",
+     "children": [
+      {
+       "name": "UICorner",
+       "className": "UICorner"
+      },
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      },
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      }
+     ]
+    },
+    {
+     "name": "TouchUlt",
+     "className": "TextButton",
+     "children": [
+      {
+       "name": "UICorner",
+       "className": "UICorner"
+      },
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      },
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      }
+     ]
+    },
+    {
+     "name": "TouchMend",
+     "className": "TextButton",
+     "children": [
+      {
+       "name": "UICorner",
+       "className": "UICorner"
+      },
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      },
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "TouchPhase",
+   "className": "TextButton",
+   "children": [
+    {
+     "name": "UICorner",
+     "className": "UICorner"
+    },
+    {
+     "name": "UIStroke",
+     "className": "UIStroke"
+    },
+    {
+     "name": "UIStroke",
+     "className": "UIStroke"
+    }
+   ]
+  }
+ ]
+}

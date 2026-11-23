@@ -26,6 +26,9 @@ local PAPER = Color3.fromRGB(240, 236, 226)
 local BRONZE = Color3.fromRGB(176, 128, 66)
 local LACQUER = Color3.fromRGB(26, 22, 24)
 local LILY = Color3.fromRGB(214, 34, 46)
+-- Cloth is smooth plastic, not Fabric: Fabric takes its look from a material texture fetched from
+-- Roblox's CDN, and where that fetch fails (a TLS-inspecting network, measured) it renders near-black.
+local CLOTH = Enum.Material.SmoothPlastic
 
 type Rig = {
 	character: Model,
@@ -123,7 +126,7 @@ BUILDERS.Wagasa = function(kit, rig)
 	makePart(kit, hand, grip * CFrame.new(0, 0, 0.3) * ALONG, {
 		Shape = Enum.PartType.Cylinder,
 		Size = rod(0.9, 0.3),
-		Material = Enum.Material.Fabric,
+		Material = CLOTH,
 		Color = kit.accent,
 	})
 	-- the furled oil-paper canopy
@@ -131,7 +134,7 @@ BUILDERS.Wagasa = function(kit, rig)
 		makePart(kit, hand, grip * CFrame.new(0, 0, -1.6 - index * 0.55) * ALONG, {
 			Shape = Enum.PartType.Cylinder,
 			Size = rod(0.6, diameter),
-			Material = Enum.Material.Fabric,
+			Material = CLOTH,
 			Color = if index % 2 == 0 then kit.accent else kit.color,
 		})
 	end
@@ -200,7 +203,7 @@ BUILDERS.Jitte = function(kit, rig)
 	makePart(kit, hand, grip * CFrame.new(0, 0, 0.15) * ALONG, {
 		Shape = Enum.PartType.Cylinder,
 		Size = rod(0.8, 0.26),
-		Material = Enum.Material.Fabric,
+		Material = CLOTH,
 		Color = kit.accent,
 	})
 	makePart(kit, hand, grip * CFrame.new(0, 0, -1.3) * ALONG, {
@@ -266,13 +269,13 @@ WORN.BackTaiko = function(kit, rig)
 		makePart(kit, chest, back * CFrame.new(z, 0, 0), {
 			Shape = Enum.PartType.Cylinder,
 			Size = rod(0.06, 2.1),
-			Material = Enum.Material.Fabric,
+			Material = CLOTH,
 			Color = PAPER,
 		})
 	end
 	makePart(kit, chest, CFrame.new(0, 0.1, 0) * CFrame.Angles(0, 0, math.rad(35)), {
 		Size = Vector3.new(0.16, 2.6, chest.Size.Z + 0.12),
-		Material = Enum.Material.Fabric,
+		Material = CLOTH,
 		Color = PAPER,
 	})
 end
@@ -284,7 +287,7 @@ WORN.RopeBelt = function(kit, rig)
 	end
 	makePart(kit, waist, CFrame.new(0, 0.1, 0), {
 		Size = Vector3.new(waist.Size.X + 0.22, 0.42, waist.Size.Z + 0.22),
-		Material = Enum.Material.Fabric,
+		Material = CLOTH,
 		Color = PAPER,
 	})
 	-- zig-zag paper streamers at the front
@@ -292,7 +295,7 @@ WORN.RopeBelt = function(kit, rig)
 		local tilt = if index % 2 == 0 then 10 else -10
 		makePart(kit, waist, CFrame.new(x, -0.45, -waist.Size.Z / 2 - 0.14) * CFrame.Angles(0, 0, math.rad(tilt)), {
 			Size = Vector3.new(0.28, 0.7, 0.05),
-			Material = Enum.Material.Fabric,
+			Material = CLOTH,
 			Color = PAPER,
 		})
 	end
@@ -351,7 +354,7 @@ WORN.Sugegasa = function(kit, rig)
 		makePart(kit, head, CFrame.new(0, head.Size.Y / 2 + 0.06 + index * 0.16, 0) * UPRIGHT, {
 			Shape = Enum.PartType.Cylinder,
 			Size = rod(0.18, diameter),
-			Material = Enum.Material.Fabric,
+			Material = CLOTH,
 			Color = if index % 2 == 0 then STRAW:Lerp(Color3.new(0, 0, 0), 0.12) else STRAW,
 		})
 	end

@@ -36,6 +36,7 @@ local WHEEL_SIZE = 470
 local WHEEL_RADIUS = 168
 
 local selectScreen: ScreenGui? = nil
+local crossedOnce = false
 local recapScreen: ScreenGui? = nil
 local cards: { [string]: TextButton } = {}
 local detail: { [string]: any } = {}
@@ -72,45 +73,55 @@ local function wheelPoint(index: number): Vector2
 	return Vector2.new(WHEEL_SIZE / 2 + math.cos(angle) * WHEEL_RADIUS, WHEEL_SIZE / 2 + math.sin(angle) * WHEEL_RADIUS)
 end
 
--- A straight bar between two points inside the wheel, with an arrowhead dot near `b`.
+-- Cards are drawn over the lines, so an arrowhead must sit where the line leaves the target card.
+local CARD_HALF = Vector2.new(75 + 8, 52 + 10)
+
+-- A straight bar from card `a` to card `b`, with an arrowhead just outside `b`'s card.
 local function wheelLine(parent: Instance, a: Vector2, b: Vector2, color: Color3, thickness: number, arrow: boolean)
 	local delta = b - a
 	local length = delta.Magnitude
 	local middle = (a + b) / 2
+	local angle = math.deg(math.atan2(delta.Y, delta.X))
 	UiKit.new("Frame", {
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.fromOffset(middle.X, middle.Y),
 		Size = UDim2.fromOffset(length, thickness),
-		Rotation = math.deg(math.atan2(delta.Y, delta.X)),
+		Rotation = angle,
 		BackgroundColor3 = color,
 		BackgroundTransparency = 0.35,
 		BorderSizePixel = 0,
 		ZIndex = 1,
 		Parent = parent,
 	})
-	if arrow then
-		local tip = a + delta * 0.78
+	if arrow and length > 1 then
+		local back = -delta.Unit -- from b's centre towards a
+		local exitX = if math.abs(back.X) > 1e-3 then CARD_HALF.X / math.abs(back.X) else math.huge
+		local exitY = if math.abs(back.Y) > 1e-3 then CARD_HALF.Y / math.abs(back.Y) else math.huge
+		local tip = b + back * (math.min(exitX, exitY) + 9)
 		UiKit.new("TextLabel", {
+			Name = "Arrow",
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.fromOffset(tip.X, tip.Y),
-			Size = UDim2.fromOffset(22, 22),
-			Rotation = math.deg(math.atan2(delta.Y, delta.X)),
+			Size = UDim2.fromOffset(24, 24),
+			Rotation = angle,
 			BackgroundTransparency = 1,
 			Text = "▶",
 			TextColor3 = color,
-			TextSize = 20,
+			TextSize = 22,
 			Font = UiKit.HEAVY_FONT,
-			ZIndex = 2,
+			ZIndex = 5,
 			Parent = parent,
 		})
 	end
 end
 
+local ROW_HEIGHT = 58
+
 local function moveRow(parent: Instance, order: number): { [string]: TextLabel }
 	local row = UiKit.new("Frame", {
 		Name = `Move{order}`,
 		LayoutOrder = order,
-		Size = UDim2.new(1, 0, 0, 52),
+		Size = UDim2.new(1, 0, 0, ROW_HEIGHT),
 		BackgroundColor3 = UiKit.PANEL_ALT,
 		BackgroundTransparency = 0.1,
 		BorderSizePixel = 0,
@@ -119,8 +130,9 @@ local function moveRow(parent: Instance, order: number): { [string]: TextLabel }
 	UiKit.corner(8).Parent = row
 	local key = UiKit.label({
 		Name = "Key",
-		Position = UDim2.fromOffset(8, 8),
-		Size = UDim2.fromOffset(46, 36),
+		AnchorPoint = Vector2.new(0, 0.5),
+		Position = UDim2.new(0, 8, 0.5, 0),
+		Size = UDim2.fromOffset(46, 38),
 		BackgroundTransparency = 0,
 		BackgroundColor3 = UiKit.SLOT,
 		Font = UiKit.HEAVY_FONT,
@@ -131,21 +143,26 @@ local function moveRow(parent: Instance, order: number): { [string]: TextLabel }
 	UiKit.corner(6).Parent = key
 	local name = UiKit.label({
 		Name = "MoveName",
-		Position = UDim2.fromOffset(64, 4),
-		Size = UDim2.new(1, -72, 0, 22),
+		Position = UDim2.fromOffset(64, 3),
+		Size = UDim2.new(1, -72, 0, 21),
 		TextXAlignment = Enum.TextXAlignment.Left,
 		Font = UiKit.HEAVY_FONT,
-		TextSize = 19,
+		TextSize = 18,
+		RichText = true,
 		TextColor3 = UiKit.INK_LIGHT,
 		TextTruncate = Enum.TextTruncate.AtEnd,
 		Parent = row,
 	})
+	-- Two lines of description: the whole move fits without an ellipsis.
 	local line = UiKit.label({
 		Name = "Line",
-		Position = UDim2.fromOffset(64, 26),
-		Size = UDim2.new(1, -72, 0, 22),
+		Position = UDim2.fromOffset(64, 24),
+		Size = UDim2.new(1, -72, 0, 32),
 		TextXAlignment = Enum.TextXAlignment.Left,
-		TextSize = 14,
+		TextYAlignment = Enum.TextYAlignment.Top,
+		TextSize = 13,
+		TextWrapped = true,
+		LineHeight = 1.05,
 		TextColor3 = UiKit.INK_DIM,
 		TextTruncate = Enum.TextTruncate.AtEnd,
 		Parent = row,
@@ -158,6 +175,8 @@ local function refreshDetail()
 	local tint = phaseUi(fighter.phase)
 	local info = Phases.INFO[fighter.phase]
 	detail.header.BackgroundColor3 = tint
+	-- The panel carries the fighter it shows (FighterDetail_<id>), as the asset plan names it.
+	detail.panel.Name = `FighterDetail_{fighter.id}`
 	detail.glyph.Text = info.glyph
 	detail.name.Text = upper(fighter.displayName)
 	detail.title.Text = fighter.title
@@ -166,21 +185,26 @@ local function refreshDetail()
 		then `<b>{fighter.passiveName}:</b> {fighter.passive}`
 		else fighter.blurb
 	local rows = detail.rows :: { { [string]: TextLabel } }
+	local tintHex = UiKit.hex(tint)
+	local function named(icon: string?, text: string): string
+		return if icon then `<font color="{tintHex}">{icon}</font>  {text}` else text
+	end
 	rows[1].key.Text = KEY_LABEL.M1
-	rows[1].name.Text = "Four-hit chain"
+	rows[1].name.Text = named(info.glyph, "Four-hit chain")
 	rows[1].line.Text = "Hold to chain; the fourth hit launches. Hold F to block, Q to dash, R to Mend."
 	for index, slot in Fighters.SLOTS do
 		local move = Fighters.moveForSlot(fighter, slot)
 		local row = rows[index + 1]
 		row.key.Text = KEY_LABEL[slot] or slot
-		row.name.Text = if move then move.name else "—"
+		row.name.Text = if move then named(move.icon, move.name) else "—"
 		row.line.Text = if move then move.description else ""
 	end
 	local overcomes = Phases.OVERCOMES[fighter.phase]
 	local overcomer = Phases.overcomerOf(fighter.phase)
 	detail.counter.Text = `Overcomes {upper(overcomes or "?")}  |  Overcome by {upper(overcomer or "?")}`
 	local current = currentFighterId()
-	detail.cross.Text = if current == fighter.id then "CROSS AGAIN" else "CROSS"
+	-- "AGAIN" only once this player has crossed: the first pick is the server's default fighter.
+	detail.cross.Text = if crossedOnce and current == fighter.id then "CROSS AGAIN" else "CROSS"
 	for id, card in cards do
 		local stroke = card:FindFirstChildOfClass("UIStroke")
 		if stroke then
@@ -325,16 +349,17 @@ local function buildSelect(parent: Instance)
 		end
 	end
 
-	-- FighterDetail
+	-- FighterDetail: header, role, passive, six move rows, then a footer (counter hint + CROSS)
+	-- that sits below the rows instead of over the last one.
 	local panel = UiKit.panel({
 		Name = "FighterDetail",
-		Position = UDim2.fromOffset(560, 104),
-		Size = UDim2.fromOffset(680, 590),
+		Position = UDim2.fromOffset(560, 96),
+		Size = UDim2.fromOffset(680, 610),
 		Parent = root,
 	})
 	local header = UiKit.new("Frame", {
 		Name = "Header",
-		Size = UDim2.new(1, 0, 0, 96),
+		Size = UDim2.new(1, 0, 0, 88),
 		BackgroundColor3 = UiKit.TRIM,
 		BorderSizePixel = 0,
 		Parent = panel,
@@ -343,20 +368,20 @@ local function buildSelect(parent: Instance)
 	UiKit.gradient(Color3.new(1, 1, 1), Color3.fromRGB(70, 70, 70), 90).Parent = header
 	local glyph = UiKit.label({
 		Name = "Glyph",
-		Position = UDim2.fromOffset(14, 12),
-		Size = UDim2.fromOffset(72, 72),
+		Position = UDim2.fromOffset(14, 10),
+		Size = UDim2.fromOffset(68, 68),
 		BackgroundTransparency = 0,
 		BackgroundColor3 = UiKit.OUTLINE,
 		Font = UiKit.HEAVY_FONT,
-		TextSize = 46,
+		TextSize = 44,
 		TextColor3 = UiKit.INK_LIGHT,
 		Parent = header,
 	})
-	UiKit.corner(36).Parent = glyph
+	UiKit.corner(34).Parent = glyph
 	local name = UiKit.label({
 		Name = "FighterName",
-		Position = UDim2.fromOffset(100, 10),
-		Size = UDim2.new(1, -110, 0, 44),
+		Position = UDim2.fromOffset(96, 6),
+		Size = UDim2.new(1, -106, 0, 44),
 		Font = UiKit.TITLE_FONT,
 		TextSize = 42,
 		TextXAlignment = Enum.TextXAlignment.Left,
@@ -366,8 +391,8 @@ local function buildSelect(parent: Instance)
 	UiKit.textStroke(UiKit.OUTLINE, 3).Parent = name
 	local title = UiKit.label({
 		Name = "Title",
-		Position = UDim2.fromOffset(102, 54),
-		Size = UDim2.new(1, -112, 0, 30),
+		Position = UDim2.fromOffset(98, 50),
+		Size = UDim2.new(1, -108, 0, 28),
 		TextSize = 20,
 		TextXAlignment = Enum.TextXAlignment.Left,
 		TextColor3 = UiKit.INK_LIGHT,
@@ -376,8 +401,8 @@ local function buildSelect(parent: Instance)
 	UiKit.textStroke(UiKit.OUTLINE, 2).Parent = title
 	local role = UiKit.label({
 		Name = "Role",
-		Position = UDim2.fromOffset(18, 102),
-		Size = UDim2.new(1, -36, 0, 24),
+		Position = UDim2.fromOffset(18, 94),
+		Size = UDim2.new(1, -36, 0, 22),
 		TextSize = 17,
 		TextXAlignment = Enum.TextXAlignment.Left,
 		TextColor3 = UiKit.TRIM,
@@ -385,9 +410,9 @@ local function buildSelect(parent: Instance)
 	})
 	local passive = UiKit.label({
 		Name = "Passive",
-		Position = UDim2.fromOffset(18, 128),
-		Size = UDim2.new(1, -36, 0, 40),
-		TextSize = 15,
+		Position = UDim2.fromOffset(18, 118),
+		Size = UDim2.new(1, -36, 0, 38),
+		TextSize = 14,
 		TextWrapped = true,
 		RichText = true,
 		TextXAlignment = Enum.TextXAlignment.Left,
@@ -395,14 +420,15 @@ local function buildSelect(parent: Instance)
 		TextColor3 = UiKit.INK_LIGHT,
 		Parent = panel,
 	})
+	local gap = 3
 	local list = UiKit.new("Frame", {
 		Name = "Moves",
-		Position = UDim2.fromOffset(14, 172),
-		Size = UDim2.new(1, -28, 0, 6 * 56),
+		Position = UDim2.fromOffset(14, 158),
+		Size = UDim2.new(1, -28, 0, 6 * ROW_HEIGHT + 5 * gap),
 		BackgroundTransparency = 1,
 		Parent = panel,
 	})
-	local layout = UiKit.list(Enum.FillDirection.Vertical, 4)
+	local layout = UiKit.list(Enum.FillDirection.Vertical, gap)
 	layout.VerticalAlignment = Enum.VerticalAlignment.Top
 	layout.Parent = list
 	local rows = {}
@@ -411,8 +437,9 @@ local function buildSelect(parent: Instance)
 	end
 	local counter = UiKit.label({
 		Name = "CounterHint",
-		Position = UDim2.fromOffset(18, 512),
-		Size = UDim2.new(1, -300, 0, 60),
+		AnchorPoint = Vector2.new(0, 1),
+		Position = UDim2.new(0, 18, 1, -12),
+		Size = UDim2.new(1, -290, 0, 60),
 		TextSize = 17,
 		TextWrapped = true,
 		TextXAlignment = Enum.TextXAlignment.Left,
@@ -423,7 +450,7 @@ local function buildSelect(parent: Instance)
 		Name = "CrossButton",
 		AnchorPoint = Vector2.new(1, 1),
 		Position = UDim2.new(1, -14, 1, -12),
-		Size = UDim2.fromOffset(260, 88),
+		Size = UDim2.fromOffset(240, 64),
 		BackgroundColor3 = UiKit.LACQUER,
 		Text = "CROSS",
 		TextSize = 34,
@@ -431,25 +458,39 @@ local function buildSelect(parent: Instance)
 		Parent = panel,
 	})
 	cross.Activated:Connect(function()
+		crossedOnce = true
 		Remotes.SelectFighter:FireServer(selectedId)
 		SoundController.play("bell")
 		SelectController.close()
 	end)
 
+	-- A drawn cross: the "✕" glyph is missing from the UI fonts and renders as a box.
 	local close = UiKit.button({
 		Name = "CloseButton",
 		AnchorPoint = Vector2.new(1, 0),
-		Position = UDim2.new(1, -24, 0, 18),
-		Size = UDim2.fromOffset(88, 88),
-		Text = "✕",
-		TextSize = 34,
+		Position = UDim2.new(1, -40, 0, 22),
+		Size = UDim2.fromOffset(60, 60),
+		Text = "",
 		Parent = root,
 	})
+	for _, angle in { 45, -45 } do
+		UiKit.new("Frame", {
+			Name = "Bar",
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.fromScale(0.5, 0.5),
+			Size = UDim2.fromOffset(32, 5),
+			Rotation = angle,
+			BackgroundColor3 = UiKit.INK_LIGHT,
+			BorderSizePixel = 0,
+			Parent = close,
+		})
+	end
 	close.Activated:Connect(function()
 		SelectController.close()
 	end)
 
 	detail = {
+		panel = panel,
 		header = header,
 		glyph = glyph,
 		name = name,
@@ -490,15 +531,19 @@ local function relationText(killerPhase: string?, myPhase: string?): (string, Co
 	return text, UiKit.RELATION[relation] or UiKit.INK_LIGHT
 end
 
+local RECAP_WIDTH = 700
+
 local function buildRecap(parent: Instance)
 	local gui, root = UiKit.screen("DeathRecap", 25, parent)
 	recapScreen = gui
 	gui.Enabled = false
+	-- One card holds everything, buttons and countdown included, and grows to what it has to say;
+	-- it stops well above the bottom of the screen.
 	local card = UiKit.panel({
 		Name = "KillerCard",
-		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.fromOffset(640, 300),
-		Size = UDim2.fromOffset(700, 330),
+		AnchorPoint = Vector2.new(0.5, 0),
+		Position = UDim2.fromOffset(640, 110),
+		Size = UDim2.fromOffset(RECAP_WIDTH, 330),
 		Parent = root,
 	})
 	local heading = UiKit.label({
@@ -535,7 +580,7 @@ local function buildRecap(parent: Instance)
 	local sources = UiKit.label({
 		Name = "Sources",
 		Position = UDim2.fromOffset(20, 146),
-		Size = UDim2.new(1, -40, 0, 70),
+		Size = UDim2.new(1, -40, 0, 44),
 		TextSize = 16,
 		TextWrapped = true,
 		RichText = true,
@@ -545,32 +590,25 @@ local function buildRecap(parent: Instance)
 	})
 	local counter = UiKit.button({
 		Name = "CounterPick",
-		AnchorPoint = Vector2.new(0.5, 0),
-		Position = UDim2.new(0.5, 0, 0, 226),
-		Size = UDim2.fromOffset(520, 88),
+		Size = UDim2.fromOffset(400, 64),
 		BackgroundColor3 = UiKit.LACQUER,
-		TextSize = 26,
+		TextSize = 24,
+		Parent = card,
+	})
+	local same = UiKit.button({
+		Name = "SameFighterButton",
+		Size = UDim2.fromOffset(300, 64),
+		Text = "SAME FIGHTER",
+		TextSize = 24,
 		Parent = card,
 	})
 	local timer = UiKit.label({
 		Name = "RespawnTimer",
-		AnchorPoint = Vector2.new(0.5, 0),
-		Position = UDim2.fromOffset(640, 478),
-		Size = UDim2.fromOffset(400, 34),
+		Size = UDim2.new(1, 0, 0, 28),
 		Font = UiKit.HEAVY_FONT,
-		TextSize = 24,
-		TextColor3 = UiKit.INK_LIGHT,
-		Parent = root,
-	})
-	UiKit.textStroke(UiKit.OUTLINE, 2).Parent = timer
-	local same = UiKit.button({
-		Name = "SameFighterButton",
-		AnchorPoint = Vector2.new(0.5, 0),
-		Position = UDim2.fromOffset(640, 520),
-		Size = UDim2.fromOffset(300, 88),
-		Text = "SAME FIGHTER",
-		TextSize = 26,
-		Parent = root,
+		TextSize = 20,
+		TextColor3 = UiKit.INK_DIM,
+		Parent = card,
 	})
 	same.Activated:Connect(function()
 		gui.Enabled = false
@@ -580,8 +618,39 @@ local function buildRecap(parent: Instance)
 		local id = counter:GetAttribute("FighterId")
 		SelectController.open(if type(id) == "string" then id else nil)
 	end)
-	recap =
-		{ heading = heading, killer = killer, relation = relation, sources = sources, counter = counter, timer = timer }
+	recap = {
+		card = card,
+		heading = heading,
+		killer = killer,
+		relation = relation,
+		sources = sources,
+		counter = counter,
+		same = same,
+		timer = timer,
+	}
+end
+
+-- Stack what the recap has to say: the damage line only when there is one, the counter pick
+-- beside SAME FIGHTER only when there is a counter, the countdown under the buttons.
+local function layoutRecap()
+	local y = 146
+	local hasSources = recap.sources.Text ~= ""
+	recap.sources.Visible = hasSources
+	if hasSources then
+		y += 50
+	end
+	if recap.counter.Visible then
+		recap.counter.Position = UDim2.fromOffset(20, y)
+		recap.same.Position = UDim2.fromOffset(436, y)
+		recap.same.Size = UDim2.fromOffset(RECAP_WIDTH - 456, 64)
+	else
+		recap.same.Position = UDim2.fromOffset((RECAP_WIDTH - 300) / 2, y)
+		recap.same.Size = UDim2.fromOffset(300, 64)
+	end
+	y += 64 + 10
+	recap.timer.Position = UDim2.fromOffset(0, y)
+	y += 28 + 12
+	recap.card.Size = UDim2.fromOffset(RECAP_WIDTH, y)
 end
 
 local function showRecap(data: any)
@@ -629,6 +698,7 @@ local function showRecap(data: any)
 	else
 		recap.counter.Visible = false
 	end
+	layoutRecap()
 	local screen = recapScreen
 	if not screen then
 		return
@@ -657,12 +727,44 @@ function SelectController.onToggled(listener: (boolean) -> ())
 	table.insert(openListeners, listener)
 end
 
+-- True while Phase Select or the Death Recap covers the screen (the HUD steps aside for both).
+function SelectController.overlayOpen(): boolean
+	local select = selectScreen
+	local recapGui = recapScreen
+	return (select ~= nil and select.Enabled) or (recapGui ~= nil and recapGui.Enabled)
+end
+
+local overlayListeners: { (boolean) -> () } = {}
+local overlayShown: boolean? = nil
+
+local function refreshOverlay()
+	local open = SelectController.overlayOpen()
+	if open == overlayShown then
+		return
+	end
+	overlayShown = open
+	for _, listener in overlayListeners do
+		listener(open)
+	end
+end
+
+function SelectController.onOverlay(listener: (boolean) -> ())
+	table.insert(overlayListeners, listener)
+end
+
 local function setOpen(open: boolean)
 	local screen = selectScreen
 	if not screen or screen.Enabled == open then
 		return
 	end
 	screen.Enabled = open
+	-- The core player list and chat window sit over the wheel and the detail panel; hide them while
+	-- choosing.
+	pcall(function()
+		local starterGui = game:GetService("StarterGui")
+		starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, not open)
+		starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, not open)
+	end)
 	for _, listener in openListeners do
 		listener(open)
 	end
@@ -699,6 +801,11 @@ function SelectController.init(_self: any)
 	local playerGui = localPlayer:WaitForChild("PlayerGui")
 	buildSelect(playerGui)
 	buildRecap(playerGui)
+	for _, screen in { selectScreen, recapScreen } do
+		if screen then
+			screen:GetPropertyChangedSignal("Enabled"):Connect(refreshOverlay)
+		end
+	end
 end
 
 function SelectController.start(_self: any)

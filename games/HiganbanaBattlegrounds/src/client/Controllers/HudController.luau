@@ -333,9 +333,13 @@ local function buildBottom()
 		local view: { [string]: any } =
 			{ frame = frame, icon = icon, name = name, key = key, sweep = sweep, seconds = seconds }
 		if slot == "M1" then
+			-- The pips take the bottom row, so the move name sits one line higher.
+			icon.Position = UDim2.fromOffset(0, 15)
+			name.Position = UDim2.fromOffset(2, 54)
+			name.Size = UDim2.new(1, -4, 0, 20)
 			local pips = UiKit.new("Frame", {
 				Name = "ComboPips",
-				Position = UDim2.new(0, 8, 1, -14),
+				Position = UDim2.new(0, 8, 1, -13),
 				Size = UDim2.new(1, -16, 0, 8),
 				BackgroundTransparency = 1,
 				ZIndex = 6,
@@ -378,7 +382,7 @@ end
 local function buildTop()
 	-- PetalsPanel (top-left, below the 36 px top bar)
 	local left = group("TopLeft", Vector2.new(0, 0), UDim2.fromOffset(12, 48), Vector2.new(240, 60))
-	local petals = UiKit.panel({ Name = "PetalsPanel", Size = UDim2.fromOffset(240, 56), Parent = left })
+	local petals = UiKit.panel({ Name = "PetalsPanel", Size = UDim2.fromOffset(210, 56), Parent = left })
 	UiKit.label({
 		Name = "Icon",
 		Position = UDim2.fromOffset(8, 0),
@@ -388,10 +392,20 @@ local function buildTop()
 		TextColor3 = UiKit.LACQUER,
 		Parent = petals,
 	})
+	UiKit.label({
+		Name = "Caption",
+		Position = UDim2.fromOffset(52, 6),
+		Size = UDim2.fromOffset(110, 16),
+		TextXAlignment = Enum.TextXAlignment.Left,
+		TextSize = 13,
+		TextColor3 = UiKit.INK_DIM,
+		Text = "LILY PETALS",
+		Parent = petals,
+	})
 	ui.petals = UiKit.label({
 		Name = "Petals",
-		Position = UDim2.fromOffset(50, 0),
-		Size = UDim2.fromOffset(120, 56),
+		Position = UDim2.fromOffset(52, 20),
+		Size = UDim2.fromOffset(100, 32),
 		TextXAlignment = Enum.TextXAlignment.Left,
 		Font = UiKit.HEAVY_FONT,
 		TextSize = 26,
@@ -400,7 +414,7 @@ local function buildTop()
 	})
 	ui.streak = UiKit.label({
 		Name = "Streak",
-		Position = UDim2.fromOffset(170, 0),
+		Position = UDim2.fromOffset(140, 0),
 		Size = UDim2.fromOffset(62, 56),
 		TextXAlignment = Enum.TextXAlignment.Right,
 		Font = UiKit.HEAVY_FONT,
@@ -419,13 +433,14 @@ local function buildTop()
 		Size = UDim2.fromOffset(210, 64),
 		Parent = right,
 	})
-	local bud = UiKit.new("Frame", {
+	-- A CanvasGroup clips the rising fill to the bud's round corners (a clipping Frame only clips
+	-- to its square bounds, so the fill's corners poked out of the circle).
+	local bud = UiKit.new("CanvasGroup", {
 		Name = "Bud",
 		Position = UDim2.fromOffset(8, 6),
 		Size = UDim2.fromOffset(52, 52),
 		BackgroundColor3 = UiKit.OUTLINE,
 		BorderSizePixel = 0,
-		ClipsDescendants = true,
 		Parent = thirst,
 	})
 	UiKit.corner(26).Parent = bud
@@ -888,21 +903,29 @@ local function refreshSlots(model: Model?)
 			remaining, total = InputController.cooldown(slot)
 			local move = if fighter then Fighters.moveForSlot(fighter, slot) else nil
 			view.name.Text = if move then move.name else ""
-			local initials = ""
-			if move then
-				for word in string.gmatch(move.name, "%a+") do
-					if #initials < 2 and string.lower(word) ~= "of" and string.lower(word) ~= "the" then
-						initials ..= string.sub(word, 1, 1)
+			-- Each move has its own glyph (Fighters.luau `icon`); initials are the fallback.
+			local icon = if move then move.icon else nil
+			if not icon then
+				local initials = ""
+				if move then
+					for word in string.gmatch(move.name, "%a+") do
+						if #initials < 2 and string.lower(word) ~= "of" and string.lower(word) ~= "the" then
+							initials ..= string.sub(word, 1, 1)
+						end
 					end
 				end
+				icon = string.upper(initials)
 			end
-			view.icon.Text = string.upper(initials)
+			view.icon.Text = icon or ""
 			view.icon.TextColor3 = if fighter then Phases.color(fighter.phase, true) else UiKit.INK_DIM
 		end
 		local silenced = slot ~= "M1" and model ~= nil and model:GetAttribute("Silenced") == true
 		local locked = slot == "Ultimate" and not ready
 		view.sweep.Size = UDim2.fromScale(1, if remaining > 0 then math.clamp(remaining / total, 0, 1) else 0)
 		view.seconds.Text = if remaining > 0 then string.format("%.1f", remaining) else ""
+		-- The glyph steps back while the slot cannot fire, so the countdown reads on its own.
+		view.icon.TextTransparency = if remaining > 0 then 0.8 elseif silenced or locked then 0.55 else 0
+		view.name.TextTransparency = if remaining > 0 or silenced or locked then 0.5 else 0
 		view.frame.BackgroundTransparency = if silenced or locked then 0.45 else 0.08
 		local stroke = view.frame:FindFirstChildOfClass("UIStroke")
 		if stroke then
@@ -1091,6 +1114,12 @@ function HudController.start(_self: any)
 	end)
 	updateInputMode()
 	UserInputService.LastInputTypeChanged:Connect(updateInputMode)
+	-- Phase Select is a full screen of its own: the HUD under it only showed through its dim.
+	-- Phase Select and the Death Recap both cover the screen; the HUD steps aside for either.
+	SelectController.onOverlay(function(open)
+		gui.Enabled = not open
+	end)
+	gui.Enabled = not SelectController.overlayOpen()
 	RunService.RenderStepped:Connect(step)
 end
 

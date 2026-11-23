@@ -1,0 +1,13 @@
+{
+ "className": "TextLabel",
+ "children": [
+  {
+   "name": "UIStroke",
+   "className": "UIStroke"
+  },
+  {
+   "name": "UIScale",
+   "className": "UIScale"
+  }
+ ]
+}

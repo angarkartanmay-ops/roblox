@@ -9,6 +9,7 @@
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local ServerStorage = game:GetService("ServerStorage")
 local Workspace = game:GetService("Workspace")
 
 local CombatMath = require(ReplicatedStorage.Shared.CombatMath)
@@ -43,10 +44,13 @@ local REACH_WINDUP = 0.9
 local PETAL_WINDUP = 2
 local PETAL_SPEED = 40
 local PETAL_RANGE = 75
+local WAKE_SECONDS = 3 -- the shudder (or the rise) before the fight starts
 
 type Awakening = {
 	entity: Entity,
 	model: Model,
+	body: Model?, -- the tree it wears (outside the Humanoid model; see buildElder)
+	bodyHome: CFrame?,
 	heartPart: BasePart,
 	anchor: Vector3,
 	maxHealth: number,
@@ -132,11 +136,106 @@ local function body(name: string, position: Vector3, health: number, size: Vecto
 	return model, humanoid, root
 end
 
--- The placeholder Elder: trunk, hollow reed branches, buttress roots and a glowing heart facing
--- the grove. The art stage replaces the visuals; the root, heart and names stay.
-local function buildElder(anchor: Vector3, health: number, heart: PhaseId): (Model, Humanoid, BasePart, BasePart)
+-- The Elder's generated meshes live in ServerStorage.DressingCache (the meshes stage put them in
+-- the place). Scales measured in Studio: the trunk's core is ~11 studs in radius at heart height.
+local TRUNK_SCALE = 1.7
+local CROWN_SCALE = 2
+local CROWN_OVERLAP = 12
+local HEART_HEIGHT = 20
+local HEART_OUT = 12.5
+
+local function cachedMesh(name: string): MeshPart?
+	local cache = ServerStorage:FindFirstChild("DressingCache")
+	local holder = if cache then cache:FindFirstChild(name) else nil
+	local mesh = if holder then holder:FindFirstChildWhichIsA("MeshPart", true) else nil
+	return if mesh then mesh:Clone() else nil
+end
+
+-- Scale a cached mesh and stand its base on `base` (it keeps the yaw it was generated with).
+local function placeMesh(mesh: MeshPart, scale: number, base: Vector3, name: string, color: Color3, parent: Instance)
+	mesh.Name = name
+	mesh.Size = mesh.Size * scale
+	mesh.Anchored = true
+	mesh.CanCollide = false
+	mesh.CanTouch = false
+	mesh.CanQuery = false
+	mesh.CastShadow = true
+	mesh.Color = color -- shows only where the texture cannot load
+	mesh.CFrame = CFrame.new(base + UP * (mesh.Size.Y / 2)) * mesh.CFrame.Rotation
+	mesh.Parent = parent
+end
+
+-- Trunk and crimson crown from the generated meshes; false when the cache is missing (a bare
+-- `rojo build`), so the caller builds the part stand-in instead.
+local function meshBody(model: Model, anchor: Vector3): boolean
+	local trunk = cachedMesh("ElderTrunk")
+	local crown = cachedMesh("ElderCrown")
+	if not trunk or not crown then
+		if trunk then
+			trunk:Destroy()
+		end
+		if crown then
+			crown:Destroy()
+		end
+		return false
+	end
+	placeMesh(trunk, TRUNK_SCALE, anchor - UP * 1.5, "Trunk", BARK, model)
+	placeMesh(crown, CROWN_SCALE, anchor + UP * (trunk.Size.Y - CROWN_OVERLAP), "Crown", LILY, model)
+	return true
+end
+
+-- The Elder's tree never sits inside the combat model: a MeshPart under a Humanoid model is drawn
+-- through the avatar pipeline, which fetches its mesh afresh, and on a network that blocks Roblox's
+-- CDN the whole tree vanished (measured) while the map's own parts kept drawing. So the combat model
+-- holds the root, the Humanoid and the heart, and an ObjectValue "Body" points the clients at the
+-- tree that shudders, flashes and sinks with it: the grove's own dormant tree when the map has one,
+-- else a body model built from the cached meshes.
+local function linkBody(model: Model, tree: Model)
+	local link = Instance.new("ObjectValue")
+	link.Name = "Body"
+	link.Value = tree
+	link.Parent = model
+end
+
+local function addHeart(model: Model, facing: CFrame, out: number, heart: PhaseId): BasePart
+	local heartPart = part({
+		Name = "Heart",
+		Shape = Enum.PartType.Ball,
+		Size = Vector3.one * 7,
+		CFrame = facing * CFrame.new(0, HEART_HEIGHT, -out),
+		Material = Enum.Material.Neon,
+		Color = Phases.color(heart),
+	}, model)
+	local glow = Instance.new("PointLight")
+	glow.Name = "HeartLight"
+	glow.Range = 40
+	glow.Brightness = 3
+	glow.Color = Phases.color(heart)
+	glow.Parent = heartPart
+	return heartPart
+end
+
+-- The Elder: the combat model (root, Humanoid and a glowing heart facing the landing) and the tree it
+-- wears. The root, heart and names are what the combat and VFX code look for.
+local function buildElder(
+	anchor: Vector3,
+	health: number,
+	heart: PhaseId
+): (Model, Humanoid, BasePart, BasePart, Model?)
 	local model, humanoid, root = body("ThirstingElder", anchor + UP * 6, health, Vector3.new(10, 10, 10))
 	local facing = CFrame.lookAt(anchor, anchor + Vector3.new(0, 0, 1))
+	local dormant = MapService.dormantElder
+	if dormant then
+		linkBody(model, dormant)
+		return model, humanoid, root, addHeart(model, facing, HEART_OUT, heart), dormant
+	end
+	local tree = Instance.new("Model")
+	tree.Name = "ThirstingElderBody"
+	if meshBody(tree, anchor) then
+		linkBody(model, tree)
+		return model, humanoid, root, addHeart(model, facing, HEART_OUT, heart), tree
+	end
+	tree:Destroy()
 	part({
 		Name = "Trunk",
 		Shape = Enum.PartType.Cylinder,
@@ -180,21 +279,7 @@ local function buildElder(anchor: Vector3, health: number, heart: PhaseId): (Mod
 			Color = BARK_DARK,
 		}, model)
 	end
-	local heartPart = part({
-		Name = "Heart",
-		Shape = Enum.PartType.Ball,
-		Size = Vector3.one * 7,
-		CFrame = facing * CFrame.new(0, 20, -10.5),
-		Material = Enum.Material.Neon,
-		Color = Phases.color(heart),
-	}, model)
-	local light = Instance.new("PointLight")
-	light.Name = "HeartLight"
-	light.Range = 40
-	light.Brightness = 3
-	light.Color = Phases.color(heart)
-	light.Parent = heartPart
-	return model, humanoid, root, heartPart
+	return model, humanoid, root, addHeart(model, facing, 10.5, heart), nil
 end
 
 local function setHeart(awakening: Awakening, heart: PhaseId)
@@ -220,10 +305,72 @@ local function rise(model: Model, from: Vector3, to: Vector3, seconds: number)
 	end
 end
 
-local function showTrunkBlock(visible: boolean)
+-- The dormant tree standing in the grove between awakenings: the map's DormantElder dressing (the
+-- same meshes), or the greybox ElderTrunkBlock when the map has no dressing. The block stays as the
+-- trunk's invisible collider either way.
+local function setDormant(visible: boolean, regrow: boolean)
+	local dormant = MapService.dormantElder
 	local trunk = MapService.trunkBlock
+	if not dormant then
+		if trunk then
+			trunk.Transparency = if visible then 0 else 1
+		end
+		return
+	end
 	if trunk then
-		trunk.Transparency = if visible then 0 else 1
+		trunk.Transparency = 1
+	end
+	for _, descendant in dormant:GetDescendants() do
+		if descendant:IsA("BasePart") then
+			descendant.Transparency = if visible then 0 else 1
+		end
+	end
+	if visible and regrow then
+		local pivot = dormant:GetPivot().Position
+		rise(dormant, pivot - UP * 60, pivot, 5)
+	end
+end
+
+-- The tree tears itself awake: a few seconds of shuddering in place (the combat model and its tree
+-- together).
+local function shudder(models: { Model }, seconds: number)
+	local homes: { CFrame } = {}
+	for index, mover in models do
+		homes[index] = mover:GetPivot()
+	end
+	local started = os.clock()
+	while os.clock() - started < seconds do
+		local strength = 1 - (os.clock() - started) / seconds
+		local jitter = Vector3.new(math.random() - 0.5, 0, math.random() - 0.5) * 1.6 * strength
+		for index, mover in models do
+			if mover.Parent then
+				mover:PivotTo(homes[index] + jitter)
+			end
+		end
+		task.wait(0.05)
+	end
+	for index, mover in models do
+		if mover.Parent then
+			mover:PivotTo(homes[index])
+		end
+	end
+end
+
+-- Move models together by `delta` over `seconds`, easing out.
+local function shift(models: { Model }, delta: Vector3, seconds: number)
+	local homes: { CFrame } = {}
+	for index, mover in models do
+		homes[index] = mover:GetPivot()
+	end
+	local steps = math.max(1, math.floor(seconds / 0.05))
+	for step = 1, steps do
+		local eased = 1 - (1 - step / steps) ^ 3
+		for index, mover in models do
+			if mover.Parent then
+				mover:PivotTo(homes[index] + delta * eased)
+			end
+		end
+		task.wait(seconds / steps)
 	end
 end
 
@@ -501,11 +648,25 @@ local function sink(awakening: Awakening)
 	end
 	Registry.unregister(awakening.entity.model)
 	local model = awakening.model
+	local tree = awakening.body
+	local treeHome = awakening.bodyHome
 	task.spawn(function()
-		local pivot = model:GetPivot().Position
-		rise(model, pivot, pivot - UP * 70, 3)
+		local movers: { Model } = { model }
+		if tree then
+			table.insert(movers, tree)
+		end
+		shift(movers, -UP * 70, 3)
 		model:Destroy()
-		showTrunkBlock(true)
+		if tree and tree == MapService.dormantElder then
+			-- The grove's own tree goes home; setDormant grows it back up out of the ground (the
+			-- jump home and the first step down happen in the same frame).
+			if treeHome then
+				tree:PivotTo(treeHome)
+			end
+		elseif tree then
+			tree:Destroy()
+		end
+		setDormant(true, true)
 	end)
 	if current == awakening then
 		current = nil
@@ -643,19 +804,49 @@ function ElderService.wake()
 	if current then
 		return
 	end
-	ThirstService.setAwake(true)
 	local anchor = MapService.elderAnchor()
 	local players = math.max(1, #Players:GetPlayers())
 	local maxHealth = CombatMath.elderHealth(players)
 	local first: PhaseId = Phases.ORDER[math.random(1, #Phases.ORDER)]
-	local model, humanoid, root, heartPart = buildElder(anchor, maxHealth, first)
-	model:PivotTo(model:GetPivot() - UP * 60)
+	-- The boss bar shows from the first frame of the waking (3 s before the fight starts), so give
+	-- it the numbers it will start with instead of an empty "0 / 1, 0:00" bar.
+	local startsAt = Registry.now() + WAKE_SECONDS
+	setWorld("ElderMaxHealth", maxHealth)
+	setWorld("ElderHealth", maxHealth)
+	setWorld("ElderHeart", first)
+	setWorld("ElderNextHeart", Phases.nextInCycle(first))
+	setWorld("ElderHeartAt", startsAt + Constants.ELDER_PHASE_SECONDS)
+	setWorld("ElderEndsAt", startsAt + Constants.ELDER_TIMEOUT)
+	setWorld("ElderEnraged", false)
+	setWorld("ElderWounded", false)
+	ThirstService.setAwake(true)
+	local model, humanoid, root, heartPart, tree = buildElder(anchor, maxHealth, first)
+	local treeHome = if tree then tree:GetPivot() else nil
+	-- The grove's own tree wakes where it stands; anything else rises out of the ground.
+	local inGrove = tree ~= nil and tree == MapService.dormantElder
+	local movers: { Model } = { model }
+	if tree then
+		table.insert(movers, tree)
+	end
+	if not inGrove then
+		for _, mover in movers do
+			mover:PivotTo(mover:GetPivot() - UP * 60)
+		end
+	end
 	model.Parent = Workspace
-	showTrunkBlock(false)
+	if tree and not inGrove then
+		tree.Parent = Workspace
+	end
+	if not inGrove then
+		setDormant(false, false)
+	end
 	fx("wake", { model = model, position = anchor, heart = first, maxHealth = maxHealth })
 	StatsService.announce("The Thirst is full. The Thirsting Elder wakes in its grove!", LILY)
-	local pivot = model:GetPivot().Position
-	rise(model, pivot, pivot + UP * 60, 3)
+	if inGrove then
+		shudder(movers, WAKE_SECONDS)
+	else
+		shift(movers, UP * 60, WAKE_SECONDS)
+	end
 
 	local entity = Registry.register(model, humanoid, root, "Elder", nil)
 	entity.stunImmune = true
@@ -666,6 +857,8 @@ function ElderService.wake()
 	local awakening: Awakening = {
 		entity = entity,
 		model = model,
+		body = tree,
+		bodyHome = treeHome,
 		heartPart = heartPart,
 		anchor = anchor,
 		maxHealth = maxHealth,

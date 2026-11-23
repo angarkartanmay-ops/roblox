@@ -1,0 +1,210 @@
+{
+  "map": "FarShore",
+  "result": "WARN",
+  "checks": [
+    {
+      "id": "P1",
+      "title": "Grounding",
+      "status": "PASS",
+      "detail": "every part with a declared grounding sits as declared",
+      "rows": []
+    },
+    {
+      "id": "P2",
+      "title": "Standable surface",
+      "status": "PASS",
+      "detail": "1502 nodes across 16 walk-connected components",
+      "rows": [
+        "note: 105 component(s) made only of decoration were not analysed: decoration is never a declared destination"
+      ]
+    },
+    {
+      "id": "P3",
+      "title": "Intent match",
+      "status": "PASS",
+      "detail": "every surface is reachable exactly as declared",
+      "rows": []
+    },
+    {
+      "id": "P2b",
+      "title": "Recovery margin",
+      "status": "PASS",
+      "detail": "no return route runs the climb budget to zero",
+      "rows": []
+    },
+    {
+      "id": "P4",
+      "title": "Anchor legitimacy",
+      "status": "PASS",
+      "detail": "every declared anchor is solid, visible and in range",
+      "rows": []
+    },
+    {
+      "id": "P5",
+      "title": "Sightlines",
+      "status": "PASS",
+      "detail": "76.2% of 16110 sampled pairs have a clear line (band 25%-95%)",
+      "rows": []
+    },
+    {
+      "id": "P6",
+      "title": "Overlap",
+      "status": "PASS",
+      "detail": "no structural parts interpenetrate (23 structural, 162 decorative skipped)",
+      "rows": []
+    },
+    {
+      "id": "P7",
+      "title": "Role coverage",
+      "status": "PASS",
+      "detail": "every shipped movement tech has somewhere to live",
+      "rows": [
+        "roles: boss_anchorx1, bridgex2, floorx2, hard_coverx6, high_groundx1, interactablex1, landmarkx7, low_coverx6, pathx1, safe_zonex1, sightline_breakx6, structurex2"
+      ]
+    },
+    {
+      "id": "P8",
+      "title": "Symmetry",
+      "status": "INFO",
+      "detail": "no congruent ring of 3 or more parts to check",
+      "rows": []
+    },
+    {
+      "id": "P9",
+      "title": "Ring-out counterplay",
+      "status": "INFO",
+      "detail": "no ring-out declared",
+      "rows": []
+    },
+    {
+      "id": "P10",
+      "title": "Coplanar surfaces",
+      "status": "PASS",
+      "detail": "no coplanar overlapping faces",
+      "rows": []
+    },
+    {
+      "id": "P11",
+      "title": "Empty space",
+      "status": "INFO",
+      "detail": "terrain map: judged by T9 Empty land",
+      "rows": []
+    },
+    {
+      "id": "P12",
+      "title": "Entrances",
+      "status": "INFO",
+      "detail": "no part declares a facing",
+      "rows": []
+    },
+    {
+      "id": "P13",
+      "title": "Feature dressing",
+      "status": "PASS",
+      "detail": "every water feature and landmark has props around it",
+      "rows": []
+    },
+    {
+      "id": "P14",
+      "title": "Props in water",
+      "status": "INFO",
+      "detail": "no water declared",
+      "rows": []
+    },
+    {
+      "id": "P15",
+      "title": "Clear routes",
+      "status": "INFO",
+      "detail": "no routes declared",
+      "rows": []
+    },
+    {
+      "id": "P16",
+      "title": "Enclosure",
+      "status": "INFO",
+      "detail": "open edges by declaration: By design. The Far Shore is a plateau over a sea of mist: its cliffs and the two dry falls where the riverbed meets the edge are the ring-out boundary, and a fall is a death credited to the last hitter within 10 s. Barrier walls would remove the genre's ring-out play, so there are none.",
+      "rows": []
+    },
+    {
+      "id": "P21",
+      "title": "Performance budget",
+      "status": "INFO",
+      "detail": "no meshes placed; 185 instances",
+      "rows": []
+    },
+    {
+      "id": "T1",
+      "title": "Flatness",
+      "status": "PASS",
+      "detail": "0.0% of undesigned land flat, pads 8% of land",
+      "rows": []
+    },
+    {
+      "id": "T2",
+      "title": "Relief",
+      "status": "PASS",
+      "detail": "land p5-p95 -50-61 studs, gentle ground levels at [24, 48, 72]",
+      "rows": []
+    },
+    {
+      "id": "T3",
+      "title": "Boxiness",
+      "status": "PASS",
+      "detail": "1 cliff region(s) judged; map-wide 18% of steep faces axis-aligned (organic about 13-25%; a region over 60% fails)",
+      "rows": []
+    },
+    {
+      "id": "T4",
+      "title": "Tides",
+      "status": "PASS",
+      "detail": "zones proven at both tides (FerryLanding:always, Riverbed:always, JizoBeach:always, LilyFields:always, EldersGrove:always, Barrows:always, PineBluff:always), low -96 / high -92",
+      "rows": []
+    },
+    {
+      "id": "T5",
+      "title": "Caves",
+      "status": "INFO",
+      "detail": "no caves declared",
+      "rows": []
+    },
+    {
+      "id": "T6",
+      "title": "Coast",
+      "status": "WARN",
+      "detail": "coast is 100% cliff, 0% beach over 1736 studs",
+      "rows": [
+        "a single-character coast reads as generated"
+      ]
+    },
+    {
+      "id": "T7",
+      "title": "Earthworks",
+      "status": "PASS",
+      "detail": "4 road(s), worst fill 7 / cut 4 studs (limit 32)",
+      "rows": []
+    },
+    {
+      "id": "T8",
+      "title": "Cliff cover",
+      "status": "WARN",
+      "detail": "3596 steep columns (45 degrees or more) of bare voxel cliff",
+      "rows": [
+        "bare voxel cliffs render as small triangles; cover them with your own cliff models or soften the landform profiles"
+      ]
+    },
+    {
+      "id": "T9",
+      "title": "Empty land",
+      "status": "PASS",
+      "detail": "0% of 55 dry land cells have no prop within 56 studs (limit 35%)",
+      "rows": []
+    },
+    {
+      "id": "T10",
+      "title": "Spawn",
+      "status": "PASS",
+      "detail": "(0, 150) ground 44, 0 deg; (-16, 146) ground 44, 0 deg; (16, 146) ground 44, 0 deg; (-12, 164) ground 44, 0 deg; (12, 164) ground 44, 0 deg; (0, 174) ground 44, 0 deg - confirm with the playtest probe",
+      "rows": []
+    }
+  ]
+}

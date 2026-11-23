@@ -1,8 +1,8 @@
-<!-- section: 1 -->
-# HANDOFF: section 1 of 6 closed (Research and design)
+<!-- section: 3 -->
+# HANDOFF: section 3 of 6 closed (World and visuals)
 
 Game: `D:\Antigravity\Roblx\roblox\games\HiganbanaBattlegrounds`
-Written: 2026-11-20T11:09:35+05:30
+Written: 2026-11-23T12:02:50+05:30
 
 A cleared session starts from this file alone. Read it in full, then run:
 
@@ -10,65 +10,75 @@ A cleared session starts from this file alone. Read it in full, then run:
 python ~/.claude/skills/create-roblox-game/scripts/section.py resume --dir "D:\Antigravity\Roblx\roblox\games\HiganbanaBattlegrounds"
 ```
 
-(On this machine the skills live in the repo, not `~/.claude`: use
-`d:\Antigravity\Roblx\roblox\.claude\skills\create-roblox-game\scripts\section.py`, and set
-`$env:ROBLOX_GAMES_HOME = "d:\Antigravity\Roblx\roblox\games"` first. See `LOCAL.md` in that skill.)
-
 ## Where things are
-- `design/game.json`: the contract. Pitch, core loop, win/lose, the Five Phases rules (`phases`), the five fighters with every move (`roster`), the Thirsting Elder (`elder`), 16 systems with what each owns, 68 config tunables, the 23-section plan, and the asset plan (50 entities).
-- `design/research.md`: research findings, the originality line, public-domain sources, market read, numbered source list.
-- `design/map.json`: the Far Shore in roblox-map format (terrain landforms, pads, paths, zones, greybox parts, spawns, `open_edges`, `references`, `dressing_plan`).
-- `design/meshes.json`: 35 meshes (name, studs, tris, use, attach, paint, prompt) plus the palette.
-- `design/animations.json`: 61 clips (R15 and the Elder's Motor6D rig), markers at contact frames, a weapon `_intent` sentence for every weapon clip.
-- `design/vfx.json`: 80 effects (kind, attach, colour, seconds, look, library search words).
-- `design/sfx.json`: 72 sound roles in roblox-sfx format (query, kind, length band, volume, looped).
-- `design/ui.json`: the UI theme, phase glyphs, 49-icon manifest, 4 screens and 4 billboard templates with every instance name the asset plan checks for.
-- `build-runs/higanbana-battlegrounds/`: the ledger (`meta.json`, `events.jsonl`, `counter.txt`).
-- `src/`, `tests/`, `lune/`, `default.project.json` and the other root files are the Knit template `new_game.py` laid down. They are NOT the game's code: section 2 replaces them with the Tidebell fork.
-- `d:\Antigravity\Roblx\roblox\.claude\skills\create-roblox-game\LOCAL.md`: this machine's paths, tools and missing keys.
-- Studio: nothing was created or changed in Studio for this game.
+- Map spec: `design/map.json` (rewritten; backup of the section-2 version in `design/map.section2.json`), written by `tools/fix_map_spec.py` + `tools/scatter_map.py`.
+- Prover output: `work/map/report.json`, `work/map/plan.png`, `work/map/terrain/`, `work/map/build.lua` (served builder), `work/map/dressing.json` (mesh placements), `work/map/landing_view.png`. Older copy in `build/map/`.
+- Meshes: `assets/meshes/manifest.json` (38 entries), `design/mesh_ids.json` (published model ids of the first 10). In Studio: `ServerStorage.DressingCache.<Name>` (one Model per mesh).
+- Map in Studio: `Workspace.FarShore` (parts, Spawns, KillPlane, `Dressing` folder with 169 placed meshes + `Dressing.LilyDrifts` 754 lilies), smooth terrain, Lighting (golden_hour preset + dusk Atmosphere).
+- UI: `assets/ui/*.model.json` (exported live trees, re-exported in the polish pass: `WorldOverlay`, `DummyNameplate`, new `DeathRecap`), `assets/ui/mockup.png`, `assets/ui/README.md`.
+- Code: `src/shared/FarShore.luau` (spawns y48, lantern 50.5, Elder anchor 53.5), `src/server/Services/MapService.luau` (find() returns the PART, not a same-named folder), `src/server/Services/FighterService.luau` (Humanoid.MaxSlopeAngle = 45), `src/client/Controllers/SelectController.luau` (panel named FighterDetail_<id>; core PlayerList hidden while open).
+- Skill change: `roblox/.claude/skills/roblox-map/scripts/checks_terrain.py` T4 honours volume.killPlane and volume.slideSlope.
 
 ## Done this section
-- Preflight: Rokit toolchain present (Rojo 7.7.1, Lune 0.11.1, Selene 0.31.0, StyLua 2.6.0, luau-lsp 1.70.1, Wally 0.3.2, darklua 0.19.0); Studio MCP `roblox-studio` connected; Blender absent; `ROBLOX_API_KEY` and `HF_TOKEN` unset.
-- Research written to `design/research.md` from 5 opened pages (5 publishers) and 4 search excerpts.
-- Contract: `validate.py --dir <game>` passes: "contract valid", 21 plan sections answered, 2 declined (data_saving, monetisation), 0 unaddressed.
-- Asset plan against the stage specs, checked by script: meshes 35/35, animation 61/61, vfx 80/80, sfx 72/72, ui 25/25 plan names present in the specs; no duplicates, no unplanned extras.
-- Map spec dry run: `roblox-map/scripts/terrain.py design/map.json` generated a 160x160-column heightfield. Measured: landing 44.0, bed floor 22.2 to 23.6 under every boat and cairn, Jizo Beach 26.0, grove 52.0, Lily Hill 54.3, Pine Bluff 56.6, pier end over a 39.1 bank. Bank profile at x=0 rises 22 to 44 between z=0 and z=±80.
+- Map prove: RESULT WARN (was FAIL on P1, P3, P13, T4). Passing: P1, P3, P13, T2 (levels 24/48/72), T4 (all 7 zones at both tides), T7, T9. WARN only: P2, T6 (coast all cliff), T8 (bare voxel cliff).
+- Map installed by build.lua (185 parts) + build_terrain.lua (BuildDone=true). verify_build.lua: errors=0, grey=0, unresolvedRoles=0, 923 mesh parts.
+- Playtest on the real map: no fallback shore; player spawns on Spawn3 (1 stud above); 5 dummies stand on terrain on Jizo Beach; lantern ProximityPrompt present after MapService fix; Elder wakes at (0, 67.2, -215) with 2400 HP; MaxSlopeAngle=45 on the character.
+- 38 meshes generated in Studio (every name in design/meshes.json, BambooCluster shares the BambooClump mesh); 10 placed as map dressing.
+- UI: exported trees list every asset-plan UI name except PhaseNameplate; Phase Select clicked through in a playtest (cards rename the detail panel per fighter).
+- Gates: roblox-code check.py all green, 327/327 tests, luau-lsp 0 errors.
 
 ## Decisions and why
-- Genre: battlegrounds (named by the brief). The request was a "Hell's Paradise mimic", so the game takes the genre and mood only and none of the anime's names, characters, designs, powers, places or plot. Reason: the user's LOCAL.md preference is original games only, and the IP is someone else's. Enforced in code from section 2 by the originality spec.
-- World from public-domain sources: Wuxing Five Phases, higanbana and the Sanzu far shore, Sai no Kawara and Jizo, Edo archetypes for the fighters.
-- The blood-drinking tree "jubokko" was dropped (likely Shigeru Mizuki's invention) in favour of an original boss, the Thirsting Elder; "jubokko" joins the banned list.
-- No blood: hits spill crimson Ki motes. Reason: 9+ audience, mild violence.
-- Five fighters, one per phase, so every phase has an identical matchup profile (balanced by construction): Tsuta (Wood, wagasa), Hibiki (Fire, taiko bachi), Iwao (Earth, sumo), Kanemori (Metal, jitte), Rokumon (Water, ferry oar).
-- PvP feeds PvE: total damage between players fills the Thirst; the Elder wakes and only the phase that overcomes its cycling heart wounds it. Reason: the market gap in research.md (leaders have no matchup layer and no PvP-fed event).
-- Session-only stats, no shop, no datastore (scope law); monetisation and data_saving declined with reasons in the plan.
-- Engine: fork Tidebell Battlegrounds (server services, client controllers, Remotes in default.project.json, no Knit). Reason: the repo rule to follow the framework the game already uses, and Tidebell already proves the combat core (166 Lune specs passing).
-- Map: a plateau over a sea of mist; the edges are the ring-out boundary (`open_edges`), no barrier walls. The tide is set below the sea floor so the river is dry. The greybox parts carry no mesh, because T9 judges a dressed map as a whole; `dressing_plan` lists the swaps for section 3.
-- The Elder is a rigid Motor6D rig of five MeshParts (no skinning), so it can be animated without Blender skinning.
-- Idles pose the upper body only at Idle priority, so the default walk keeps driving the legs.
-- UI: dark lacquer theme with bone-white text (art direction); phase badges are the Five Phases' own characters drawn as text, not generated icons.
+- The landing is a flagstone quay + walk (parts) because the reachability prover walks parts only; spawns stand on the quay.
+- Sea floor -104 below the tide: the mist sea is open water to T4, 34 studs under the kill plane.
+- T4 treats ground under the ring-out line as lethal and faces steeper than volume.slideSlope (45) as slides; the game enforces it with Humanoid.MaxSlopeAngle = 45. Without this every cliff skirt counted as a stranding pocket.
+- Lily Hill and Pine Bluff raised to flat tops at ~72 with switch trails (LilyTrail, PineTrail, max grade 22) to give the third ground level T2 asks for.
+- Dressing boxes in the spec carry a `dressing` kind; Studio swaps each box for the mesh, scaled to the box height, base on the box bottom. Boats/hut/torii keep invisible boxes with collision off; trees, boulders, small stones collide by Hull; torii and hut by PreciseConvexDecomposition; lilies are walk-through.
+- Meshes come from Studio generate_mesh because Tier 2 needs an Open Cloud key to upload (unset). generate_mesh publishes the assets itself, so they persist in the place.
+- UI stays runtime-built Luau (section 2). Its artifact is the exported live tree, not a separate headless spec, so the mockup cannot drift from what ships.
+- Lighting: golden_hour preset, ClockTime 17.6, teal-grey Atmosphere (density 0.32). Lighting.Technology cannot be set from a plugin; default.project.json already sets Future.
 
 ## Unproven
-- The map prover has not run. Bank slopes at x=0 measure about 22 to 26 degrees in places; if the prover's walk limit (24) fails them, widen the SanzuBed profile.
-- No mesh, icon or concept prompt has been run through a generator.
-- No SFX query has been searched in the Creator Store.
-- No weapon `_intent` has been checked against reference photographs yet (required before authoring each clip).
-- The market figures come from one aggregator page with no snapshot date (research.md source 5) plus one dated article (source 6).
-- The Tidebell fork has not been copied or built in this folder.
-- The Five Phases balance claim (identical profile per phase) is reasoning, not yet a Lune spec.
+- PhaseNameplate: needs a second player; validate --stage-gate reports it missing until the two-player test exports it (section 5).
+- Mesh proportions: Wagasa, NoboriBanner, BridgeParapet, FerryPier, FerryOar, WeightedChain, ElderBranchTube, DohyoRing, CoinString, Sugegasa and Jingasa came out with squashed bounds (manifest marks them). They are not placed yet; check or regenerate them before integration.
+- Kit/Elder meshes (weapons, hats, Elder trunk/crown/heart/roots, DohyoRing, PhantomBoat, SapSprout, LilyCrown) are generated but not wired: Weapons.luau and ElderService still build parts. That wiring is section 5 integration.
+- Trees and boulders as Hull colliders: walk-into tested only by verify_build, not by walking.
+- Map look: dusk lighting tuned in the polish pass (see below); terrain still renders textureless on this network.
+- Phase Select layout on phone sizes: not run in the Device Simulator.
 
 ## Debts
-- Ledger: 0 interventions, 0 fallbacks, 0 stalls (`run_log.py debts`: clean).
-- The design-spec ledger stage ran 2h02m against a 45m budget (+77m). Over budget, nothing skipped.
-- Blockers waiting for later sections (not fallbacks yet; each becomes a declared external debt only if its stage cannot run):
-  - Blender not installed: blocks the roblox-3d-model and roblox-animation routes (sections 3, 4). Pre-authorised fallbacks are written into `meshes.json` and `animations.json` `routes`.
-  - `HF_TOKEN` unset (mesh concept and image-to-3D).
-  - `CF_ACCOUNT_ID` and `CF_API_TOKEN` unset (icon generation, section 3).
-  - `ROBLOX_API_KEY` unset (uploads and publish, sections 3 to 6).
-  - The roblox-vfx library is empty: section 4 starts by harvesting a pack.
-  - The Tidebell engine carries 51 unique strict-mode luau-lsp errors; the fork inherits them and section 2 fixes them.
-- This environment has no screen-access request tool, so rule 6 cannot be followed literally; Studio is reached through the `roblox-studio` MCP (`execute_luau`, `screen_capture`).
+- FALLBACK (logged, 3d-meshes): Studio generate_mesh instead of the roblox-3d-model pipeline. Not healed. It needs ROBLOX_API_KEY to upload, which is an external blocker.
+- The section-2 map fallback (flat FallbackShore) is HEALED: the proven map is installed and the game no longer builds the fallback.
+- generate_mesh hit "Rate limit exceeded" on 13 of 27 parallel jobs. They were retried 3 at a time and all succeeded.
+- Studio closed between sessions. It was reopened on the saved place and nothing was lost.
+- Interventions: none. The user said "continue using studio", which is not an intervention.
+
+## Polish pass after section 3 (2026-11-23)
+
+The user asked, after the section 3 close, to run the game, fix all bugs, improve the UI and gameplay, and fix the many visual bugs. That names THAT, not WHAT, so it is not an intervention (ledger note, stage playtest).
+
+**Root cause of most of the visual bugs: the network, not the game.** This machine's network runs Sophos HTTPS inspection, which re-signs roblox.com and rbxcdn.com. Studio's CDN fetches fail with `TlsVerificationFail`, so avatar meshes, default animations, sounds, prop textures, terrain material textures and the Fabric/Grass part materials never load. The user's fix is IT-side: trust the org CA, exempt `*.roblox.com` and `*.rbxcdn.com` from inspection, or use another network. Never install the certificate from here.
+
+Measured engine behaviour under it, which the code now works around:
+- A BillboardGui with `AlwaysOnTop = true` does not render. World text that must show through bodies goes on the `WorldOverlay` ScreenGui, projected with `Camera:WorldToViewportPoint` each frame.
+- MeshParts inside a Model that has a Humanoid do not draw when their mesh fetch fails, while the same parts under Workspace do. So the Elder's tree stays outside its combat model, linked by an ObjectValue `Body`.
+- Clearing a failed TextureID renders the prop black. A Highlight per prop kind (FallbackController, at most 16 groups) tints it instead.
+- Fabric, Grass, Granite, Ground and LeafyGrass render near-black or dull. Plastic, SmoothPlastic, Neon, Wood, WoodPlanks, Slate, Metal, Glass and Limestone are fine. Kit cloth and VFX leaves and straw now use SmoothPlastic.
+
+Fixes, each checked in a playtest:
+- FallbackController: stand-in bodies with a natural skin tone; failed-texture props tinted by kind (the torii is red, the pines green, the lanterns cream).
+- NameplateController: damage numbers and the relation indicator moved to the projected overlay. Numbers pop to one side of the body and rise a little, instead of running through the nameplate.
+- HudController: the M1 slot's icon, name and combo pips no longer overlap; cooldowns dim the slot; the HUD hides under Phase Select and the Death Recap.
+- SelectController: the button reads CROSS on first pick and CROSS AGAIN after; the Death Recap is a compact card.
+- ElderService: the tree draws, shudders awake, sinks on defeat and regrows in the grove. The boss bar is filled during the 3 s wake.
+- VfxController: the Thousand-Root Bloom trunk stands ahead of Tsuta, so it no longer blocks the camera. Festival of a Thousand Drums ghosts the drums next to each viewer's camera. The Elder's tree flashes when hit.
+- CombatService: The River Returns hitboxes are 26 studs tall. The wave carries victims 40+ studs up the shore, and the drain was missing them.
+- Lighting: dusk values in `default.project.json`. The terrain Rock material is recoloured to (112, 106, 88) in the place. `work/map/dress_landmarks.lua` dresses the lantern and the dormant Elder and colours the props.
+- Kit test: all 5 fighters cast Ability1 to 4 and their Ultimate at a dummy. There were no non-network errors in the server or client logs.
+- Gates: check.py all green (328 tests), luau-lsp 0 errors.
+
+Still open:
+- Sounds cannot play on this network, and no code fix exists for that.
+- PhaseNameplate still needs a second player.
 
 ## Ledger
 
@@ -79,7 +89,10 @@ python ~/.claude/skills/roblox-build-orchestrator/scripts/run_log.py counter --d
 ```
 
 ## Place
-No place exists for this game yet, and no universe or place id is minted (`publish` ids are null in game.json). Nothing for this game was put in Studio, so there was nothing to save. Section 2 creates the place: `rojo build -o build/HiganbanaBattlegrounds.rbxl`, opened in Studio and saved to disk before any Studio work.
+- `D:/Antigravity/Roblx/roblox/games/HiganbanaBattlegrounds/places/HiganbanaBattlegrounds.rbxl`, saved 2026-11-23 at the section 3 close. It is the ONLY copy of the installed map and meshes: `rojo build` does not contain them.
+- The Studio window's studio_id in the polish pass was `4802d8b8-e05e-4d95-b8e7-fb167b879802`. Re-list it in a new session.
+- Re-saved 2026-11-23 after the polish pass (all `src/` changes synced in).
+- No universe/place minted; ROBLOX_API_KEY unset.
 
 ## Rules
 
@@ -93,11 +106,10 @@ No place exists for this game yet, and no universe or place id is minted (`publi
 8. BEFORE CLOSING: save the place, write HANDOFF.md with `section.py handoff N`, replace every placeholder, run `section.py close N`. Then stop and ask the user to approve. Approval is free. If the user asks for changes, make them, log an intervention if they named what was wrong, update HANDOFF.md and close again. When the user approves ("approved", "yes that's all good"), run `section.py approve N` and say it is safe to clear the chat. Do not start the next section.
 
 ## Next section: first step
-Section 2: Code and the playable loop (3 code, 4 map BLOCKOUT only, then play the loop on placeholder art).
+Section 4: Motion and sound (7 animation, 8 vfx, 9 sfx).
+Restart the local servers if they are down: `python -m http.server 8766 --bind 127.0.0.1 --directory src` from the game folder. Use `python3` for the map/skill scripts, because `python` no longer has numpy. Then open `design/animations.json` and run the roblox-animation skill for the clips it lists, writing `assets/animations/manifest.json`. Do vfx (`design/vfx.json`) and sfx (`design/sfx.json`) after that.
 
-First action, in PowerShell with the Rokit tools on PATH (`$env:Path = "$env:USERPROFILE\.rokit\bin;$env:Path"`):
+## Earlier handoffs
 
-1. `python d:\Antigravity\Roblx\roblox\.claude\skills\create-roblox-game\scripts\section.py resume --game "higanbana" --expect 2`
-2. Replace the Knit template with the Tidebell fork: delete this game's `src/`, `tests/`, `lune/` and `default.project.json`, then copy those four from `d:\Antigravity\Roblx\roblox\games\TidebellBattlegrounds`. Keep `design/`, `HANDOFF.md` and `build-runs/`.
-3. In `tests/originality.spec.luau` add `"jubokko"` to BANNED, then run `lune run test` before changing any game code, so the fork starts green.
-4. Then rename and rebuild the content from `design/game.json`: Elements to Phases (generating and overcoming tables, the four relations), the five fighters and moves, Ki and Mend, ThirstService and ElderService, config from `config`.
+- `D:\Antigravity\Roblx\roblox\games\HiganbanaBattlegrounds\design\handoffs\HANDOFF-section-1.md`
+- `D:\Antigravity\Roblx\roblox\games\HiganbanaBattlegrounds\design\handoffs\HANDOFF-section-2.md`

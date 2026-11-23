@@ -1,0 +1,436 @@
+{
+ "route": "Studio generate_mesh (Cube 3D) - pre-authorised fallback: Tier 2 needs ROBLOX_API_KEY for upload (unset); Kaggle off",
+ "where": "every mesh is a Model in ServerStorage.DressingCache of places/HiganbanaBattlegrounds.rbxl; ids below are the published mesh/texture content",
+ "assets": {
+  "ArmorPile": {
+   "place": "ServerStorage.DressingCache.ArmorPile",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://108158343349119",
+   "size": [
+    2.62,
+    2.5,
+    2.68
+   ],
+   "textureId": "rbxassetid://79950287566664"
+  },
+  "BackTaiko": {
+   "place": "ServerStorage.DressingCache.BackTaiko",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://133522343106387",
+   "size": [
+    2.23,
+    1.45,
+    2
+   ],
+   "textureId": "rbxassetid://101159582289147"
+  },
+  "BambooClump": {
+   "place": "ServerStorage.DressingCache.BambooClump",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://85356462790560",
+   "size": [
+    8,
+    9.27,
+    7.73
+   ],
+   "textureId": "rbxassetid://97298006786403"
+  },
+  "BambooCluster": {
+   "place": "ServerStorage.DressingCache.BambooClump",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://85356462790560",
+   "size": [
+    8,
+    9.27,
+    7.73
+   ],
+   "textureId": "rbxassetid://97298006786403",
+   "note": "same mesh as BambooClump (the map scatter name)"
+  },
+  "Boulder": {
+   "place": "ServerStorage.DressingCache.Boulder",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://133363161783778",
+   "size": [
+    6.99,
+    4.79,
+    7
+   ],
+   "textureId": "rbxassetid://138280151951506"
+  },
+  "BridgeParapet": {
+   "place": "ServerStorage.DressingCache.BridgeParapet",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://125759655271280",
+   "size": [
+    1.5,
+    0.65,
+    0.29
+   ],
+   "textureId": "rbxassetid://138220195029714",
+   "quality": "shape check needed: generated bounds do not match the planned proportions; verify in section 5 before use"
+  },
+  "CoinString": {
+   "place": "ServerStorage.DressingCache.CoinString",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://78198804140234",
+   "size": [
+    0.46,
+    0.5,
+    0.04
+   ],
+   "textureId": "rbxassetid://75266027703293",
+   "quality": "shape check needed: generated bounds do not match the planned proportions; verify in section 5 before use"
+  },
+  "DeadPine": {
+   "place": "ServerStorage.DressingCache.DeadPine",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://124204081649967",
+   "size": [
+    11.42,
+    24,
+    10
+   ],
+   "textureId": "rbxassetid://134014334081382"
+  },
+  "DohyoRing": {
+   "place": "ServerStorage.DressingCache.DohyoRing",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://124473184831898",
+   "size": [
+    8.75,
+    4,
+    8.31
+   ],
+   "textureId": "rbxassetid://96504129396395",
+   "quality": "shape check needed: generated bounds do not match the planned proportions; verify in section 5 before use"
+  },
+  "ElderBranchTube": {
+   "place": "ServerStorage.DressingCache.ElderBranchTube",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://87993021328567",
+   "size": [
+    2.38,
+    5,
+    1.06
+   ],
+   "textureId": "rbxassetid://101733636128488",
+   "quality": "shape check needed: generated bounds do not match the planned proportions; verify in section 5 before use"
+  },
+  "ElderCrown": {
+   "place": "ServerStorage.DressingCache.ElderCrown",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://77685830869052",
+   "size": [
+    27.71,
+    30.06,
+    28.24
+   ],
+   "textureId": "rbxassetid://102138167539904"
+  },
+  "ElderHeart": {
+   "place": "ServerStorage.DressingCache.ElderHeart",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://120745920222272",
+   "size": [
+    7,
+    6.21,
+    5.86
+   ],
+   "textureId": "rbxassetid://89898911127761"
+  },
+  "ElderRoot": {
+   "place": "ServerStorage.DressingCache.ElderRoot",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://79815808934571",
+   "size": [
+    6.97,
+    11.01,
+    8
+   ],
+   "textureId": "rbxassetid://137875754911815"
+  },
+  "ElderTrunk": {
+   "place": "ServerStorage.DressingCache.ElderTrunk",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://99301199708192",
+   "size": [
+    30,
+    32.47,
+    27.82
+   ],
+   "textureId": "rbxassetid://91179415390031"
+  },
+  "FerryBoat": {
+   "place": "ServerStorage.DressingCache.FerryBoat",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://97453492000896",
+   "size": [
+    6.55,
+    5,
+    11.43
+   ],
+   "textureId": "rbxassetid://131993633829898"
+  },
+  "FerryOar": {
+   "place": "ServerStorage.DressingCache.FerryOar",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://71241747957788",
+   "size": [
+    0.79,
+    2.05,
+    0.4
+   ],
+   "textureId": "rbxassetid://104920348267353",
+   "quality": "shape check needed: generated bounds do not match the planned proportions; verify in section 5 before use"
+  },
+  "FerryPier": {
+   "place": "ServerStorage.DressingCache.FerryPier",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://134410856380177",
+   "size": [
+    4.63,
+    8,
+    9.2
+   ],
+   "textureId": "rbxassetid://115682102159067",
+   "quality": "shape check needed: generated bounds do not match the planned proportions; verify in section 5 before use"
+  },
+  "FerrymanHut": {
+   "place": "ServerStorage.DressingCache.FerrymanHut",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://72885713896246",
+   "size": [
+    13.73,
+    10.02,
+    16
+   ],
+   "textureId": "rbxassetid://123884977108467"
+  },
+  "Jingasa": {
+   "place": "ServerStorage.DressingCache.Jingasa",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://72503970812099",
+   "size": [
+    1.42,
+    0.69,
+    1.42
+   ],
+   "textureId": "rbxassetid://137829315901733",
+   "quality": "shape check needed: generated bounds do not match the planned proportions; verify in section 5 before use"
+  },
+  "Jitte": {
+   "place": "ServerStorage.DressingCache.Jitte",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://109597867322746",
+   "size": [
+    0.28,
+    1.79,
+    0.27
+   ],
+   "textureId": "rbxassetid://121759548545121"
+  },
+  "JizoStatue": {
+   "place": "ServerStorage.DressingCache.JizoStatue",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://135465734537753",
+   "size": [
+    1.5,
+    2.25,
+    1.39
+   ],
+   "textureId": "rbxassetid://108912546856905"
+  },
+  "LilyCrown": {
+   "place": "ServerStorage.DressingCache.LilyCrown",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://103862952221976",
+   "size": [
+    1.6,
+    0.47,
+    1.59
+   ],
+   "textureId": "rbxassetid://113174409878836"
+  },
+  "NoboriBanner": {
+   "place": "ServerStorage.DressingCache.NoboriBanner",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://130596214473040",
+   "size": [
+    1,
+    1,
+    1
+   ],
+   "textureId": "rbxassetid://77395457928117",
+   "quality": "shape check needed: generated bounds do not match the planned proportions; verify in section 5 before use"
+  },
+  "PhantomBoat": {
+   "place": "ServerStorage.DressingCache.PhantomBoat",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://96157795582515",
+   "size": [
+    2.75,
+    5,
+    5.88
+   ],
+   "textureId": "rbxassetid://105688642550544"
+  },
+  "PineTree": {
+   "place": "ServerStorage.DressingCache.PineTree",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://82743707189535",
+   "size": [
+    16,
+    15.9,
+    7.94
+   ],
+   "textureId": "rbxassetid://81199802792309"
+  },
+  "RopeBelt": {
+   "place": "ServerStorage.DressingCache.RopeBelt",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://124416553480315",
+   "size": [
+    2.08,
+    1.6,
+    1.84
+   ],
+   "textureId": "rbxassetid://71028680110679"
+  },
+  "SapSprout": {
+   "place": "ServerStorage.DressingCache.SapSprout",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://71229213226625",
+   "size": [
+    3,
+    4.65,
+    1.76
+   ],
+   "textureId": "rbxassetid://103121134461575"
+  },
+  "SpiderLilyCluster": {
+   "place": "ServerStorage.DressingCache.SpiderLilyCluster",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://112000033314223",
+   "size": [
+    2.57,
+    2.5,
+    2.6
+   ],
+   "textureId": "rbxassetid://111400208059170"
+  },
+  "StoneBracer": {
+   "place": "ServerStorage.DressingCache.StoneBracer",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://73875538078071",
+   "size": [
+    0.83,
+    1.39,
+    0.87
+   ],
+   "textureId": "rbxassetid://78513792633675"
+  },
+  "StoneCairn": {
+   "place": "ServerStorage.DressingCache.StoneCairn",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://124585309132749",
+   "size": [
+    3,
+    2.79,
+    1.13
+   ],
+   "textureId": "rbxassetid://136905655286576"
+  },
+  "StoneLantern": {
+   "place": "ServerStorage.DressingCache.StoneLantern",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://123833472394345",
+   "size": [
+    2.4,
+    4.83,
+    2.3
+   ],
+   "textureId": "rbxassetid://72230910079962"
+  },
+  "Sugegasa": {
+   "place": "ServerStorage.DressingCache.Sugegasa",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://131387037766079",
+   "size": [
+    1.01,
+    0.8,
+    1.02
+   ],
+   "textureId": "rbxassetid://115758859849163",
+   "quality": "shape check needed: generated bounds do not match the planned proportions; verify in section 5 before use"
+  },
+  "TaikoBachi": {
+   "place": "ServerStorage.DressingCache.TaikoBachi",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://108684751162916",
+   "size": [
+    0.17,
+    1.6,
+    0.17
+   ],
+   "textureId": "rbxassetid://113492770762673"
+  },
+  "ToriiGate": {
+   "place": "ServerStorage.DressingCache.ToriiGate",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://75490282692650",
+   "size": [
+    18.49,
+    17.72,
+    3
+   ],
+   "textureId": "rbxassetid://97654286594334"
+  },
+  "TrainingDummy": {
+   "place": "ServerStorage.DressingCache.TrainingDummy",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://87374486601496",
+   "size": [
+    4,
+    4.74,
+    1.98
+   ],
+   "textureId": "rbxassetid://136773239073798"
+  },
+  "Wagasa": {
+   "place": "ServerStorage.DressingCache.Wagasa",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://119291705523959",
+   "size": [
+    0.6,
+    0.56,
+    0.56
+   ],
+   "textureId": "rbxassetid://108470473217371",
+   "quality": "shape check needed: generated bounds do not match the planned proportions; verify in section 5 before use"
+  },
+  "WagasaOpen": {
+   "place": "ServerStorage.DressingCache.WagasaOpen",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://77671118228749",
+   "size": [
+    4.94,
+    1.99,
+    5
+   ],
+   "textureId": "rbxassetid://122807630393589"
+  },
+  "WeightedChain": {
+   "place": "ServerStorage.DressingCache.WeightedChain",
+   "surfaceAppearance": false,
+   "meshId": "rbxassetid://71601319196202",
+   "size": [
+    0.85,
+    1,
+    0.24
+   ],
+   "textureId": "rbxassetid://75098891907593",
+   "quality": "shape check needed: generated bounds do not match the planned proportions; verify in section 5 before use"
+  }
+ }
+}

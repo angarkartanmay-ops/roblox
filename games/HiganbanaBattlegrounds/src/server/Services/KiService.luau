@@ -8,6 +8,7 @@ local RunService = game:GetService("RunService")
 
 local CombatMath = require(ReplicatedStorage.Shared.CombatMath)
 local Constants = require(ReplicatedStorage.Shared.Constants)
+local Fighters = require(ReplicatedStorage.Shared.Fighters)
 local Types = require(ReplicatedStorage.Shared.Types)
 local Net = require("../Lib/Net")
 local Registry = require("./Registry")
@@ -37,9 +38,16 @@ function KiService.gain(entity: Entity?, amount: number)
 end
 
 -- Ki from one landed hit of `damage` with the attacker->target `relation`.
+-- An ultimate's own hits never refill the meter that paid for it.
+function KiService.isUltimateHit(attacker: Entity): boolean
+	local fighter = Fighters.get(attacker.fighterId)
+	local ultimate = if fighter then Fighters.moveForSlot(fighter, "Ultimate") else nil
+	return ultimate ~= nil and attacker.currentMove == ultimate.id
+end
+
 function KiService.onHitLanded(attacker: Entity?, victim: Entity, damage: number, relation: Types.Relation)
 	local attackerGain, targetGain = CombatMath.kiForHit(damage, relation)
-	if attacker and attacker ~= victim then
+	if attacker and attacker ~= victim and not KiService.isUltimateHit(attacker) then
 		KiService.gain(attacker, attackerGain)
 	end
 	KiService.gain(victim, targetGain)

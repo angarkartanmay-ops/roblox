@@ -1,0 +1,91 @@
+{
+ "className": "ScreenGui",
+ "children": [
+  {
+   "name": "Root",
+   "className": "Frame",
+   "children": [
+    {
+     "name": "UIScale",
+     "className": "UIScale"
+    },
+    {
+     "name": "KillerCard",
+     "className": "Frame",
+     "children": [
+      {
+       "name": "UICorner",
+       "className": "UICorner"
+      },
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      },
+      {
+       "name": "Heading",
+       "className": "TextLabel",
+       "children": [
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        }
+       ]
+      },
+      {
+       "name": "Killer",
+       "className": "TextLabel"
+      },
+      {
+       "name": "Relation",
+       "className": "TextLabel"
+      },
+      {
+       "name": "Sources",
+       "className": "TextLabel"
+      },
+      {
+       "name": "CounterPick",
+       "className": "TextButton",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        }
+       ]
+      },
+      {
+       "name": "SameFighterButton",
+       "className": "TextButton",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        }
+       ]
+      },
+      {
+       "name": "RespawnTimer",
+       "className": "TextLabel"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

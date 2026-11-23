@@ -84,11 +84,31 @@ function UiKit.stroke(color: Color3?, thickness: number?, transparency: number?)
 	return stroke
 end
 
+-- A contextual stroke outlines the glyphs even when the text itself is transparent, so a hidden
+-- label would still draw its outline (a black smudge of "Label"). This stroke follows its text's
+-- TextTransparency wherever it is parented.
 function UiKit.textStroke(color: Color3?, thickness: number?): UIStroke
 	local stroke = Instance.new("UIStroke")
 	stroke.Color = color or Color3.new(0, 0, 0)
 	stroke.Thickness = thickness or 2
 	stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Contextual
+	local follow: RBXScriptConnection? = nil
+	local function bind()
+		if follow then
+			follow:Disconnect()
+			follow = nil
+		end
+		local parent = stroke.Parent
+		if parent and (parent:IsA("TextLabel") or parent:IsA("TextButton") or parent:IsA("TextBox")) then
+			local text = parent :: any
+			local function sync()
+				stroke.Transparency = text.TextTransparency
+			end
+			sync()
+			follow = text:GetPropertyChangedSignal("TextTransparency"):Connect(sync)
+		end
+	end
+	stroke:GetPropertyChangedSignal("Parent"):Connect(bind)
 	return stroke
 end
 
@@ -123,91 +143,92 @@ function UiKit.label(props: { [string]: any }): TextLabel
 	local base = {
 		BackgroundTransparency = 1,
 		Font = UiKit.BODY_FONT,
+		Text = "",
 		TextColor3 = UiKit.PAPER,
 		TextSize = 18,
 	}
 	for key, value in props do
 		base[key] = value
 	end
-	-- Keep a UIScale matched to the viewport so a layout made at REFERENCE fits any screen.
-	function UiKit.autoScale(scale: UIScale, minimum: number?, maximum: number?)
-		local camera = game:GetService("Workspace").CurrentCamera
-		local function refresh()
-			local viewport = if camera then camera.ViewportSize else UiKit.REFERENCE
-			local factor = math.min(viewport.X / UiKit.REFERENCE.X, viewport.Y / UiKit.REFERENCE.Y)
-			scale.Scale = math.clamp(factor, minimum or 0.45, maximum or 1.6)
-		end
-		refresh()
-		if camera then
-			camera:GetPropertyChangedSignal("ViewportSize"):Connect(refresh)
-		end
-	end
-
-	-- A full-screen ScreenGui whose `Root` frame is REFERENCE-sized, centred and auto-scaled.
-	function UiKit.screen(name: string, order: number, parent: Instance): (ScreenGui, Frame)
-		local gui = UiKit.new("ScreenGui", {
-			Name = name,
-			ResetOnSpawn = false,
-			IgnoreGuiInset = true,
-			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-			DisplayOrder = order,
-			Parent = parent,
-		})
-		local root = UiKit.new("Frame", {
-			Name = "Root",
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			Position = UDim2.fromScale(0.5, 0.5),
-			Size = UDim2.fromOffset(UiKit.REFERENCE.X, UiKit.REFERENCE.Y),
-			BackgroundTransparency = 1,
-			Parent = gui,
-		})
-		local scale = Instance.new("UIScale")
-		scale.Parent = root
-		UiKit.autoScale(scale)
-		return gui, root
-	end
-
-	-- A lacquer panel with the theme's corner, outline and gold trim.
-	function UiKit.panel(props: { [string]: any }): Frame
-		local base: { [string]: any } = {
-			BackgroundColor3 = UiKit.PANEL,
-			BackgroundTransparency = 0.08,
-			BorderSizePixel = 0,
-		}
-		for key, value in props do
-			base[key] = value
-		end
-		local frame = UiKit.new("Frame", base)
-		UiKit.corner(12).Parent = frame
-		UiKit.stroke(UiKit.OUTLINE, 3).Parent = frame
-		return frame
-	end
-
-	-- A theme button: dark slot fill, outline, light text. Text stays readable on every fill.
-	function UiKit.button(props: { [string]: any }): TextButton
-		local base: { [string]: any } = {
-			BackgroundColor3 = UiKit.SLOT,
-			BorderSizePixel = 0,
-			AutoButtonColor = true,
-			Font = UiKit.HEAVY_FONT,
-			TextColor3 = UiKit.INK_LIGHT,
-			TextSize = 24,
-		}
-		for key, value in props do
-			base[key] = value
-		end
-		local button = UiKit.new("TextButton", base)
-		UiKit.corner(10).Parent = button
-		UiKit.stroke(UiKit.OUTLINE, 3).Parent = button
-		UiKit.textStroke(UiKit.OUTLINE, 2).Parent = button
-		return button
-	end
-
-	function UiKit.hex(color: Color3): string
-		return "#" .. color:ToHex()
-	end
-
 	return UiKit.new("TextLabel", base)
+end
+
+-- Keep a UIScale matched to the viewport so a layout made at REFERENCE fits any screen.
+function UiKit.autoScale(scale: UIScale, minimum: number?, maximum: number?)
+	local camera = game:GetService("Workspace").CurrentCamera
+	local function refresh()
+		local viewport = if camera then camera.ViewportSize else UiKit.REFERENCE
+		local factor = math.min(viewport.X / UiKit.REFERENCE.X, viewport.Y / UiKit.REFERENCE.Y)
+		scale.Scale = math.clamp(factor, minimum or 0.45, maximum or 1.6)
+	end
+	refresh()
+	if camera then
+		camera:GetPropertyChangedSignal("ViewportSize"):Connect(refresh)
+	end
+end
+
+-- A full-screen ScreenGui whose `Root` frame is REFERENCE-sized, centred and auto-scaled.
+function UiKit.screen(name: string, order: number, parent: Instance): (ScreenGui, Frame)
+	local gui = UiKit.new("ScreenGui", {
+		Name = name,
+		ResetOnSpawn = false,
+		IgnoreGuiInset = true,
+		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+		DisplayOrder = order,
+		Parent = parent,
+	})
+	local root = UiKit.new("Frame", {
+		Name = "Root",
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.fromScale(0.5, 0.5),
+		Size = UDim2.fromOffset(UiKit.REFERENCE.X, UiKit.REFERENCE.Y),
+		BackgroundTransparency = 1,
+		Parent = gui,
+	})
+	local scale = Instance.new("UIScale")
+	scale.Parent = root
+	UiKit.autoScale(scale)
+	return gui, root
+end
+
+-- A lacquer panel with the theme's corner, outline and gold trim.
+function UiKit.panel(props: { [string]: any }): Frame
+	local base: { [string]: any } = {
+		BackgroundColor3 = UiKit.PANEL,
+		BackgroundTransparency = 0.08,
+		BorderSizePixel = 0,
+	}
+	for key, value in props do
+		base[key] = value
+	end
+	local frame = UiKit.new("Frame", base)
+	UiKit.corner(12).Parent = frame
+	UiKit.stroke(UiKit.OUTLINE, 3).Parent = frame
+	return frame
+end
+
+-- A theme button: dark slot fill, outline, light text. Text stays readable on every fill.
+function UiKit.button(props: { [string]: any }): TextButton
+	local base: { [string]: any } = {
+		BackgroundColor3 = UiKit.SLOT,
+		BorderSizePixel = 0,
+		AutoButtonColor = true,
+		Font = UiKit.HEAVY_FONT,
+		TextColor3 = UiKit.INK_LIGHT,
+		TextSize = 24,
+	}
+	for key, value in props do
+		base[key] = value
+	end
+	local button = UiKit.new("TextButton", base)
+	UiKit.corner(10).Parent = button
+	UiKit.stroke(UiKit.OUTLINE, 3).Parent = button
+	UiKit.textStroke(UiKit.OUTLINE, 2).Parent = button
+	return button
+end
+
+function UiKit.hex(color: Color3): string
+	return "#" .. color:ToHex()
 end
 
 return UiKit

@@ -17,6 +17,8 @@ MapService.MAP_NAME = "FarShore"
 MapService.model = nil :: Model?
 MapService.fallback = false
 MapService.trunkBlock = nil :: BasePart?
+-- The Elder asleep in its grove (map dressing: the generated trunk and crown), if the map has it.
+MapService.dormantElder = nil :: Model?
 
 local lanternListeners: { (Player) -> () } = {}
 
@@ -73,9 +75,19 @@ function MapService.onLantern(listener: (Player) -> ())
 	table.insert(lanternListeners, listener)
 end
 
+-- The map builder groups landmarks into folders that share the part's name
+-- (Landmarks/SelectLantern/SelectLantern), so look for the PART, not the first match.
 local function find(name: string): Instance?
 	local model = MapService.model
-	return if model then model:FindFirstChild(name, true) else nil
+	if not model then
+		return nil
+	end
+	for _, descendant in model:GetDescendants() do
+		if descendant.Name == name and descendant:IsA("BasePart") then
+			return descendant
+		end
+	end
+	return nil
 end
 
 local function fallbackPart(props: { [string]: any }, parent: Instance): Part
@@ -178,6 +190,11 @@ function MapService.init(_self: any)
 	local trunk = find("ElderTrunkBlock")
 	if trunk and trunk:IsA("BasePart") then
 		MapService.trunkBlock = trunk
+	end
+	local model = MapService.model
+	local dormant = if model then model:FindFirstChild("DormantElder", true) else nil
+	if dormant and dormant:IsA("Model") then
+		MapService.dormantElder = dormant
 	end
 	-- The kill plane the map builder lays is only a marker; StatusService rings out below it.
 	for _, plane in CollectionService:GetTagged("KillPlane") do

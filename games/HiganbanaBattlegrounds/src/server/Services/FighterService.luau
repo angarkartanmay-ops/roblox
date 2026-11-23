@@ -29,6 +29,9 @@ local function setupCharacter(player: Player, character: Model)
 	if not humanoid or not humanoid:IsA("Humanoid") or not root or not root:IsA("BasePart") then
 		return
 	end
+	if not character.Parent then
+		character.AncestryChanged:Wait()
+	end
 	if character.Parent == nil then
 		return
 	end
@@ -37,6 +40,9 @@ local function setupCharacter(player: Player, character: Model)
 	humanoid.Health = fighter.maxHealth
 	humanoid.WalkSpeed = fighter.walkSpeed
 	humanoid.BreakJointsOnDeath = false
+	-- design/map.json volume.slideSlope: cliff faces over the mist are a slide
+	-- into the ring-out, never a ledge to be stranded on (roblox-map T4).
+	humanoid.MaxSlopeAngle = 45
 	character:SetAttribute("Fighter", fighter.id)
 	character:SetAttribute("Phase", fighter.phase)
 	player:SetAttribute("Phase", fighter.phase)

@@ -220,9 +220,10 @@ local function homes(): { CFrame }
 	local center = MapService.dummyCenter()
 	local river = Vector3.new(center.X, center.Y, center.Z - 30)
 	local list = {}
+	-- About 11 studs apart, so each dummy's nameplate reads on its own.
 	for index = 1, #DUMMIES do
-		local angle = math.rad(-56 + (index - 1) * 28)
-		local spot = center + Vector3.new(math.sin(angle) * FarShore.DUMMY_RADIUS, 0, math.cos(angle) * 6)
+		local angle = math.rad(-60 + (index - 1) * 30)
+		local spot = center + Vector3.new(math.sin(angle) * FarShore.DUMMY_RADIUS, 0, math.cos(angle) * 8)
 		local ground = Registry.groundBelow(spot + Vector3.new(0, 30, 0), 80)
 		local position = Vector3.new(spot.X, ground.Y + 3.2, spot.Z)
 		table.insert(list, CFrame.lookAt(position, Vector3.new(river.X, position.Y, river.Z)))

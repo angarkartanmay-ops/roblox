@@ -1,0 +1,29 @@
+{
+ "className": "ScreenGui",
+ "children": [
+  {
+   "name": "RelationIndicator",
+   "className": "TextLabel",
+   "children": [
+    {
+     "name": "UIStroke",
+     "className": "UIStroke"
+    }
+   ]
+  },
+  {
+   "name": "DamageNumber",
+   "className": "TextLabel",
+   "children": [
+    {
+     "name": "UIStroke",
+     "className": "UIStroke"
+    },
+    {
+     "name": "UIScale",
+     "className": "UIScale"
+    }
+   ]
+  }
+ ]
+}

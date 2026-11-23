@@ -1,0 +1,265 @@
+{
+ "className": "Frame",
+ "children": [
+  {
+   "name": "UICorner",
+   "className": "UICorner"
+  },
+  {
+   "name": "UIStroke",
+   "className": "UIStroke"
+  },
+  {
+   "name": "Header",
+   "className": "Frame",
+   "children": [
+    {
+     "name": "UICorner",
+     "className": "UICorner"
+    },
+    {
+     "name": "UIGradient",
+     "className": "UIGradient"
+    },
+    {
+     "name": "Glyph",
+     "className": "TextLabel",
+     "children": [
+      {
+       "name": "UICorner",
+       "className": "UICorner"
+      }
+     ]
+    },
+    {
+     "name": "FighterName",
+     "className": "TextLabel",
+     "children": [
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      }
+     ]
+    },
+    {
+     "name": "Title",
+     "className": "TextLabel",
+     "children": [
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Role",
+   "className": "TextLabel"
+  },
+  {
+   "name": "Passive",
+   "className": "TextLabel"
+  },
+  {
+   "name": "Moves",
+   "className": "Frame",
+   "children": [
+    {
+     "name": "UIListLayout",
+     "className": "UIListLayout"
+    },
+    {
+     "name": "Move1",
+     "className": "Frame",
+     "children": [
+      {
+       "name": "UICorner",
+       "className": "UICorner"
+      },
+      {
+       "name": "Key",
+       "className": "TextLabel",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        }
+       ]
+      },
+      {
+       "name": "MoveName",
+       "className": "TextLabel"
+      },
+      {
+       "name": "Line",
+       "className": "TextLabel"
+      }
+     ]
+    },
+    {
+     "name": "Move2",
+     "className": "Frame",
+     "children": [
+      {
+       "name": "UICorner",
+       "className": "UICorner"
+      },
+      {
+       "name": "Key",
+       "className": "TextLabel",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        }
+       ]
+      },
+      {
+       "name": "MoveName",
+       "className": "TextLabel"
+      },
+      {
+       "name": "Line",
+       "className": "TextLabel"
+      }
+     ]
+    },
+    {
+     "name": "Move3",
+     "className": "Frame",
+     "children": [
+      {
+       "name": "UICorner",
+       "className": "UICorner"
+      },
+      {
+       "name": "Key",
+       "className": "TextLabel",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        }
+       ]
+      },
+      {
+       "name": "MoveName",
+       "className": "TextLabel"
+      },
+      {
+       "name": "Line",
+       "className": "TextLabel"
+      }
+     ]
+    },
+    {
+     "name": "Move4",
+     "className": "Frame",
+     "children": [
+      {
+       "name": "UICorner",
+       "className": "UICorner"
+      },
+      {
+       "name": "Key",
+       "className": "TextLabel",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        }
+       ]
+      },
+      {
+       "name": "MoveName",
+       "className": "TextLabel"
+      },
+      {
+       "name": "Line",
+       "className": "TextLabel"
+      }
+     ]
+    },
+    {
+     "name": "Move5",
+     "className": "Frame",
+     "children": [
+      {
+       "name": "UICorner",
+       "className": "UICorner"
+      },
+      {
+       "name": "Key",
+       "className": "TextLabel",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        }
+       ]
+      },
+      {
+       "name": "MoveName",
+       "className": "TextLabel"
+      },
+      {
+       "name": "Line",
+       "className": "TextLabel"
+      }
+     ]
+    },
+    {
+     "name": "Move6",
+     "className": "Frame",
+     "children": [
+      {
+       "name": "UICorner",
+       "className": "UICorner"
+      },
+      {
+       "name": "Key",
+       "className": "TextLabel",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        }
+       ]
+      },
+      {
+       "name": "MoveName",
+       "className": "TextLabel"
+      },
+      {
+       "name": "Line",
+       "className": "TextLabel"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "CounterHint",
+   "className": "TextLabel"
+  },
+  {
+   "name": "CrossButton",
+   "className": "TextButton",
+   "children": [
+    {
+     "name": "UICorner",
+     "className": "UICorner"
+    },
+    {
+     "name": "UIStroke",
+     "className": "UIStroke"
+    },
+    {
+     "name": "UIStroke",
+     "className": "UIStroke"
+    }
+   ]
+  }
+ ]
+}

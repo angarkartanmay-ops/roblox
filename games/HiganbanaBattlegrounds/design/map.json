@@ -42,7 +42,9 @@
   "killPlane": -70,
   "ringOutOffset": 10,
   "lift": 8,
-  "note": "A fall off any cliff reaches the kill plane in about a second; the ring-out fires at killPlane + ringOutOffset and is credited to the last hitter."
+  "note": "A fall off any cliff reaches the kill plane in about a second; the ring-out fires at killPlane + ringOutOffset and is credited to the last hitter.",
+  "slideSlope": 45,
+  "note_slide": "the game sets Humanoid.MaxSlopeAngle = 45 (CharacterService), so the cliff faces are a slide into the ring-out, not ledges"
  },
  "terrain": {
   "size": [
@@ -50,14 +52,14 @@
    640
   ],
   "seed": 23,
-  "seaFloor": -90,
+  "seaFloor": -104,
   "seaFloorRough": 4,
   "tide": {
    "low": -96,
    "high": -92,
    "periodSeconds": 480
   },
-  "note_tide": "The tide sits below the sea floor on purpose: the river has run dry and the edge is a sea of mist (Atmosphere), not water.",
+  "note_tide": "The sea floor sits below low tide so the mist sea is open water to the prover (T4) and never a trap; it is 34 studs under the kill plane, so no player ever reaches it. The edge reads as a sea of mist (Atmosphere).",
   "materialZones": [
    {
     "center": [
@@ -89,8 +91,8 @@
     "blend": 12,
     "profile": [
      [
-      -32,
-      -90
+      -4,
+      -104
      ],
      [
       0,
@@ -143,7 +145,7 @@
      70,
      55
     ],
-    "rough": 4,
+    "rough": 1.5,
     "blend": 12,
     "profile": [
      [
@@ -151,12 +153,16 @@
       44
      ],
      [
-      30,
-      50
+      22,
+      70
+     ],
+     [
+      34,
+      72
      ],
      [
       55,
-      54
+      72.5
      ]
     ]
    },
@@ -170,7 +176,7 @@
      70,
      50
     ],
-    "rough": 4,
+    "rough": 1.5,
     "blend": 12,
     "profile": [
      [
@@ -178,12 +184,16 @@
       44
      ],
      [
-      25,
-      52
+      22,
+      72
+     ],
+     [
+      34,
+      74
      ],
      [
       50,
-      56
+      74.5
      ]
     ]
    },
@@ -378,6 +388,48 @@
     "maxGrade": 20,
     "material": "Ground",
     "why": "from the bridge's north end up to the grove"
+   },
+   {
+    "name": "LilyTrail",
+    "points": [
+     [
+      72,
+      152
+     ],
+     [
+      110,
+      162
+     ],
+     [
+      150,
+      148
+     ]
+    ],
+    "width": 10,
+    "maxGrade": 22,
+    "material": "Ground",
+    "why": "the climb onto the Lily Fields hilltop; its flanks are too steep to stand on"
+   },
+   {
+    "name": "PineTrail",
+    "points": [
+     [
+      94,
+      -118
+     ],
+     [
+      130,
+      -116
+     ],
+     [
+      168,
+      -136
+     ]
+    ],
+    "width": 10,
+    "maxGrade": 22,
+    "material": "Ground",
+    "why": "the climb onto the pine bluff"
    }
   ],
   "zones": [
@@ -452,11 +504,11 @@
    "size": [
     18,
     3,
-    176
+    160
    ],
    "pos": [
     0,
-    44.5,
+    44.7,
     0
    ],
    "material": "Slate",
@@ -469,91 +521,18 @@
     "bridge",
     "high_ground"
    ],
-   "note": "the stone bridge over the riverbed, top at 46"
-  },
-  {
-   "id": "BridgeRampN",
-   "size": [
-    18,
-    2,
-    10
-   ],
-   "pos": [
-    0,
-    45,
-    -93
-   ],
-   "ramp": "+z",
-   "material": "Slate",
-   "color": [
-    214,
-    208,
-    196
-   ],
-   "roles": [
-    "bridge"
-   ],
-   "grounded": true
-  },
-  {
-   "id": "BridgeRampS",
-   "size": [
-    18,
-    2,
-    10
-   ],
-   "pos": [
-    0,
-    45,
-    93
-   ],
-   "ramp": "-z",
-   "material": "Slate",
-   "color": [
-    214,
-    208,
-    196
-   ],
-   "roles": [
-    "bridge"
-   ],
-   "grounded": true
-  },
-  {
-   "id": "BridgePier",
-   "size": [
-    12,
-    26,
-    10
-   ],
-   "pos": [
-    0,
-    31,
-    0
-   ],
-   "material": "Slate",
-   "color": [
-    190,
-    184,
-    172
-   ],
-   "roles": [
-    "hard_cover",
-    "sightline_break"
-   ],
-   "grounded": true,
-   "note": "the central pier of the double arch"
+   "note": "the stone bridge over the riverbed, top at 46.2"
   },
   {
    "id": "BridgeParapetE",
    "size": [
     1.5,
     3,
-    176
+    160
    ],
    "pos": [
     8.25,
-    47.5,
+    47.7,
     0
    ],
    "material": "Slate",
@@ -571,11 +550,11 @@
    "size": [
     1.5,
     3,
-    176
+    160
    ],
    "pos": [
     -8.25,
-    47.5,
+    47.7,
     0
    ],
    "material": "Slate",
@@ -589,16 +568,111 @@
    ]
   },
   {
+   "id": "BridgeRampN",
+   "size": [
+    18,
+    1.6,
+    10
+   ],
+   "pos": [
+    0,
+    45.4,
+    -85
+   ],
+   "ramp": "+z",
+   "material": "Slate",
+   "color": [
+    214,
+    208,
+    196
+   ],
+   "roles": [
+    "bridge"
+   ]
+  },
+  {
+   "id": "BridgePier",
+   "size": [
+    12,
+    19.74,
+    10
+   ],
+   "pos": [
+    0,
+    33.33,
+    0
+   ],
+   "material": "Slate",
+   "color": [
+    190,
+    184,
+    172
+   ],
+   "roles": [
+    "hard_cover",
+    "sightline_break"
+   ],
+   "note": "the central pier of the double arch"
+  },
+  {
+   "id": "LandingQuay",
+   "size": [
+    66,
+    1.4,
+    50
+   ],
+   "pos": [
+    0,
+    46.3,
+    155
+   ],
+   "material": "Slate",
+   "color": [
+    190,
+    184,
+    172
+   ],
+   "roles": [
+    "floor",
+    "safe_zone"
+   ],
+   "note": "the flagstone quay where every soul lands; spawns, the select lantern, the safe zone"
+  },
+  {
+   "id": "LandingWalk",
+   "size": [
+    22,
+    1.4,
+    50
+   ],
+   "pos": [
+    0,
+    46.3,
+    105
+   ],
+   "material": "Slate",
+   "color": [
+    214,
+    208,
+    196
+   ],
+   "roles": [
+    "floor",
+    "path"
+   ],
+   "note": "flagstones from the quay through the torii to the bridge's south end"
+  },
+  {
    "id": "PierDeck",
    "size": [
     12,
     2,
-    50
+    70
    ],
    "pos": [
-    -50,
-    45,
-    100
+    -39,
+    46.4,
+    105
    ],
    "material": "WoodPlanks",
    "color": [
@@ -609,7 +683,7 @@
    "roles": [
     "landmark"
    ],
-   "note": "the ferry pier, ending in the air over the dry bank"
+   "note": "the ferry pier off the quay's west edge, ending in the air over the dry bank"
   },
   {
    "id": "ToriiPostE",
@@ -620,7 +694,7 @@
    ],
    "pos": [
     9,
-    52.5,
+    58.5,
     104
    ],
    "material": "SmoothPlastic",
@@ -643,7 +717,7 @@
    ],
    "pos": [
     -9,
-    52.5,
+    58.5,
     104
    ],
    "material": "SmoothPlastic",
@@ -666,7 +740,7 @@
    ],
    "pos": [
     0,
-    64.5,
+    71.2,
     104
    ],
    "material": "SmoothPlastic",
@@ -680,30 +754,6 @@
    ]
   },
   {
-   "id": "FerrymanHut",
-   "size": [
-    20,
-    14,
-    16
-   ],
-   "pos": [
-    28,
-    51,
-    172
-   ],
-   "material": "WoodPlanks",
-   "color": [
-    59,
-    48,
-    42
-   ],
-   "roles": [
-    "structure",
-    "landmark"
-   ],
-   "grounded": true
-  },
-  {
    "id": "SelectLantern",
    "size": [
     3,
@@ -712,7 +762,7 @@
    ],
    "pos": [
     0,
-    47.5,
+    50.5,
     128
    ],
    "material": "Slate",
@@ -729,6 +779,29 @@
    "note": "the Ferryman's Lantern: a ProximityPrompt opens Phase Select"
   },
   {
+   "id": "FerrymanHut",
+   "size": [
+    20,
+    14,
+    16
+   ],
+   "pos": [
+    46,
+    51.88,
+    168
+   ],
+   "material": "WoodPlanks",
+   "color": [
+    59,
+    48,
+    42
+   ],
+   "roles": [
+    "structure",
+    "landmark"
+   ]
+  },
+  {
    "id": "BoatA",
    "size": [
     8,
@@ -737,7 +810,7 @@
    ],
    "pos": [
     -60,
-    24,
+    26.07,
     20
    ],
    "yaw": 25,
@@ -750,8 +823,7 @@
    "roles": [
     "hard_cover",
     "sightline_break"
-   ],
-   "grounded": true
+   ]
   },
   {
    "id": "BoatB",
@@ -762,7 +834,7 @@
    ],
    "pos": [
     60,
-    24,
+    26.76,
     -20
    ],
    "yaw": -20,
@@ -775,8 +847,7 @@
    "roles": [
     "hard_cover",
     "sightline_break"
-   ],
-   "grounded": true
+   ]
   },
   {
    "id": "BoatC",
@@ -787,7 +858,7 @@
    ],
    "pos": [
     130,
-    24,
+    26.43,
     -2
    ],
    "yaw": 75,
@@ -800,8 +871,7 @@
    "roles": [
     "hard_cover",
     "sightline_break"
-   ],
-   "grounded": true
+   ]
   },
   {
    "id": "BoatD",
@@ -812,7 +882,7 @@
    ],
    "pos": [
     -120,
-    24,
+    26.2,
     10
    ],
    "yaw": -35,
@@ -825,8 +895,7 @@
    "roles": [
     "hard_cover",
     "sightline_break"
-   ],
-   "grounded": true
+   ]
   },
   {
    "id": "BoatE",
@@ -837,7 +906,7 @@
    ],
    "pos": [
     200,
-    24,
+    25.31,
     -18
    ],
    "yaw": 15,
@@ -850,8 +919,7 @@
    "roles": [
     "hard_cover",
     "sightline_break"
-   ],
-   "grounded": true
+   ]
   },
   {
    "id": "CairnA",
@@ -862,7 +930,7 @@
    ],
    "pos": [
     -30,
-    23.5,
+    25.33,
     0
    ],
    "material": "Slate",
@@ -873,8 +941,7 @@
    ],
    "roles": [
     "low_cover"
-   ],
-   "grounded": true
+   ]
   },
   {
    "id": "CairnB",
@@ -884,9 +951,9 @@
     5
    ],
    "pos": [
-    25,
-    23.5,
-    12
+    42,
+    26.44,
+    16
    ],
    "material": "Slate",
    "color": [
@@ -896,8 +963,7 @@
    ],
    "roles": [
     "low_cover"
-   ],
-   "grounded": true
+   ]
   },
   {
    "id": "CairnC",
@@ -908,7 +974,7 @@
    ],
    "pos": [
     95,
-    23.5,
+    26.23,
     -30
    ],
    "material": "Slate",
@@ -919,8 +985,7 @@
    ],
    "roles": [
     "low_cover"
-   ],
-   "grounded": true
+   ]
   },
   {
    "id": "CairnD",
@@ -931,7 +996,7 @@
    ],
    "pos": [
     170,
-    23.5,
+    26.09,
     4
    ],
    "material": "Slate",
@@ -942,8 +1007,7 @@
    ],
    "roles": [
     "low_cover"
-   ],
-   "grounded": true
+   ]
   },
   {
    "id": "ElderTrunkBlock",
@@ -954,7 +1018,7 @@
    ],
    "pos": [
     0,
-    97,
+    98.5,
     -215
    ],
    "material": "Wood",
@@ -968,48 +1032,4107 @@
     "structure",
     "boss_anchor"
    ],
-   "grounded": true,
    "note": "stand-in for the Elder until ElderService spawns the rigged tree here; seen from the whole map"
+  },
+  {
+   "id": "WalkLanternE0",
+   "size": [
+    2.4,
+    6,
+    2.4
+   ],
+   "pos": [
+    15,
+    49.58,
+    86
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneLantern"
+  },
+  {
+   "id": "WalkLanternW0",
+   "size": [
+    2.4,
+    6,
+    2.4
+   ],
+   "pos": [
+    -15,
+    48.65,
+    86
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneLantern"
+  },
+  {
+   "id": "WalkLanternE1",
+   "size": [
+    2.4,
+    6,
+    2.4
+   ],
+   "pos": [
+    15,
+    47.93,
+    100
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneLantern"
+  },
+  {
+   "id": "WalkLanternW1",
+   "size": [
+    2.4,
+    6,
+    2.4
+   ],
+   "pos": [
+    -15,
+    48.79,
+    100
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneLantern"
+  },
+  {
+   "id": "WalkLanternE2",
+   "size": [
+    2.4,
+    6,
+    2.4
+   ],
+   "pos": [
+    15,
+    48.5,
+    114
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneLantern"
+  },
+  {
+   "id": "WalkLanternW2",
+   "size": [
+    2.4,
+    6,
+    2.4
+   ],
+   "pos": [
+    -15,
+    48.5,
+    114
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneLantern"
+  },
+  {
+   "id": "WalkLanternE3",
+   "size": [
+    2.4,
+    6,
+    2.4
+   ],
+   "pos": [
+    15,
+    48.5,
+    126
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneLantern"
+  },
+  {
+   "id": "WalkLanternW3",
+   "size": [
+    2.4,
+    6,
+    2.4
+   ],
+   "pos": [
+    -15,
+    48.5,
+    126
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneLantern"
+  },
+  {
+   "id": "SelectLanternSideE",
+   "size": [
+    2.4,
+    6,
+    2.4
+   ],
+   "pos": [
+    5,
+    50.0,
+    128
+   ],
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneLantern"
+  },
+  {
+   "id": "SelectLanternSideW",
+   "size": [
+    2.4,
+    6,
+    2.4
+   ],
+   "pos": [
+    -5,
+    50.0,
+    128
+   ],
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneLantern"
+  },
+  {
+   "id": "HutProp0",
+   "size": [
+    2.4,
+    6,
+    2.4
+   ],
+   "pos": [
+    32,
+    48.5,
+    164
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneLantern"
+  },
+  {
+   "id": "HutProp1",
+   "size": [
+    2.4,
+    6,
+    2.4
+   ],
+   "pos": [
+    32,
+    48.49,
+    174
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneLantern"
+  },
+  {
+   "id": "HutProp2",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    60,
+    46.38,
+    162
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "HutProp3",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    60,
+    46.94,
+    174
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "HutProp4",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    40,
+    46.92,
+    156
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "HutProp5",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    52,
+    45.89,
+    156
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "PierCairn0",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    -52,
+    40.58,
+    76
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "PierCairn1",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    -52,
+    45.02,
+    88
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "PierCairn2",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    -52,
+    47.28,
+    100
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "PierCairn3",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    -52,
+    47.2,
+    112
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "PierCairn4",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    -52,
+    46.94,
+    124
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "GroveProp0",
+   "size": [
+    2.4,
+    6,
+    2.4
+   ],
+   "pos": [
+    31.4,
+    56.5,
+    -202.0
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneLantern"
+  },
+  {
+   "id": "GroveProp1",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    13.0,
+    55.0,
+    -183.6
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "GroveProp2",
+   "size": [
+    2.4,
+    6,
+    2.4
+   ],
+   "pos": [
+    -13.0,
+    56.5,
+    -183.6
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneLantern"
+  },
+  {
+   "id": "GroveProp3",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    -31.4,
+    55.0,
+    -202.0
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "GroveProp4",
+   "size": [
+    2.4,
+    6,
+    2.4
+   ],
+   "pos": [
+    -31.4,
+    56.5,
+    -228.0
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneLantern"
+  },
+  {
+   "id": "GroveProp5",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    -13.0,
+    55.0,
+    -246.4
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "GroveProp6",
+   "size": [
+    2.4,
+    6,
+    2.4
+   ],
+   "pos": [
+    13.0,
+    56.5,
+    -246.4
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneLantern"
+  },
+  {
+   "id": "GroveProp7",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    31.4,
+    55.0,
+    -228.0
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "Jizo0",
+   "size": [
+    1.6,
+    3.2,
+    1.4
+   ],
+   "pos": [
+    -224.2,
+    29.1,
+    29.7
+   ],
+   "yaw": -290,
+   "material": "Slate",
+   "color": [
+    170,
+    166,
+    158
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "JizoStatue"
+  },
+  {
+   "id": "Jizo1",
+   "size": [
+    1.6,
+    3.2,
+    1.4
+   ],
+   "pos": [
+    -220.9,
+    29.1,
+    23.2
+   ],
+   "yaw": -304,
+   "material": "Slate",
+   "color": [
+    170,
+    166,
+    158
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "JizoStatue"
+  },
+  {
+   "id": "Jizo2",
+   "size": [
+    1.6,
+    3.2,
+    1.4
+   ],
+   "pos": [
+    -216.1,
+    29.1,
+    17.7
+   ],
+   "yaw": -318,
+   "material": "Slate",
+   "color": [
+    170,
+    166,
+    158
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "JizoStatue"
+  },
+  {
+   "id": "Jizo3",
+   "size": [
+    1.6,
+    3.2,
+    1.4
+   ],
+   "pos": [
+    -210.1,
+    29.1,
+    13.5
+   ],
+   "yaw": -332,
+   "material": "Slate",
+   "color": [
+    170,
+    166,
+    158
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "JizoStatue"
+  },
+  {
+   "id": "Jizo4",
+   "size": [
+    1.6,
+    3.2,
+    1.4
+   ],
+   "pos": [
+    -203.3,
+    29.1,
+    10.9
+   ],
+   "yaw": -346,
+   "material": "Slate",
+   "color": [
+    170,
+    166,
+    158
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "JizoStatue"
+  },
+  {
+   "id": "Jizo5",
+   "size": [
+    1.6,
+    3.2,
+    1.4
+   ],
+   "pos": [
+    -196.0,
+    29.1,
+    10.0
+   ],
+   "yaw": -360,
+   "material": "Slate",
+   "color": [
+    170,
+    166,
+    158
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "JizoStatue"
+  },
+  {
+   "id": "Jizo6",
+   "size": [
+    1.6,
+    3.2,
+    1.4
+   ],
+   "pos": [
+    -188.7,
+    29.1,
+    10.9
+   ],
+   "yaw": -374,
+   "material": "Slate",
+   "color": [
+    170,
+    166,
+    158
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "JizoStatue"
+  },
+  {
+   "id": "Jizo7",
+   "size": [
+    1.6,
+    3.2,
+    1.4
+   ],
+   "pos": [
+    -181.9,
+    29.1,
+    13.5
+   ],
+   "yaw": -388,
+   "material": "Slate",
+   "color": [
+    170,
+    166,
+    158
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "JizoStatue"
+  },
+  {
+   "id": "Jizo8",
+   "size": [
+    1.6,
+    3.2,
+    1.4
+   ],
+   "pos": [
+    -175.9,
+    29.1,
+    17.7
+   ],
+   "yaw": -402,
+   "material": "Slate",
+   "color": [
+    170,
+    166,
+    158
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "JizoStatue"
+  },
+  {
+   "id": "Jizo9",
+   "size": [
+    1.6,
+    3.2,
+    1.4
+   ],
+   "pos": [
+    -171.1,
+    29.1,
+    23.2
+   ],
+   "yaw": -416,
+   "material": "Slate",
+   "color": [
+    170,
+    166,
+    158
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "JizoStatue"
+  },
+  {
+   "id": "BeachCairn0",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    -210,
+    29.0,
+    30
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "BeachCairn1",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    -186,
+    29.0,
+    54
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "BeachCairn2",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    -176,
+    29.0,
+    28
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "BeachCairn3",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    -204,
+    29.0,
+    58
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "BeachCairn4",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    -190,
+    29.0,
+    18
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "BeachCairn5",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    -218,
+    29.0,
+    46
+   ],
+   "yaw": 0,
+   "material": "Slate",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "Scatter0",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    67.6,
+    48.36,
+    -242.1
+   ],
+   "yaw": 135,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter1",
+   "size": [
+    16,
+    26,
+    16
+   ],
+   "pos": [
+    83.3,
+    32.29,
+    -248.2
+   ],
+   "yaw": 345,
+   "material": "SmoothPlastic",
+   "color": [
+    52,
+    74,
+    50
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "PineTree"
+  },
+  {
+   "id": "Scatter2",
+   "size": [
+    16,
+    26,
+    16
+   ],
+   "pos": [
+    -126.0,
+    14.08,
+    -213.3
+   ],
+   "yaw": 300,
+   "material": "SmoothPlastic",
+   "color": [
+    52,
+    74,
+    50
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "PineTree"
+  },
+  {
+   "id": "Scatter3",
+   "size": [
+    16,
+    26,
+    16
+   ],
+   "pos": [
+    -94.9,
+    62.74,
+    -201.5
+   ],
+   "yaw": 180,
+   "material": "SmoothPlastic",
+   "color": [
+    52,
+    74,
+    50
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "PineTree"
+  },
+  {
+   "id": "Scatter4",
+   "size": [
+    16,
+    26,
+    16
+   ],
+   "pos": [
+    -74.2,
+    62.38,
+    -228.1
+   ],
+   "yaw": 240,
+   "material": "SmoothPlastic",
+   "color": [
+    52,
+    74,
+    50
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "PineTree"
+  },
+  {
+   "id": "Scatter5",
+   "size": [
+    16,
+    26,
+    16
+   ],
+   "pos": [
+    76.1,
+    60.71,
+    -225.4
+   ],
+   "yaw": 105,
+   "material": "SmoothPlastic",
+   "color": [
+    52,
+    74,
+    50
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "PineTree"
+  },
+  {
+   "id": "Scatter6",
+   "size": [
+    16,
+    26,
+    16
+   ],
+   "pos": [
+    104.1,
+    63.92,
+    -207.4
+   ],
+   "yaw": 240,
+   "material": "SmoothPlastic",
+   "color": [
+    52,
+    74,
+    50
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "PineTree"
+  },
+  {
+   "id": "Scatter7",
+   "size": [
+    16,
+    26,
+    16
+   ],
+   "pos": [
+    157.1,
+    59.38,
+    -201.1
+   ],
+   "yaw": 315,
+   "material": "SmoothPlastic",
+   "color": [
+    52,
+    74,
+    50
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "PineTree"
+  },
+  {
+   "id": "Scatter8",
+   "size": [
+    16,
+    26,
+    16
+   ],
+   "pos": [
+    189.8,
+    37.51,
+    -210.1
+   ],
+   "yaw": 150,
+   "material": "SmoothPlastic",
+   "color": [
+    52,
+    74,
+    50
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "PineTree"
+  },
+  {
+   "id": "Scatter9",
+   "size": [
+    16,
+    26,
+    16
+   ],
+   "pos": [
+    -207.4,
+    53.46,
+    -191.3
+   ],
+   "yaw": 0,
+   "material": "SmoothPlastic",
+   "color": [
+    52,
+    74,
+    50
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "PineTree"
+  },
+  {
+   "id": "Scatter10",
+   "size": [
+    16,
+    26,
+    16
+   ],
+   "pos": [
+    -174.5,
+    59.07,
+    -188.2
+   ],
+   "yaw": 90,
+   "material": "SmoothPlastic",
+   "color": [
+    52,
+    74,
+    50
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "PineTree"
+  },
+  {
+   "id": "Scatter11",
+   "size": [
+    16,
+    26,
+    16
+   ],
+   "pos": [
+    -143.4,
+    64.75,
+    -161.4
+   ],
+   "yaw": 195,
+   "material": "SmoothPlastic",
+   "color": [
+    52,
+    74,
+    50
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "PineTree"
+  },
+  {
+   "id": "Scatter12",
+   "size": [
+    16,
+    26,
+    16
+   ],
+   "pos": [
+    -112.3,
+    63.86,
+    -163.5
+   ],
+   "yaw": 15,
+   "material": "SmoothPlastic",
+   "color": [
+    52,
+    74,
+    50
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "PineTree"
+  },
+  {
+   "id": "Scatter13",
+   "size": [
+    16,
+    26,
+    16
+   ],
+   "pos": [
+    -72.8,
+    63.83,
+    -198.4
+   ],
+   "yaw": 270,
+   "material": "SmoothPlastic",
+   "color": [
+    52,
+    74,
+    50
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "PineTree"
+  },
+  {
+   "id": "Scatter14",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    65.0,
+    55.38,
+    -166.0
+   ],
+   "yaw": 180,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter15",
+   "size": [
+    16,
+    26,
+    16
+   ],
+   "pos": [
+    89.7,
+    65.84,
+    -175.7
+   ],
+   "yaw": 315,
+   "material": "SmoothPlastic",
+   "color": [
+    52,
+    74,
+    50
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "PineTree"
+  },
+  {
+   "id": "Scatter16",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    -205.8,
+    53.85,
+    -121.5
+   ],
+   "yaw": 90,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter17",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    -199.3,
+    52.92,
+    -137.3
+   ],
+   "yaw": 285,
+   "material": "SmoothPlastic",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "Scatter18",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    -136.0,
+    53.47,
+    -121.5
+   ],
+   "yaw": 165,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter19",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    -116.3,
+    51.55,
+    -144.7
+   ],
+   "yaw": 105,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter20",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    -67.2,
+    51.09,
+    -132.4
+   ],
+   "yaw": 150,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter21",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    -11.6,
+    52.3,
+    -123.6
+   ],
+   "yaw": 270,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter22",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    16.3,
+    50.51,
+    -120.5
+   ],
+   "yaw": 0,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter23",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    59.0,
+    52.31,
+    -136.3
+   ],
+   "yaw": 30,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter24",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    80.1,
+    48.93,
+    -125.6
+   ],
+   "yaw": 195,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter25",
+   "size": [
+    16,
+    26,
+    16
+   ],
+   "pos": [
+    133.7,
+    82.65,
+    -147.5
+   ],
+   "yaw": 315,
+   "material": "SmoothPlastic",
+   "color": [
+    52,
+    74,
+    50
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "PineTree"
+  },
+  {
+   "id": "Scatter26",
+   "size": [
+    16,
+    26,
+    16
+   ],
+   "pos": [
+    182.8,
+    87.96,
+    -127.6
+   ],
+   "yaw": 165,
+   "material": "SmoothPlastic",
+   "color": [
+    52,
+    74,
+    50
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "PineTree"
+  },
+  {
+   "id": "Scatter27",
+   "size": [
+    16,
+    26,
+    16
+   ],
+   "pos": [
+    205.3,
+    76.05,
+    -131.8
+   ],
+   "yaw": 195,
+   "material": "SmoothPlastic",
+   "color": [
+    52,
+    74,
+    50
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "PineTree"
+  },
+  {
+   "id": "Scatter28",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    -215.3,
+    48.85,
+    -107.0
+   ],
+   "yaw": 105,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter29",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    -166.6,
+    52.88,
+    -105.1
+   ],
+   "yaw": 180,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter30",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    -159.6,
+    48.71,
+    -81.6
+   ],
+   "yaw": 0,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter31",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    -94.0,
+    49.86,
+    -99.4
+   ],
+   "yaw": 255,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter32",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    -53.8,
+    48.83,
+    -93.5
+   ],
+   "yaw": 195,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter33",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    -28.2,
+    48.12,
+    -92.9
+   ],
+   "yaw": 270,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter34",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    14.4,
+    47.0,
+    -104.9
+   ],
+   "yaw": 105,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter35",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    47.2,
+    48.29,
+    -115.9
+   ],
+   "yaw": 15,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter36",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    84.0,
+    43.96,
+    -87.1
+   ],
+   "yaw": 225,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter37",
+   "size": [
+    16,
+    26,
+    16
+   ],
+   "pos": [
+    158.9,
+    57.39,
+    -92.8
+   ],
+   "yaw": 165,
+   "material": "SmoothPlastic",
+   "color": [
+    52,
+    74,
+    50
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "PineTree"
+  },
+  {
+   "id": "Scatter38",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    -202.9,
+    48.03,
+    -78.0
+   ],
+   "yaw": 75,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter39",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    -198.5,
+    45.28,
+    -59.6
+   ],
+   "yaw": 60,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter40",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    -132.3,
+    48.92,
+    -73.3
+   ],
+   "yaw": 135,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter41",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    -87.3,
+    41.9,
+    -44.6
+   ],
+   "yaw": 300,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter42",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    -57.0,
+    45.19,
+    -63.5
+   ],
+   "yaw": 150,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter43",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    -27.7,
+    41.44,
+    -57.6
+   ],
+   "yaw": 15,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter44",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    25.5,
+    43.67,
+    -79.4
+   ],
+   "yaw": 255,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter45",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    70.1,
+    36.39,
+    -61.9
+   ],
+   "yaw": 240,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter46",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    117.8,
+    31.81,
+    -56.2
+   ],
+   "yaw": 195,
+   "material": "SmoothPlastic",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "Scatter47",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    139.3,
+    41.22,
+    -74.0
+   ],
+   "yaw": 165,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter48",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    180.0,
+    35.35,
+    -54.5
+   ],
+   "yaw": 345,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter49",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    208.7,
+    33.06,
+    -47.2
+   ],
+   "yaw": 75,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter50",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    241.6,
+    34.9,
+    -47.4
+   ],
+   "yaw": 120,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter51",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    -236.8,
+    38.99,
+    -39.7
+   ],
+   "yaw": 120,
+   "material": "SmoothPlastic",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "Scatter52",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    -174.4,
+    39.21,
+    -39.2
+   ],
+   "yaw": 150,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter53",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    -125.9,
+    36.46,
+    -26.4
+   ],
+   "yaw": 300,
+   "material": "SmoothPlastic",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "Scatter54",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    -105.0,
+    31.34,
+    -13.4
+   ],
+   "yaw": 150,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter55",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    -74.5,
+    36.97,
+    -31.5
+   ],
+   "yaw": 195,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter56",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    -39.0,
+    31.17,
+    -31.5
+   ],
+   "yaw": 285,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter57",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    14.3,
+    31.43,
+    -35.6
+   ],
+   "yaw": 150,
+   "material": "SmoothPlastic",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "Scatter58",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    38.4,
+    28.97,
+    29.1
+   ],
+   "yaw": 150,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter59",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    77.0,
+    35.06,
+    37.9
+   ],
+   "yaw": 225,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter60",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    108.8,
+    34.25,
+    30.2
+   ],
+   "yaw": 210,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter61",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    141.1,
+    34.66,
+    34.3
+   ],
+   "yaw": 210,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter62",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    226.2,
+    32.46,
+    38.1
+   ],
+   "yaw": 150,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter63",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    -246.9,
+    39.12,
+    77.5
+   ],
+   "yaw": 105,
+   "material": "SmoothPlastic",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "Scatter64",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    -237.8,
+    35.04,
+    72.6
+   ],
+   "yaw": 150,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter65",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    -139.8,
+    38.14,
+    74.3
+   ],
+   "yaw": 315,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter66",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    -55.2,
+    29.05,
+    48.5
+   ],
+   "yaw": 135,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter67",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    -21.3,
+    32.63,
+    46.7
+   ],
+   "yaw": 45,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter68",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    38.8,
+    36.47,
+    44.4
+   ],
+   "yaw": 105,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter69",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    60.2,
+    49.45,
+    75.4
+   ],
+   "yaw": 45,
+   "material": "SmoothPlastic",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "Scatter70",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    106.5,
+    41.63,
+    49.7
+   ],
+   "yaw": 270,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter71",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    158.6,
+    40.33,
+    46.0
+   ],
+   "yaw": 195,
+   "material": "SmoothPlastic",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "Scatter72",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    166.9,
+    37.51,
+    43.1
+   ],
+   "yaw": 45,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter73",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    216.2,
+    36.31,
+    42.9
+   ],
+   "yaw": 195,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter74",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    245.1,
+    36.79,
+    56.7
+   ],
+   "yaw": 225,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter75",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    284.3,
+    34.57,
+    56.6
+   ],
+   "yaw": 270,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter76",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    -248.5,
+    47.25,
+    100.4
+   ],
+   "yaw": 210,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter77",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    -209.4,
+    45.87,
+    113.7
+   ],
+   "yaw": 195,
+   "material": "SmoothPlastic",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "Scatter78",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    -173.7,
+    46.7,
+    106.5
+   ],
+   "yaw": 165,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter79",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    -157.5,
+    47.46,
+    111.5
+   ],
+   "yaw": 75,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter80",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    -92.9,
+    48.61,
+    111.3
+   ],
+   "yaw": 165,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter81",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    -67.7,
+    45.84,
+    93.7
+   ],
+   "yaw": 75,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter82",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    -21.8,
+    44.42,
+    80.7
+   ],
+   "yaw": 240,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter83",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    21.8,
+    45.88,
+    101.4
+   ],
+   "yaw": 165,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter84",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    44.6,
+    48.12,
+    102.3
+   ],
+   "yaw": 75,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter85",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    86.4,
+    48.83,
+    85.7
+   ],
+   "yaw": 105,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter86",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    223.7,
+    48.92,
+    86.4
+   ],
+   "yaw": 105,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter87",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    240.5,
+    47.71,
+    106.2
+   ],
+   "yaw": 300,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter88",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    -214.9,
+    46.13,
+    120.3
+   ],
+   "yaw": 165,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter89",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    -164.5,
+    46.78,
+    122.9
+   ],
+   "yaw": 30,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter90",
+   "size": [
+    8,
+    20,
+    8
+   ],
+   "pos": [
+    -135.7,
+    56.71,
+    140.5
+   ],
+   "yaw": 225,
+   "material": "SmoothPlastic",
+   "color": [
+    96,
+    130,
+    72
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "BambooClump"
+  },
+  {
+   "id": "Scatter91",
+   "size": [
+    8,
+    20,
+    8
+   ],
+   "pos": [
+    -110.3,
+    57.13,
+    131.9
+   ],
+   "yaw": 105,
+   "material": "SmoothPlastic",
+   "color": [
+    96,
+    130,
+    72
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "BambooClump"
+  },
+  {
+   "id": "Scatter92",
+   "size": [
+    8,
+    20,
+    8
+   ],
+   "pos": [
+    -62.7,
+    55.81,
+    149.1
+   ],
+   "yaw": 225,
+   "material": "SmoothPlastic",
+   "color": [
+    96,
+    130,
+    72
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "BambooClump"
+  },
+  {
+   "id": "Scatter93",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    70.9,
+    46.66,
+    129.1
+   ],
+   "yaw": 165,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter94",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    112.8,
+    73.82,
+    133.3
+   ],
+   "yaw": 255,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter95",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    150.5,
+    75.0,
+    124.6
+   ],
+   "yaw": 300,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter96",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    163.2,
+    75.19,
+    130.8
+   ],
+   "yaw": 330,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter97",
+   "size": [
+    8,
+    20,
+    8
+   ],
+   "pos": [
+    -176.9,
+    56.47,
+    161.5
+   ],
+   "yaw": 60,
+   "material": "SmoothPlastic",
+   "color": [
+    96,
+    130,
+    72
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "BambooClump"
+  },
+  {
+   "id": "Scatter98",
+   "size": [
+    8,
+    20,
+    8
+   ],
+   "pos": [
+    -132.4,
+    63.09,
+    187.5
+   ],
+   "yaw": 105,
+   "material": "SmoothPlastic",
+   "color": [
+    96,
+    130,
+    72
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "BambooClump"
+  },
+  {
+   "id": "Scatter99",
+   "size": [
+    8,
+    20,
+    8
+   ],
+   "pos": [
+    -92.5,
+    62.31,
+    172.6
+   ],
+   "yaw": 165,
+   "material": "SmoothPlastic",
+   "color": [
+    96,
+    130,
+    72
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "BambooClump"
+  },
+  {
+   "id": "Scatter100",
+   "size": [
+    8,
+    20,
+    8
+   ],
+   "pos": [
+    -66.7,
+    60.8,
+    181.7
+   ],
+   "yaw": 300,
+   "material": "SmoothPlastic",
+   "color": [
+    96,
+    130,
+    72
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "BambooClump"
+  },
+  {
+   "id": "Scatter101",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    -36.8,
+    45.95,
+    196.1
+   ],
+   "yaw": 150,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter102",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    30.4,
+    45.89,
+    191.1
+   ],
+   "yaw": 240,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter103",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    56.9,
+    47.55,
+    193.8
+   ],
+   "yaw": 75,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter104",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    98.9,
+    49.1,
+    183.8
+   ],
+   "yaw": 0,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter105",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    152.8,
+    74.15,
+    161.0
+   ],
+   "yaw": 60,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter106",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    174.9,
+    74.71,
+    160.7
+   ],
+   "yaw": 315,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
+  },
+  {
+   "id": "Scatter107",
+   "size": [
+    8,
+    20,
+    8
+   ],
+   "pos": [
+    -118.4,
+    54.83,
+    219.2
+   ],
+   "yaw": 60,
+   "material": "SmoothPlastic",
+   "color": [
+    96,
+    130,
+    72
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "BambooClump"
+  },
+  {
+   "id": "Scatter108",
+   "size": [
+    8,
+    20,
+    8
+   ],
+   "pos": [
+    -73.0,
+    54.81,
+    213.0
+   ],
+   "yaw": 240,
+   "material": "SmoothPlastic",
+   "color": [
+    96,
+    130,
+    72
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "BambooClump"
+  },
+  {
+   "id": "Scatter109",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    -0.5,
+    45.23,
+    234.8
+   ],
+   "yaw": 150,
+   "material": "SmoothPlastic",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "Scatter110",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    4.7,
+    46.86,
+    212.2
+   ],
+   "yaw": 225,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter111",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    61.0,
+    46.95,
+    225.2
+   ],
+   "yaw": 30,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter112",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    120.0,
+    47.88,
+    203.7
+   ],
+   "yaw": 90,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter113",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    -47.0,
+    45.81,
+    244.8
+   ],
+   "yaw": 45,
+   "material": "SmoothPlastic",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "Scatter114",
+   "size": [
+    8,
+    5,
+    7
+   ],
+   "pos": [
+    -15.2,
+    46.32,
+    240.4
+   ],
+   "yaw": 0,
+   "material": "SmoothPlastic",
+   "color": [
+    120,
+    118,
+    112
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "Boulder"
+  },
+  {
+   "id": "Scatter115",
+   "size": [
+    3,
+    3,
+    3
+   ],
+   "pos": [
+    29.4,
+    45.22,
+    250.8
+   ],
+   "yaw": 225,
+   "material": "SmoothPlastic",
+   "color": [
+    201,
+    194,
+    178
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "StoneCairn"
+  },
+  {
+   "id": "Scatter116",
+   "size": [
+    3,
+    2.5,
+    3
+   ],
+   "pos": [
+    43.2,
+    46.97,
+    245.6
+   ],
+   "yaw": 345,
+   "material": "SmoothPlastic",
+   "color": [
+    196,
+    34,
+    40
+   ],
+   "roles": [
+    "prop"
+   ],
+   "decor": true,
+   "dressing": "SpiderLilyCluster"
   }
  ],
  "spawns": [
   [
    0,
-   47,
+   48.0,
    150
   ],
   [
    -16,
-   47,
+   48.0,
    146
   ],
   [
    16,
-   47,
+   48.0,
    146
   ],
   [
    -12,
-   47,
+   48.0,
    164
   ],
   [
    12,
-   47,
+   48.0,
    164
   ],
   [
    0,
-   47,
-   176
+   48.0,
+   174
   ]
  ],
  "intent": {
   "reachable": [
    "BridgeDeck",
-   "PierDeck"
+   "PierDeck",
+   "LandingQuay",
+   "LandingWalk",
+   "BridgeRampN"
   ],
-  "note": "Every zone is walkable from the landing: the banks stay under 22 degrees, the bridge has ramps at both ends, the beach cove opens onto the bed."
+  "transit": [
+   "BridgePier",
+   "ToriiPost*",
+   "ToriiLintel",
+   "BridgeParapet*",
+   "SelectLantern",
+   "FerrymanHut",
+   "ElderTrunkBlock"
+  ],
+  "note": "Parts-only reachability: the quay, the walk, the pier and the bridge form one walkable stone network from the spawns. Terrain reachability (banks, riverbed, beach, grove, hills) is proven by T4 on the heightfield. Posts, lantern, hut, pier and trunk are not destinations."
  },
  "sightlines": {
   "minClearFraction": 0.25,
@@ -1083,5 +5206,6 @@
    "count": 14,
    "where": "the Pine Bluff and the cliff rim, as silhouettes against the dusk"
   }
- ]
+ ],
+ "parts_are_deliberate": "greybox: every decor part names the dressing mesh that replaces it (dressing field); section 3 swaps them for meshes"
 }

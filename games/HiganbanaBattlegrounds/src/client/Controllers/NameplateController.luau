@@ -3,6 +3,10 @@
 -- RelationIndicator over the enemy you are fighting (the last one you hit, else the nearest in
 -- front), a DamageNumber for every hit you deal or take, and the DummyPhaseLabel that tells you how
 -- your phase meets each training dummy's. Everything is local: other clients never see these.
+-- The damage numbers and the relation indicator must read through bodies, but a BillboardGui with
+-- AlwaysOnTop = true does not draw on every renderer (measured in Studio: the same billboard showed
+-- with false and never with true). So those two live on a ScreenGui, projected from their world
+-- point every frame; only the nameplates stay billboards.
 
 local CollectionService = game:GetService("CollectionService")
 local Players = game:GetService("Players")
@@ -19,12 +23,15 @@ local NameplateController = {}
 local localPlayer = Players.LocalPlayer
 local TARGET_MEMORY = 4 -- seconds the last enemy you hit stays your target
 local TARGET_RANGE = 45
+local DAMAGE_RANGE = 140 -- studs from the camera a damage number still shows
+local INDICATOR_RANGE = 120
+local INDICATOR_LIFT = 4.4 -- studs above the target's head
 
 type Plate = { gui: BillboardGui, name: TextLabel, glyph: TextLabel, fill: Frame, humanoid: Humanoid }
 
 local plates: { [Model]: Plate } = {}
 local dummyTags: { [Model]: TextLabel } = {}
-local indicator: BillboardGui
+local overlay: ScreenGui
 local indicatorText: TextLabel
 local lastTarget: Model? = nil
 local lastTargetAt = 0
@@ -161,27 +168,25 @@ local function refreshDummyTags()
 		end
 		local label = dummyTags[model]
 		if not label then
-			local gui = UiKit.new("BillboardGui", {
-				Name = "DummyPhaseLabel",
-				Adornee = root,
-				Size = UDim2.fromOffset(260, 26),
-				StudsOffset = Vector3.new(0, 6.6, 0),
-				MaxDistance = 90,
-				LightInfluence = 0,
-				ResetOnSpawn = false,
-				Parent = localPlayer:WaitForChild("PlayerGui"),
-			})
+			-- The relation is a third line on the dummy's own nameplate (a second billboard
+			-- stacked over it collided with the neighbours' plates).
+			local plate = model:FindFirstChild("Nameplate")
+			if not plate or not plate:IsA("BillboardGui") then
+				continue
+			end
+			plate.Size = UDim2.fromOffset(200, 66)
+			plate.MaxDistance = 70
 			local made = UiKit.label({
-				Name = "Relation",
-				Size = UDim2.fromScale(1, 1),
+				Name = "DummyPhaseLabel",
+				Position = UDim2.fromOffset(0, 46),
+				Size = UDim2.new(1, 0, 0, 18),
 				Font = UiKit.HEAVY_FONT,
-				TextSize = 16,
-				Parent = gui,
+				TextSize = 14,
+				Parent = plate,
 			})
 			UiKit.textStroke(UiKit.OUTLINE, 2).Parent = made
 			model.AncestryChanged:Connect(function(_, parent)
 				if parent == nil then
-					gui:Destroy()
 					dummyTags[model] = nil
 				end
 			end)
@@ -196,10 +201,29 @@ local function refreshDummyTags()
 				elseif relation == "Feeding" then "you FEED it"
 				elseif relation == "Drawing" then "you DRAW on it"
 				else "even match"
-			label.Text = `{string.upper(phase)} DUMMY - {verb}`
+			label.Text = verb
 			label.TextColor3 = UiKit.RELATION[relation] or UiKit.INK_LIGHT
 		end
 	end
+end
+
+---------------------------------------------------------------------------------------------------
+-- Screen overlay
+
+-- Put a label (anchored at its centre) over a world point, hidden behind the camera or past range.
+local function place(label: GuiObject, world: Vector3, range: number)
+	local camera = Workspace.CurrentCamera
+	if not camera then
+		label.Visible = false
+		return
+	end
+	local point = camera:WorldToViewportPoint(world)
+	if point.Z <= 0 or (camera.CFrame.Position - world).Magnitude > range then
+		label.Visible = false
+		return
+	end
+	label.Position = UDim2.fromOffset(point.X, point.Y)
+	label.Visible = true
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -261,55 +285,59 @@ local function refreshIndicator()
 	local theirs = if target then target:GetAttribute("Phase") else nil
 	local relation = if target and type(theirs) == "string" then Phases.relation(mine, theirs) else "Neutral"
 	local root = rootOf(target)
-	if not target or not root or relation == "Neutral" then
-		indicator.Enabled = false
+	-- A training dummy's nameplate already states the relation.
+	local isDummy = false
+	if target and dummyTags[target] then
+		isDummy = true
+	end
+	if not target or not root or relation == "Neutral" or isDummy then
+		indicatorText.Visible = false
 		return
 	end
 	local head = target:FindFirstChild("Head")
-	indicator.Adornee = if head and head:IsA("BasePart") then head else root
+	local over: BasePart = if head and head:IsA("BasePart") then head else root
 	indicatorText.Text = string.upper(relation)
 	indicatorText.TextColor3 = UiKit.RELATION[relation] or UiKit.INK_LIGHT
-	indicator.Enabled = true
+	place(indicatorText, over.Position + Vector3.new(0, INDICATOR_LIFT, 0), INDICATOR_RANGE)
 end
 
 ---------------------------------------------------------------------------------------------------
 -- DamageNumber
 
 local function damageNumber(position: Vector3, text: string, color: Color3, big: boolean)
-	local anchor = Instance.new("Attachment")
-	anchor.WorldPosition = position
-	anchor.Parent = Workspace.Terrain
-	local gui = UiKit.new("BillboardGui", {
-		Name = "DamageNumber",
-		Adornee = anchor,
-		Size = UDim2.fromOffset(120, 40),
-		StudsOffset = Vector3.new((math.random() - 0.5) * 2, 1, 0),
-		MaxDistance = 140,
-		LightInfluence = 0,
-		AlwaysOnTop = true,
-		ResetOnSpawn = false,
-		Parent = localPlayer:WaitForChild("PlayerGui"),
-	})
 	local label = UiKit.label({
-		Size = UDim2.fromScale(1, 1),
+		Name = "DamageNumber",
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Size = UDim2.fromOffset(120, 40),
 		Font = UiKit.TITLE_FONT,
 		TextSize = if big then 34 else 26,
 		Text = text,
 		TextColor3 = color,
-		Parent = gui,
+		Visible = false,
+		Parent = overlay,
 	})
 	UiKit.textStroke(UiKit.OUTLINE, 2).Parent = label
+	local scale = Instance.new("UIScale")
+	scale.Parent = label
+	-- Numbers pop out to one side of the body and rise only a little: rising straight up they ran
+	-- through the victim's nameplate and hid its health bar and relation line.
+	local side = if math.random() < 0.5 then -1 else 1
+	local drift = side * (1.8 + math.random() * 0.9)
+	local lift = (math.random() - 0.5) * 0.8
 	local started = os.clock()
 	local connection: RBXScriptConnection
 	connection = RunService.RenderStepped:Connect(function()
 		local age = os.clock() - started
-		if age > 0.9 or gui.Parent == nil then
+		if age > 0.9 or label.Parent == nil then
 			connection:Disconnect()
-			gui:Destroy()
-			anchor:Destroy()
+			label:Destroy()
 			return
 		end
-		gui.StudsOffset = Vector3.new(gui.StudsOffset.X, 1 + age * 3, 0)
+		local camera = Workspace.CurrentCamera
+		local right = if camera then camera.CFrame.RightVector else Vector3.xAxis
+		local rise = 1.4 * (1 - (1 - math.min(age / 0.6, 1)) ^ 2)
+		place(label, position + right * (drift + side * age * 0.6) + Vector3.new(0, lift + rise, 0), DAMAGE_RANGE)
+		scale.Scale = 1 + 0.5 * math.max(0, 1 - age / 0.12)
 		label.TextTransparency = math.clamp((age - 0.5) / 0.4, 0, 1)
 	end)
 end
@@ -379,23 +407,23 @@ local function onHit(victim: Model?, attacker: Model?, amount: number, flags: nu
 end
 
 function NameplateController.init(_self: any)
-	indicator = UiKit.new("BillboardGui", {
-		Name = "RelationIndicator",
-		Size = UDim2.fromOffset(160, 30),
-		StudsOffset = Vector3.new(0, 4.4, 0),
-		MaxDistance = 120,
-		LightInfluence = 0,
-		AlwaysOnTop = true,
-		Enabled = false,
+	-- Under the HUD (DisplayOrder 10), over the world. IgnoreGuiInset so viewport points match.
+	overlay = UiKit.new("ScreenGui", {
+		Name = "WorldOverlay",
+		IgnoreGuiInset = true,
 		ResetOnSpawn = false,
+		DisplayOrder = 2,
+		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 		Parent = localPlayer:WaitForChild("PlayerGui"),
 	})
 	indicatorText = UiKit.label({
-		Name = "Relation",
-		Size = UDim2.fromScale(1, 1),
+		Name = "RelationIndicator",
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Size = UDim2.fromOffset(160, 30),
 		Font = UiKit.TITLE_FONT,
 		TextSize = 26,
-		Parent = indicator,
+		Visible = false,
+		Parent = overlay,
 	})
 	UiKit.textStroke(UiKit.OUTLINE, 2).Parent = indicatorText
 end
@@ -409,7 +437,8 @@ function NameplateController.start(_self: any)
 			task.wait(0.25)
 		end
 	end)
-	RunService.Heartbeat:Connect(refreshIndicator)
+	-- After the camera moves, so the indicator sits on the target this frame.
+	RunService:BindToRenderStep("RelationIndicator", Enum.RenderPriority.Camera.Value + 2, refreshIndicator)
 end
 
 return NameplateController

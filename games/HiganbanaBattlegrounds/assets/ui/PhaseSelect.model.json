@@ -1,0 +1,625 @@
+{
+ "className": "ScreenGui",
+ "children": [
+  {
+   "name": "Root",
+   "className": "Frame",
+   "children": [
+    {
+     "name": "UIScale",
+     "className": "UIScale"
+    },
+    {
+     "name": "Heading",
+     "className": "TextLabel"
+    },
+    {
+     "name": "Subheading",
+     "className": "TextLabel"
+    },
+    {
+     "name": "PhaseWheel",
+     "className": "Frame",
+     "children": [
+      {
+       "name": "Frame",
+       "className": "Frame"
+      },
+      {
+       "name": "Arrow",
+       "className": "TextLabel"
+      },
+      {
+       "name": "Frame",
+       "className": "Frame"
+      },
+      {
+       "name": "Arrow",
+       "className": "TextLabel"
+      },
+      {
+       "name": "Frame",
+       "className": "Frame"
+      },
+      {
+       "name": "Arrow",
+       "className": "TextLabel"
+      },
+      {
+       "name": "Frame",
+       "className": "Frame"
+      },
+      {
+       "name": "Arrow",
+       "className": "TextLabel"
+      },
+      {
+       "name": "Frame",
+       "className": "Frame"
+      },
+      {
+       "name": "Arrow",
+       "className": "TextLabel"
+      },
+      {
+       "name": "Frame",
+       "className": "Frame"
+      },
+      {
+       "name": "Arrow",
+       "className": "TextLabel"
+      },
+      {
+       "name": "Frame",
+       "className": "Frame"
+      },
+      {
+       "name": "Arrow",
+       "className": "TextLabel"
+      },
+      {
+       "name": "Frame",
+       "className": "Frame"
+      },
+      {
+       "name": "Arrow",
+       "className": "TextLabel"
+      },
+      {
+       "name": "Frame",
+       "className": "Frame"
+      },
+      {
+       "name": "Arrow",
+       "className": "TextLabel"
+      },
+      {
+       "name": "Frame",
+       "className": "Frame"
+      },
+      {
+       "name": "Arrow",
+       "className": "TextLabel"
+      },
+      {
+       "name": "FighterCard_Tsuta",
+       "className": "TextButton",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "Glyph",
+         "className": "TextLabel",
+         "children": [
+          {
+           "name": "UICorner",
+           "className": "UICorner"
+          },
+          {
+           "name": "UIStroke",
+           "className": "UIStroke"
+          }
+         ]
+        },
+        {
+         "name": "FighterName",
+         "className": "TextLabel"
+        },
+        {
+         "name": "Role",
+         "className": "TextLabel"
+        },
+        {
+         "name": "Difficulty",
+         "className": "TextLabel"
+        }
+       ]
+      },
+      {
+       "name": "FighterCard_Hibiki",
+       "className": "TextButton",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "Glyph",
+         "className": "TextLabel",
+         "children": [
+          {
+           "name": "UICorner",
+           "className": "UICorner"
+          },
+          {
+           "name": "UIStroke",
+           "className": "UIStroke"
+          }
+         ]
+        },
+        {
+         "name": "FighterName",
+         "className": "TextLabel"
+        },
+        {
+         "name": "Role",
+         "className": "TextLabel"
+        },
+        {
+         "name": "Difficulty",
+         "className": "TextLabel"
+        }
+       ]
+      },
+      {
+       "name": "FighterCard_Iwao",
+       "className": "TextButton",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "Glyph",
+         "className": "TextLabel",
+         "children": [
+          {
+           "name": "UICorner",
+           "className": "UICorner"
+          },
+          {
+           "name": "UIStroke",
+           "className": "UIStroke"
+          }
+         ]
+        },
+        {
+         "name": "FighterName",
+         "className": "TextLabel"
+        },
+        {
+         "name": "Role",
+         "className": "TextLabel"
+        },
+        {
+         "name": "Difficulty",
+         "className": "TextLabel"
+        }
+       ]
+      },
+      {
+       "name": "FighterCard_Kanemori",
+       "className": "TextButton",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "Glyph",
+         "className": "TextLabel",
+         "children": [
+          {
+           "name": "UICorner",
+           "className": "UICorner"
+          },
+          {
+           "name": "UIStroke",
+           "className": "UIStroke"
+          }
+         ]
+        },
+        {
+         "name": "FighterName",
+         "className": "TextLabel"
+        },
+        {
+         "name": "Role",
+         "className": "TextLabel"
+        },
+        {
+         "name": "Difficulty",
+         "className": "TextLabel"
+        }
+       ]
+      },
+      {
+       "name": "FighterCard_Rokumon",
+       "className": "TextButton",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "Glyph",
+         "className": "TextLabel",
+         "children": [
+          {
+           "name": "UICorner",
+           "className": "UICorner"
+          },
+          {
+           "name": "UIStroke",
+           "className": "UIStroke"
+          }
+         ]
+        },
+        {
+         "name": "FighterName",
+         "className": "TextLabel"
+        },
+        {
+         "name": "Role",
+         "className": "TextLabel"
+        },
+        {
+         "name": "Difficulty",
+         "className": "TextLabel"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "FighterDetail_Tsuta",
+     "className": "Frame",
+     "children": [
+      {
+       "name": "UICorner",
+       "className": "UICorner"
+      },
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      },
+      {
+       "name": "Header",
+       "className": "Frame",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIGradient",
+         "className": "UIGradient"
+        },
+        {
+         "name": "Glyph",
+         "className": "TextLabel",
+         "children": [
+          {
+           "name": "UICorner",
+           "className": "UICorner"
+          }
+         ]
+        },
+        {
+         "name": "FighterName",
+         "className": "TextLabel",
+         "children": [
+          {
+           "name": "UIStroke",
+           "className": "UIStroke"
+          }
+         ]
+        },
+        {
+         "name": "Title",
+         "className": "TextLabel",
+         "children": [
+          {
+           "name": "UIStroke",
+           "className": "UIStroke"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "name": "Role",
+       "className": "TextLabel"
+      },
+      {
+       "name": "Passive",
+       "className": "TextLabel"
+      },
+      {
+       "name": "Moves",
+       "className": "Frame",
+       "children": [
+        {
+         "name": "UIListLayout",
+         "className": "UIListLayout"
+        },
+        {
+         "name": "Move1",
+         "className": "Frame",
+         "children": [
+          {
+           "name": "UICorner",
+           "className": "UICorner"
+          },
+          {
+           "name": "Key",
+           "className": "TextLabel",
+           "children": [
+            {
+             "name": "UICorner",
+             "className": "UICorner"
+            }
+           ]
+          },
+          {
+           "name": "MoveName",
+           "className": "TextLabel"
+          },
+          {
+           "name": "Line",
+           "className": "TextLabel"
+          }
+         ]
+        },
+        {
+         "name": "Move2",
+         "className": "Frame",
+         "children": [
+          {
+           "name": "UICorner",
+           "className": "UICorner"
+          },
+          {
+           "name": "Key",
+           "className": "TextLabel",
+           "children": [
+            {
+             "name": "UICorner",
+             "className": "UICorner"
+            }
+           ]
+          },
+          {
+           "name": "MoveName",
+           "className": "TextLabel"
+          },
+          {
+           "name": "Line",
+           "className": "TextLabel"
+          }
+         ]
+        },
+        {
+         "name": "Move3",
+         "className": "Frame",
+         "children": [
+          {
+           "name": "UICorner",
+           "className": "UICorner"
+          },
+          {
+           "name": "Key",
+           "className": "TextLabel",
+           "children": [
+            {
+             "name": "UICorner",
+             "className": "UICorner"
+            }
+           ]
+          },
+          {
+           "name": "MoveName",
+           "className": "TextLabel"
+          },
+          {
+           "name": "Line",
+           "className": "TextLabel"
+          }
+         ]
+        },
+        {
+         "name": "Move4",
+         "className": "Frame",
+         "children": [
+          {
+           "name": "UICorner",
+           "className": "UICorner"
+          },
+          {
+           "name": "Key",
+           "className": "TextLabel",
+           "children": [
+            {
+             "name": "UICorner",
+             "className": "UICorner"
+            }
+           ]
+          },
+          {
+           "name": "MoveName",
+           "className": "TextLabel"
+          },
+          {
+           "name": "Line",
+           "className": "TextLabel"
+          }
+         ]
+        },
+        {
+         "name": "Move5",
+         "className": "Frame",
+         "children": [
+          {
+           "name": "UICorner",
+           "className": "UICorner"
+          },
+          {
+           "name": "Key",
+           "className": "TextLabel",
+           "children": [
+            {
+             "name": "UICorner",
+             "className": "UICorner"
+            }
+           ]
+          },
+          {
+           "name": "MoveName",
+           "className": "TextLabel"
+          },
+          {
+           "name": "Line",
+           "className": "TextLabel"
+          }
+         ]
+        },
+        {
+         "name": "Move6",
+         "className": "Frame",
+         "children": [
+          {
+           "name": "UICorner",
+           "className": "UICorner"
+          },
+          {
+           "name": "Key",
+           "className": "TextLabel",
+           "children": [
+            {
+             "name": "UICorner",
+             "className": "UICorner"
+            }
+           ]
+          },
+          {
+           "name": "MoveName",
+           "className": "TextLabel"
+          },
+          {
+           "name": "Line",
+           "className": "TextLabel"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "name": "CounterHint",
+       "className": "TextLabel"
+      },
+      {
+       "name": "CrossButton",
+       "className": "TextButton",
+       "children": [
+        {
+         "name": "UICorner",
+         "className": "UICorner"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        },
+        {
+         "name": "UIStroke",
+         "className": "UIStroke"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "CloseButton",
+     "className": "TextButton",
+     "children": [
+      {
+       "name": "UICorner",
+       "className": "UICorner"
+      },
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      },
+      {
+       "name": "UIStroke",
+       "className": "UIStroke"
+      },
+      {
+       "name": "Bar",
+       "className": "Frame"
+      },
+      {
+       "name": "Bar",
+       "className": "Frame"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Dim",
+   "className": "Frame"
+  }
+ ]
+}

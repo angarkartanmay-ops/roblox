@@ -5,6 +5,7 @@
 -- sequence. Every client animates every fighter from the same server events, so nothing uploads.
 
 local CollectionService = game:GetService("CollectionService")
+local ContentProvider = game:GetService("ContentProvider")
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
@@ -49,12 +50,21 @@ local function compile(pose: Types.Pose): CompiledPose
 	return result
 end
 
+-- Per model: when the Animator was last checked, whether it plays real tracks, and whether the
+-- local character's broken Animate script has been stopped (see animatorWorks).
+local animatorChecked: { [Model]: number } = {}
+local animatorOk: { [Model]: boolean } = {}
+local silenced: { [Model]: boolean } = {}
+
 local function forget(model: Model)
 	rigs[model] = nil
 	tracks[model] = nil
 	heldWeight[model] = nil
 	heldName[model] = nil
 	walkPhase[model] = nil
+	animatorChecked[model] = nil
+	animatorOk[model] = nil
+	silenced[model] = nil
 end
 
 local function rigFor(model: Model): Rig.RigInfo?
@@ -117,6 +127,33 @@ local function envelope(sequence: Sequence, t: number): number
 	return fadeIn * fadeOut
 end
 
+-- Airborne: knees tucked, arms out for balance.
+local AIR_POSE: CompiledPose = {
+	RightHip = CFrame.Angles(math.rad(32), 0, 0),
+	RightKnee = CFrame.Angles(math.rad(-48), 0, 0),
+	LeftHip = CFrame.Angles(math.rad(-6), 0, 0),
+	LeftKnee = CFrame.Angles(math.rad(-26), 0, 0),
+	RightShoulder = CFrame.Angles(math.rad(12), 0, math.rad(38)),
+	LeftShoulder = CFrame.Angles(math.rad(12), 0, math.rad(-38)),
+	Waist = CFrame.Angles(math.rad(-6), 0, 0),
+}
+
+local function airborne(model: Model): boolean
+	local humanoid = model:FindFirstChildOfClass("Humanoid")
+	if not humanoid then
+		return false
+	end
+	local state = humanoid:GetState()
+	if state == Enum.HumanoidStateType.Freefall or state == Enum.HumanoidStateType.Jumping then
+		return true
+	end
+	local root = model:FindFirstChild("HumanoidRootPart")
+	return humanoid.FloorMaterial == Enum.Material.Air
+		and root ~= nil
+		and root:IsA("BasePart")
+		and math.abs(root.AssemblyLinearVelocity.Y) > 6
+end
+
 local function walkCycle(model: Model, dt: number): CompiledPose
 	local root = model:FindFirstChild("HumanoidRootPart")
 	local scale = model:GetScale()
@@ -125,8 +162,12 @@ local function walkCycle(model: Model, dt: number): CompiledPose
 		local velocity = root.AssemblyLinearVelocity
 		speed = Vector3.new(velocity.X, 0, velocity.Z).Magnitude
 	end
+	if airborne(model) then
+		return AIR_POSE
+	end
 	local amount = math.clamp(speed / (8 * scale), 0, 1)
-	local phase = (walkPhase[model] or 0) + dt * speed / (2.4 * scale)
+	-- About 3 studs of ground per stride: a 16 stud/s run is a ~0.4 s cycle.
+	local phase = (walkPhase[model] or 0) + dt * speed / (3.1 * scale)
 	walkPhase[model] = phase
 	local swing = math.sin(phase * math.pi) * 38 * amount
 	local breathe = math.sin(os.clock() * 2.2) * 2.5
@@ -176,6 +217,52 @@ local function idleFor(model: Model): (CompiledPose?, Sequence?)
 	return if sequence.upper then upperOnly(pose) else pose, sequence
 end
 
+-- Is the engine's Animator actually moving this character? Default animations come from Roblox's
+-- CDN; where it is unreachable every track loads empty (Length 0) and the body would slide around
+-- frozen. Checked twice a second per model.
+local function animatorWorks(model: Model): boolean
+	local clock = os.clock()
+	if clock - (animatorChecked[model] or 0) < 0.5 then
+		return animatorOk[model] == true
+	end
+	animatorChecked[model] = clock
+	local works = false
+	local humanoid = model:FindFirstChildOfClass("Humanoid")
+	local animator = humanoid and humanoid:FindFirstChildOfClass("Animator")
+	if animator then
+		for _, track in animator:GetPlayingAnimationTracks() do
+			if track.Length > 0 then
+				works = true
+				break
+			end
+		end
+	end
+	animatorOk[model] = works
+	-- The default Animate script retries failed loads until it hits the 64-track limit and floods
+	-- the output; once its walk animation has failed to fetch, stop it (the walk cycle takes over).
+	if not works and not silenced[model] and model == Players.LocalPlayer.Character then
+		local animate = model:FindFirstChild("Animate")
+		local walk = animate and animate:FindFirstChild("walk")
+		local walkAnim = walk and walk:FindFirstChildOfClass("Animation")
+		if animate and animate:IsA("LocalScript") and walkAnim then
+			local ok, status = pcall(function()
+				return ContentProvider:GetAssetFetchStatus(walkAnim.AnimationId)
+			end)
+			if ok and (status == Enum.AssetFetchStatus.Failure or status == Enum.AssetFetchStatus.TimedOut) then
+				silenced[model] = true
+				animate.Enabled = false
+				if animator then
+					for _, track in animator:GetPlayingAnimationTracks() do
+						track:Stop(0)
+						track:Destroy()
+					end
+				end
+			end
+		end
+	end
+	return works
+end
+
 local function step(dt: number)
 	local now = Workspace:GetServerTimeNow()
 	for model, track in tracks do
@@ -207,7 +294,7 @@ local function step(dt: number)
 			continue
 		end
 
-		if model:HasTag("Npc") then
+		if model:HasTag("Npc") or not animatorWorks(model) then
 			Rig.reset(rig)
 			Rig.apply(rig, walkCycle(model, dt), 1)
 		end

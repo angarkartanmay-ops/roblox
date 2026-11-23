@@ -23,12 +23,12 @@ FarShore.ZONES = {
 } :: { Zone }
 
 FarShore.SPAWNS = {
-	{ 0, 47, 150 },
-	{ -16, 47, 146 },
-	{ 16, 47, 146 },
-	{ -12, 47, 164 },
-	{ 12, 47, 164 },
-	{ 0, 47, 176 },
+	{ 0, 48, 150 },
+	{ -16, 48, 146 },
+	{ 16, 48, 146 },
+	{ -12, 48, 164 },
+	{ 12, 48, 164 },
+	{ 0, 48, 174 },
 }
 
 FarShore.KILL_PLANE = -70
@@ -44,14 +44,14 @@ function FarShore.world(spec: { number }): (number, number, number)
 end
 
 -- The Elder stands where the greybox ElderTrunkBlock stands (its base on the grove floor).
-FarShore.ELDER_ANCHOR = { 0, 52, -215 }
+FarShore.ELDER_ANCHOR = { 0, 53.5, -215 }
 FarShore.GROVE_CENTER = { 0, 52, -190 }
 FarShore.GROVE_RADIUS = 60
-FarShore.SELECT_LANTERN = { 0, 47.5, 128 }
+FarShore.SELECT_LANTERN = { 0, 50.5, 128 }
 
 -- Five training dummies stand on Jizo Beach, one per phase, in a crescent facing the river.
 FarShore.DUMMY_CENTER = { -196, 28, 40 }
-FarShore.DUMMY_RADIUS = 14
+FarShore.DUMMY_RADIUS = 24
 
 -- Name of the zone containing (x, z), safe and no-PvP zones first.
 function FarShore.zoneAt(x: number, z: number): Zone?

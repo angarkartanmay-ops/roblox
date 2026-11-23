@@ -1200,6 +1200,10 @@ SPECIALS.TollStrike = function(cast)
 	end
 end
 
+-- The flood's boxes are tall: the wave carries victims 40+ studs, and on the shore's slopes that
+-- left them 7 studs above the lane's centre, where a 14-stud box let the drain miss (measured).
+local WAVE_HEIGHT = 26
+
 SPECIALS.RiverReturns = function(cast)
 	local p = params(cast)
 	local entity = cast.entity
@@ -1219,7 +1223,7 @@ SPECIALS.RiverReturns = function(cast)
 		local front = math.min(length, elapsed * speed)
 		if front > 0.5 then
 			local band = frame * CFrame.new(0, 0, -front / 2)
-			for _, victim in Hitbox.box(band, Vector3.new(width, 14, front), entity) do
+			for _, victim in Hitbox.box(band, Vector3.new(width, WAVE_HEIGHT, front), entity) do
 				if not carried[victim] then
 					carried[victim] = true
 					hits.apply(entity, victim, {
@@ -1245,7 +1249,7 @@ SPECIALS.RiverReturns = function(cast)
 	end
 	local lane = frame * CFrame.new(0, 0, -length / 2)
 	phase(cast, "Drain", lane.Position)
-	for _, victim in Hitbox.box(lane, Vector3.new(width + 2, 14, length + 6), entity) do
+	for _, victim in Hitbox.box(lane, Vector3.new(width + 2, WAVE_HEIGHT, length + 6), entity) do
 		hits.apply(entity, victim, { damage = p.drainDamage or 16, stun = 1 }, {
 			origin = lane.Position,
 			facing = cast.facing,

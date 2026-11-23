@@ -114,6 +114,17 @@ function CameraController.start(_self: any)
 	if cam then
 		baseFov = cam.FieldOfView
 	end
+	-- The default camera reads its look direction back from Camera.CFrame every frame, so a shake
+	-- left in the CFrame would accumulate (after an ultimate the view drifted off). Undo last
+	-- frame's offset before the camera updates, then add this frame's after it.
+	local applied = CFrame.identity
+	RunService:BindToRenderStep("CombatShakeUndo", Enum.RenderPriority.Camera.Value - 1, function()
+		local current = camera()
+		if current and applied ~= CFrame.identity then
+			current.CFrame = current.CFrame * applied:Inverse()
+		end
+		applied = CFrame.identity
+	end)
 	RunService:BindToRenderStep("CombatShake", Enum.RenderPriority.Camera.Value + 1, function(dt: number)
 		if trauma <= 0.001 then
 			trauma = 0
@@ -128,7 +139,8 @@ function CameraController.start(_self: any)
 		local pitch = math.noise(seed, t) * 0.018 * power
 		local yaw = math.noise(seed + 10, t) * 0.018 * power
 		local roll = math.noise(seed + 20, t) * 0.03 * power
-		current.CFrame = current.CFrame * CFrame.Angles(pitch, yaw, roll)
+		applied = CFrame.Angles(pitch, yaw, roll)
+		current.CFrame = current.CFrame * applied
 		trauma = math.max(0, trauma - dt * 2.4)
 	end)
 end

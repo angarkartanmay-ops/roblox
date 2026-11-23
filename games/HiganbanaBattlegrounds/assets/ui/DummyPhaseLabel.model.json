@@ -1,0 +1,9 @@
+{
+ "className": "TextLabel",
+ "children": [
+  {
+   "name": "UIStroke",
+   "className": "UIStroke"
+  }
+ ]
+}

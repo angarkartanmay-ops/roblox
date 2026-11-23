@@ -71,6 +71,7 @@ export type SelfSpec = { at: number, impulse: Impulse }
 export type MoveSpec = {
 	id: string,
 	name: string,
+	icon: string?, -- one glyph for the ability bar and Phase Select
 	description: string,
 	slot: SlotId,
 	cooldown: number,
