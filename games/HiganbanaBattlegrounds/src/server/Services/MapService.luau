@@ -9,6 +9,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Workspace = game:GetService("Workspace")
 
 local FarShore = require(ReplicatedStorage.Shared.FarShore)
+local Wilds = require(ReplicatedStorage.Shared.Wilds)
 local Net = require("../Lib/Net")
 
 local MapService = {}
@@ -27,12 +28,30 @@ function MapService.world(spec: { number }): Vector3
 	return Vector3.new(x, y, z)
 end
 
+-- Each Wilds island is one hunting-ground zone named after its region id.
+local wildZones: { FarShore.Zone } = {}
+for _, region in Wilds.REGIONS do
+	local zone: FarShore.Zone = { name = region.id, center = region.center, radius = region.radius, rule = "nopvp" }
+	table.insert(wildZones, zone)
+end
+
 function MapService.zoneAt(position: Vector3): FarShore.Zone?
-	return FarShore.zoneAt(position.X, position.Z)
+	local zone = FarShore.zoneAt(position.X, position.Z)
+	if zone then
+		return zone
+	end
+	for _, wild in wildZones do
+		local dx, dz = position.X - wild.center[1], position.Z - wild.center[2]
+		if dx * dx + dz * dz <= wild.radius * wild.radius then
+			return wild
+		end
+	end
+	return nil
 end
 
 function MapService.ruleAt(position: Vector3): "safe" | "nopvp" | "ffa"
-	return FarShore.ruleAt(position.X, position.Z)
+	local zone = MapService.zoneAt(position)
+	return if zone then zone.rule else "ffa"
 end
 
 function MapService.isSafe(position: Vector3): boolean

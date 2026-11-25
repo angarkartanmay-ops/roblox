@@ -19,7 +19,8 @@
         "ElderFx": { "$className": "RemoteEvent" },
         "Impulse": { "$className": "RemoteEvent" },
         "Teleport": { "$className": "RemoteEvent" },
-        "Notify": { "$className": "RemoteEvent" }
+        "Notify": { "$className": "RemoteEvent" },
+        "WildsFx": { "$className": "RemoteEvent" }
       }
     },
     "ServerScriptService": {
@@ -36,6 +37,10 @@
       "StarterPlayerScripts": {
         "$className": "StarterPlayerScripts",
         "Client": { "$path": "src/client" }
+      },
+      "StarterCharacterScripts": {
+        "$className": "StarterCharacterScripts",
+        "Health": { "$path": "src/character/Health.server.luau" }
       }
     },
     "Workspace": {

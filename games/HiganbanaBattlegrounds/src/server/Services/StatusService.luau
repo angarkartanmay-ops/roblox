@@ -103,7 +103,7 @@ end
 
 -- Falling into the mist below the shore is a ring-out, credited to the last hitter.
 local function checkRingOut(entity: Entity, now: number)
-	if entity.kind ~= "Player" and entity.kind ~= "Dummy" then
+	if entity.kind ~= "Player" and entity.kind ~= "Dummy" and entity.kind ~= "Enemy" then
 		return
 	end
 	if entity.root.Position.Y >= MapService.ringOutY() then

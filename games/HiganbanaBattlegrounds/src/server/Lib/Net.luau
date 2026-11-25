@@ -30,6 +30,7 @@ local Net = {
 	Impulse = remote("Impulse"),
 	Teleport = remote("Teleport"),
 	Notify = remote("Notify"),
+	WildsFx = remote("WildsFx"),
 }
 
 -- HitFx flags (bit field, shared with the client through Constants.FLAG)

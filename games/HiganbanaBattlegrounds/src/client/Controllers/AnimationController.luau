@@ -339,6 +339,15 @@ function AnimationController.play(model: Model, sequenceId: string, startTime: n
 	tracks[model] = { sequence = sequence, start = startTime or Workspace:GetServerTimeNow() }
 end
 
+-- Play a sequence stretched by `factor` (the Wilds' creatures time their strike to the windup).
+function AnimationController.playScaled(model: Model, sequenceId: string, startTime: number, factor: number)
+	local sequence = Poses.SEQUENCES[sequenceId]
+	if not sequence then
+		return
+	end
+	tracks[model] = { sequence = Poses.scaled(sequence, factor), start = startTime }
+end
+
 -- A short flinch, unless the model is in the middle of its own move.
 function AnimationController.hurt(model: Model)
 	if tracks[model] == nil then

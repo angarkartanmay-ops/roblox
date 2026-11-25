@@ -129,6 +129,10 @@ local function isElderSide(entity: Entity): boolean
 	return entity.kind == "Elder" or entity.kind == "Branch" or entity.kind == "Sprout"
 end
 
+local function isWild(entity: Entity): boolean
+	return entity.kind == "Enemy" or entity.kind == "Boss"
+end
+
 -- May `attacker` touch `victim` at all? Nothing lands on or from the Ferry Landing, souls do not
 -- fight on Jizo Beach (its dummies are fair game), and the Elder's parts never hit each other.
 local function canTouch(attacker: Entity?, victim: Entity): boolean
@@ -148,6 +152,13 @@ local function canTouch(attacker: Entity?, victim: Entity): boolean
 	end
 	if attacker.kind == "Dummy" then
 		return false
+	end
+	-- The Wilds' creatures hunt souls only, and nothing but a soul hunts them.
+	if isWild(attacker) then
+		return victim.kind == "Player"
+	end
+	if isWild(victim) then
+		return attacker.kind == "Player"
 	end
 	return true
 end
@@ -782,7 +793,7 @@ end
 
 -- Can this entity be grabbed, carried or thrown?
 local function grabbable(attacker: Entity, victim: Entity): boolean
-	return (victim.kind == "Player" or victim.kind == "Dummy") and canTouch(attacker, victim)
+	return (victim.kind == "Player" or victim.kind == "Dummy" or victim.kind == "Enemy") and canTouch(attacker, victim)
 end
 
 local SPECIALS: { [string]: (Cast) -> () } = {}

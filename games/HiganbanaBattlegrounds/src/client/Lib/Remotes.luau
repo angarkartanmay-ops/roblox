@@ -31,6 +31,7 @@ return {
 	Impulse = remote("Impulse"),
 	Teleport = remote("Teleport"),
 	Notify = remote("Notify"),
+	WildsFx = remote("WildsFx"),
 
 	FLAG_BLOCKED = FLAG.BLOCKED,
 	FLAG_PARRIED = FLAG.PARRIED,

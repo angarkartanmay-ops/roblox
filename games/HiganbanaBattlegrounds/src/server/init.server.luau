@@ -31,6 +31,7 @@ local ORDER = {
 	"FighterService",
 	"DummyService",
 	"ElderService",
+	"WildsService",
 }
 
 local ordered: { string } = {}
@@ -77,6 +78,7 @@ local Registry = services.Registry :: any
 local CombatService = services.CombatService :: any
 local KiService = services.KiService :: any
 local ThirstService = services.ThirstService :: any
+local WildsService = services.WildsService :: any
 
 local function entityOf(name: unknown): any
 	if type(name) ~= "string" then
@@ -152,6 +154,8 @@ debugFunction.OnInvoke = function(command: string, a: any, b: any, c: any): any
 	elseif command == "wake" then
 		ThirstService.forceWake()
 		return true
+	elseif command == "wilds" then
+		return WildsService.debug()
 	elseif command == "thirst" then
 		ThirstService.add(if type(a) == "number" then a else 100)
 		return ThirstService.value()

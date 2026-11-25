@@ -80,6 +80,62 @@ Still open:
 - Sounds cannot play on this network, and no code fix exists for that.
 - PhaseNameplate still needs a second player.
 
+## The Wilds: NPC enemies, wardens and open world (2026-11-24)
+
+The user asked for NPC enemies and bosses, creative characters built in Studio in the same dark-fantasy mood, and a full battleground with open-world elements. They named the request, not what was wrong, so it is logged as an intervention (a scope addition). Every character comes from public-domain folklore: Sanzu river, the ox-headed hell jailer, the kasha cat, the fox wedding procession and the datsue-ba robe-taker. None comes from any anime.
+
+**World.** Three floating islands, each joined to the Far Shore by a plank bridge, with a Ferry Lantern fast-travel network that unlocks once you have visited an island. They are no-PvP zones.
+- Gatewaste (Earth, west): the Hell Gate, cages and braziers. Warden: **Ox-Head Jailer**.
+- Lantern Road (Fire, east): a torii tunnel, a fox shrine, a paper market and maples. Warden: **The Lantern Bride**.
+- Robe Shallows (Water, south): the Robe Tree, a moat, pools, reeds and grave stupas. Warden: **The Robe-Taker**.
+- The island builder is `work/map/build_wilds.lua`. It writes terrain and props under `Workspace.FarShore.Wilds`, and they live only in the saved place.
+
+**Creatures.** All are R6 Motor6D rigs built from parts, defined in `src/server/Lib/Creatures.luau`.
+- Ordinary creatures: Blossom Husk, Lantern Kasha, Stone Acolyte, Nail Ronin and Drowned Ferryhand.
+- Wardens: three bosses at 2.6–3× scale, with 3–4 attacks each and an enraged move below 50% HP.
+- Every attack is telegraphed on the ground: circle, cone, lane, donut, charge, projectile or blink.
+- There are 9 camps, 31 creatures in all.
+
+**Rewards.**
+- Lily Petals for a kill.
+- 60 Petals to everyone who dealt 5% or more of a warden's HP.
+- An announce in the kill feed, and Thirst build-up.
+- Camps respawn after 30–35 s and wardens after 180 s, with an announce.
+
+**HUD.**
+- Zone banner.
+- Field-boss bar, with an ENRAGED state.
+- Minimap.
+- World map on M or Select.
+
+**Code.**
+- Data: `src/shared/Wilds.luau`.
+- AI, spawning and travel: `src/server/Services/WildsService.luau`.
+- Telegraphs, HUD and maps: `src/client/Controllers/WildsController.luau`.
+- Remote: `WildsFx`.
+- Spec: `tests/wilds.spec.luau`.
+- Debug: `Debug:Invoke("wilds")`.
+
+**Bug found while balancing.** The Roblox default character `Health` script healed 1% of MaxHealth every second. That undid creature chip damage, and it bypassed Mend and Purify. `src/character/Health.server.luau` (in StarterCharacterScripts) replaces it with an empty script. Measured: 0 HP regenerated in 4 s.
+
+**Balance, measured with a bot that never blocks or dodges.**
+- Iwao at 120 HP cleared a pack of 3 Kasha in 29 s and finished at 43 HP.
+- Packs take turns: MAX_ATTACKERS = 1, with a 0.35 s gap between swings.
+- Creature HP: 70–95 for ordinary creatures, 160 for the Acolyte, 650–750 for wardens.
+- A warden kills a standing-still solo player in about 30 s, so wardens are built as group fights.
+
+**Verified in play.** Spawns, aggro, every attack kind, damage, the boss kill and its 60-Petal share, ferry travel both ways, the HUD and both maps. No script errors were recorded by a ScriptContext.Error collector.
+
+**Studio.**
+- studio_id this session: `f189e845-168b-43b3-8071-bdeb334e80dd`.
+- Backup taken before the Wilds were built: `places/HiganbanaBattlegrounds.pre-wilds.rbxl`.
+- Screenshots: `assets/wilds/`.
+
+**Unproven.**
+- The 180 s warden respawn announce was not waited out.
+- No second player was available.
+- Sounds still cannot play on this network.
+
 ## Ledger
 
 Initialised once in section 1. Never run `init` again.

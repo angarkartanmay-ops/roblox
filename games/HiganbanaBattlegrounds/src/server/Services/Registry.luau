@@ -9,7 +9,8 @@ local Workspace = game:GetService("Workspace")
 local Constants = require(ReplicatedStorage.Shared.Constants)
 local Types = require(ReplicatedStorage.Shared.Types)
 
-export type EntityKind = "Player" | "Dummy" | "Elder" | "Branch" | "Sprout"
+-- Enemy and Boss are the Wilds' creatures and wardens (WildsService).
+export type EntityKind = "Player" | "Dummy" | "Elder" | "Branch" | "Sprout" | "Enemy" | "Boss"
 export type ZoneRule = "safe" | "nopvp" | "ffa"
 
 export type Entity = {

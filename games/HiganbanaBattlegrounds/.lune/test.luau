@@ -10,6 +10,7 @@ require("../tests/constants.spec")
 require("../tests/fighters.spec")
 require("../tests/poses.spec")
 require("../tests/farshore.spec")
+require("../tests/wilds.spec")
 require("../tests/originality.spec")
 require("../tests/place.spec")
 

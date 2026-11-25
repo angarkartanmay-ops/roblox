@@ -84,9 +84,9 @@ function Effects.ground(position: Vector3, depth: number?): Vector3
 	if dummies then
 		table.insert(ignore, dummies)
 	end
-	local boss = Workspace:FindFirstChild("TideWarden")
-	if boss then
-		table.insert(ignore, boss)
+	local creatures = Workspace:FindFirstChild("WildCreatures")
+	if creatures then
+		table.insert(ignore, creatures)
 	end
 	groundParams.FilterDescendantsInstances = ignore
 	local result =

@@ -998,7 +998,96 @@ S.Rokumon_RiverReturns = sequence({
 	{ 2.2, "Neutral" },
 })
 
+-- The Wilds' creatures. Each strikes at t = 1, so the client stretches the sequence by the
+-- attack's windup (Poses.scaled) and the blow lands as the telegraph fills.
+S.Wild_Swipe = sequence({
+	{ 0, "Neutral" },
+	{ 0.35, "WindupRight" },
+	{ 0.9, "WindupRight" },
+	{ 1, "SwingRight" },
+	{ 1.3, "SwingRight" },
+	{ 1.5, "Neutral" },
+})
+S.Wild_Slam = sequence({
+	{ 0, "Neutral" },
+	{ 0.4, "Overhead" },
+	{ 0.9, "Overhead" },
+	{ 1, "Slam" },
+	{ 1.35, "Slam" },
+	{ 1.55, "Neutral" },
+})
+S.Wild_Sweep = sequence({
+	{ 0, "Neutral" },
+	{ 0.4, "OarSweepRight" },
+	{ 0.9, "OarSweepRight" },
+	{ 1, "OarSweepLeft" },
+	{ 1.3, "OarSweepLeft" },
+	{ 1.5, "Neutral" },
+})
+S.Wild_Lunge =
+	sequence({ { 0, "Crouch" }, { 0.9, "Crouch" }, { 1, "ChargeLean" }, { 1.4, "ChargeLean" }, { 1.6, "Neutral" } })
+S.Wild_DrawCut = sequence({
+	{ 0, "CatchStance" },
+	{ 0.9, "CatchStance" },
+	{ 1, "DashSlash" },
+	{ 1.3, "DashSlash" },
+	{ 1.5, "Neutral" },
+})
+S.Wild_Throw = sequence({
+	{ 0, "Neutral" },
+	{ 0.4, "ThrowWindup" },
+	{ 0.9, "ThrowWindup" },
+	{ 1, "ThrowRelease" },
+	{ 1.3, "ThrowRelease" },
+	{ 1.5, "Neutral" },
+})
+S.Wild_Grab = sequence({
+	{ 0, "Neutral" },
+	{ 0.4, "ChainWindup" },
+	{ 0.9, "ChainWindup" },
+	{ 1, "Grab" },
+	{ 1.2, "Yank" },
+	{ 1.45, "Yank" },
+	{ 1.6, "Neutral" },
+})
+S.Wild_Roar = sequence({
+	{ 0, "Neutral" },
+	{ 0.5, "Crouch" },
+	{ 0.9, "Crouch" },
+	{ 1, "Shout" },
+	{ 1.4, "Shout" },
+	{ 1.6, "Neutral" },
+})
+S.Wild_Cast = sequence({
+	{ 0, "Neutral" },
+	{ 0.5, "CastUp" },
+	{ 0.9, "CastUp" },
+	{ 1, "CastForward" },
+	{ 1.35, "CastForward" },
+	{ 1.55, "Neutral" },
+})
+S.Wild_Spin = sequence({
+	{ 0, "Crouch" },
+	{ 0.85, "Crouch" },
+	{ 1, "SpinA" },
+	{ 1.12, "SpinB" },
+	{ 1.24, "SpinC" },
+	{ 1.4, "Neutral" },
+})
+
 Poses.SEQUENCES = S
+
+-- A copy of `sequence` running `factor` times as long (fades kept, trimmed to fit).
+function Poses.scaled(sequence: Sequence, factor: number): Sequence
+	local keys = {}
+	for _, key in sequence.keys do
+		table.insert(keys, { t = key.t * factor, pose = key.pose })
+	end
+	local duration = sequence.duration * factor
+	local fadeIn = math.min(sequence.fadeIn, duration * 0.3)
+	local fadeOut = math.min(sequence.fadeOut, duration * 0.3)
+	return { keys = keys, duration = duration, fadeIn = fadeIn, fadeOut = fadeOut, upper = sequence.upper }
+end
 
 -- Poses held while a state lasts.
 Poses.HELD = {

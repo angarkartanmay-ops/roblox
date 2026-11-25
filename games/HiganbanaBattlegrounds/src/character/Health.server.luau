@@ -1,0 +1,4 @@
+--!strict
+-- Replaces Roblox's default character Health script, which heals 1% of MaxHealth every second.
+-- Healing in this game is Mend (it costs Ki, and Purify blocks it), so free regeneration must not
+-- exist: it quietly undid creature chip damage and made Purify meaningless.
